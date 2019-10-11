@@ -1,3 +1,6 @@
+-- SQL Script to generate the "At A Glance" (AAG) report.
+-- Table all1 is assumed to have been umported from a CSV export of the REDCap database.
+-- Table aag_town is manually populated to contain a list of towns included in the report.
 drop view if exists aag1;
 create view aag1 as
 select * from all1
