@@ -1,6 +1,8 @@
 -- SQL Script to generate the "At A Glance" (AAG) report.
--- Table all1 is assumed to have been umported from a CSV export of the REDCap database.
+-- Table all1 is assumed to have been imported from a CSV export of the REDCap database.
 -- Table aag_town is manually populated to contain a list of towns included in the report.
+-- Table aag_date_range is manually populated to contain an inclusive range of dates for the report.
+
 drop view if exists aag1;
 create view aag1 as
 select * from all1
@@ -8,11 +10,42 @@ join aag_town using (redcap_data_access_group);
 
 drop view if exists aag1_profile;
 create view aag1_profile as
-select status_profile
+select record_id
+     , status_profile
      , cast(age as real) as age
      , gender
+     , date_1st_contact
   from aag1
-where redcap_repeat_instrument = '';
+ where redcap_repeat_instrument = '';
+
+drop view if exists aag1_encounter_all;
+create view aag1_encounter_all as
+select record_id
+     , date_1st_contact as encounter_date
+     , 1 as initial
+  from aag1
+ where redcap_repeat_instrument = ''
+union all
+select record_id
+     , today_date_v2 as encounter_date
+     , 0 as initial
+  from aag1
+where redcap_repeat_instrument = 'interval_contacts';
+
+drop view if exists aag1_encounter;
+create view aag1_encounter as
+select record_id
+     , encounter_date
+     , initial
+  from aag1_encounter_all e
+  join aag_date_range d
+ where e.encounter_date between d.first and d.last;
+
+drop view if exists aag1_weeks;
+create view aag1_weeks as
+select (julianday(last) - julianday(first))/7 as value
+  from aag_date_range;
+
 
 .mode column
 -- Upper Valley Community Nursing Project
@@ -65,14 +98,32 @@ select (select 'Gender: male  '||cast(round(count(*)*100/total) as int)||'%' fro
 from (select cast(count(*) as real) as total from aag1_profile where gender in(1,2));
 
 -- Ethnicity/Cultural Identity:    unk.
+select 'Ethnicity/Cultural Identity:    unk.';
 -- Lives Alone:     unk.
+select 'Live Alone:  unk.';
 
 -- Program Services
+select 'Program Services';
 -- Nursing hours worked per week (avg.):   #
+select 'Nursing hours worked per week (avg.):   #';
 -- Total number of initial contacts/assessments:    19
+select 'Total number of initial contacts/assessments:  '||count(*)
+  from aag1_encounter as e
+ where e.initial = 1;
 -- Total number of follow-up contacts:	    317
+select 'Total number of follow-up contacts:	  '||count(*)
+  from aag1_encounter e
+ where e.initial = 0;
 -- Total number of client contacts:     336
+select 'Total number of client contacts:  '||count(*)
+  from aag1_encounter e;
+
 -- Avg. number of client contacts per week (38 wks.):	8.8
+select 'Avg. number of client contacts per week ('||
+          cast(round(w.value) as int)||' wks.):	'||
+          round(count(*)/w.value,1)
+  from aag1_encounter
+  join aag1_weeks as w;
 -- Home visits:	218  (65% of all client contacts/visits)
 -- Phone calls/emails with clients/families/providers:	68  (20% of all client contacts/visits)
 -- Office visits:	0 (0% of all client contacts/visits)
