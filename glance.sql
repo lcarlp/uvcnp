@@ -217,11 +217,52 @@ select 'Avg. number of client contacts per week ('||
 
 
 -- Home visits:	218  (65% of all client contacts/visits)
+select 'Home visits: '||portion||'  ('||
+          cast(round(portion*100./total) as int)||
+          '% of all client encounters)'
+  from (select count(*) as total
+             , sum(case when type=1 then 1 else 0 end) as portion
+          from aag1_encounter);
+
 -- Phone calls/emails with clients/families/providers:	68  (20% of all client contacts/visits)
+select 'Phone calls/emails with clients/families/providers: '||portion||'  ('||
+          cast(round(portion*100./total) as int)||
+          '% of all client encounters)'
+  from (select count(*) as total
+             , sum(case when type=2 or type=3 then 1 else 0 end) as portion
+          from aag1_encounter);
+
 -- Office visits:	0 (0% of all client contacts/visits)
+select 'Office visits: '||portion||'  ('||
+          cast(round(portion*100./total) as int)||
+          '% of all client encounters)'
+  from (select count(*) as total
+             , sum(case when type=5 then 1 else 0 end) as portion
+          from aag1_encounter);
+
 -- Hosp./Rehab/ECF visits:   38  (11% of all client contacts/visits)
+select 'Hosp./Rehab/ECF visits: '||portion||'  ('||
+          cast(round(portion*100./total) as int)||
+          '% of all client encounters)'
+  from (select count(*) as total
+             , sum(case when type=6 or type=7 then 1 else 0 end) as portion
+          from aag1_encounter);
+
 -- Family meetings:	     6  (2% of all client contacts/visits)
+select 'Family meetings: '||portion||'  ('||
+          cast(round(portion*100./total) as int)||
+          '% of all client encounters)'
+  from (select count(*) as total
+             , sum(case when type=4 or type=8 then 1 else 0 end) as portion
+          from aag1_encounter);
+
 -- Other:      7  (2% of all client contacts/visits)
+select 'Other: '||portion||'  ('||
+          cast(round(portion*100./total) as int)||
+          '% of all client encounters)'
+  from (select count(*) as total
+             , sum(case when type=9 or type=10 then 1 else 0 end) as portion
+          from aag1_encounter);
 
 -- Client Referrals (referred by…)
 -- Primary Care Provider:  33%
