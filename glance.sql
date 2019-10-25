@@ -46,6 +46,45 @@ create view aag1_weeks as
 select (julianday(last) - julianday(first))/7 as value
   from aag_date_range;
 
+-- This is just a temporary working view.
+drop view if exists meth_v2;
+create view meth_v2 as
+select record_id
+     , redcap_data_access_group town
+     , redcap_repeat_instance i
+     , cont_meth_v2___1
+        + cont_meth_v2___2
+        + cont_meth_v2___3
+        + cont_meth_v2___4
+        + cont_meth_v2___5
+        + cont_meth_v2___6
+        + cont_meth_v2___7
+        + cont_meth_v2___8
+        + cont_meth_v2___9
+        + cont_meth_v2___10 as it1
+     , cont_meth_v2___1
+        + cont_meth_v2___2
+        + cont_meth_v2___3
+        + cont_meth_v2___4
+        + cont_meth_v2___5
+        + cont_meth_v2___6
+        + cont_meth_v2___7
+        + cont_meth_v2___8
+        + cont_meth_v2___9 as it9
+     , cont_meth_v2___1
+        ||'|'|| cont_meth_v2___2
+        ||'|'|| cont_meth_v2___3
+        ||'|'|| cont_meth_v2___4
+        ||'|'|| cont_meth_v2___5
+        ||'|'|| cont_meth_v2___6
+        ||'|'|| cont_meth_v2___7
+        ||'|'|| cont_meth_v2___8
+        ||'|'|| cont_meth_v2___9
+        ||'|'|| cont_meth_v2___10 as it
+  from all1
+ where redcap_repeat_instrument = 'interval_contacts';
+
+--select it, count(*) from meth_v2 where it9 > 1 group by it;
 
 .mode column
 -- Upper Valley Community Nursing Project
@@ -124,6 +163,8 @@ select 'Avg. number of client contacts per week ('||
           round(count(*)/w.value,1)
   from aag1_encounter
   join aag1_weeks as w;
+
+
 -- Home visits:	218  (65% of all client contacts/visits)
 -- Phone calls/emails with clients/families/providers:	68  (20% of all client contacts/visits)
 -- Office visits:	0 (0% of all client contacts/visits)
