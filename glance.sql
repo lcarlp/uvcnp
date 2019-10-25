@@ -18,25 +18,115 @@ select record_id
   from aag1
  where redcap_repeat_instrument = '';
 
+-- The following superfically complicated view takes into account that the
+-- user might select more than one method for a contact.  For methods 1-9,
+-- if more than one is selected, we count that as multiple encounters.  We 
+-- do not add to the count if "Other" is also selected, but we do count as
+-- "Other" any encounter where none of the other 9 methods are selected.
+-- Note that most of the selects being UNIONed together follow a pattern.
 drop view if exists aag1_encounter_all;
 create view aag1_encounter_all as
 select record_id
      , date_1st_contact as encounter_date
      , 1 as initial
+     , meth_1st_contact as type
   from aag1
  where redcap_repeat_instrument = ''
 union all
 select record_id
      , today_date_v2 as encounter_date
      , 0 as initial
+     , 1 as type
   from aag1
-where redcap_repeat_instrument = 'interval_contacts';
+ where redcap_repeat_instrument = 'interval_contacts'
+   and cont_meth_v2___1 = 1
+union all
+select record_id
+     , today_date_v2 as encounter_date
+     , 0 as initial
+     , 2 as type
+  from aag1
+ where redcap_repeat_instrument = 'interval_contacts'
+   and cont_meth_v2___2 = 1
+union all
+select record_id
+     , today_date_v2 as encounter_date
+     , 0 as initial
+     , 3 as type
+  from aag1
+ where redcap_repeat_instrument = 'interval_contacts'
+   and cont_meth_v2___3 = 1
+union all
+select record_id
+     , today_date_v2 as encounter_date
+     , 0 as initial
+     , 4 as type
+  from aag1
+ where redcap_repeat_instrument = 'interval_contacts'
+   and cont_meth_v2___4 = 1
+union all
+select record_id
+     , today_date_v2 as encounter_date
+     , 0 as initial
+     , 5 as type
+  from aag1
+ where redcap_repeat_instrument = 'interval_contacts'
+   and cont_meth_v2___5 = 1
+union all
+select record_id
+     , today_date_v2 as encounter_date
+     , 0 as initial
+     , 6 as type
+  from aag1
+ where redcap_repeat_instrument = 'interval_contacts'
+   and cont_meth_v2___6 = 1
+union all
+select record_id
+     , today_date_v2 as encounter_date
+     , 0 as initial
+     , 7 as type
+  from aag1
+ where redcap_repeat_instrument = 'interval_contacts'
+   and cont_meth_v2___7 = 1
+union all
+select record_id
+     , today_date_v2 as encounter_date
+     , 0 as initial
+     , 8 as type
+  from aag1
+ where redcap_repeat_instrument = 'interval_contacts'
+   and cont_meth_v2___8 = 1
+union all
+select record_id
+     , today_date_v2 as encounter_date
+     , 0 as initial
+     , 9 as type
+  from aag1
+ where redcap_repeat_instrument = 'interval_contacts'
+   and cont_meth_v2___9 = 1
+union all
+select record_id
+     , today_date_v2 as encounter_date
+     , 0 as initial
+     , 10 as type
+  from aag1
+ where redcap_repeat_instrument = 'interval_contacts'
+   and cont_meth_v2___1
+        + cont_meth_v2___2
+        + cont_meth_v2___3
+        + cont_meth_v2___4
+        + cont_meth_v2___5
+        + cont_meth_v2___6
+        + cont_meth_v2___7
+        + cont_meth_v2___8
+        + cont_meth_v2___9 = 0;
 
 drop view if exists aag1_encounter;
 create view aag1_encounter as
 select record_id
      , encounter_date
      , initial
+     , type
   from aag1_encounter_all e
   join aag_date_range d
  where e.encounter_date between d.first and d.last;
