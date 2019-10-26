@@ -23,7 +23,8 @@ select record_id
      , referred_by___6
      , referred_by___7
      , referred_by___8
-     , referred_by___9     
+     , referred_by___9
+     , end_life_plan___2 -- Living will DPOAH
   from aag1
  where redcap_repeat_instrument = '';
 
@@ -147,10 +148,13 @@ select (julianday(last) - julianday(first))/7 as value
 
 
 .mode column
--- Upper Valley Community Nursing Project
--- Hanover Community Nurse
--- 15 October 2018 – 11 July 2019
--- At A Glance
+select '';
+select '----------------------------------------------------------------------';
+select '';
+select 'Upper Valley Community Nursing Project';
+select 'Hanover Community Nurse';
+select first || ' - ' || last from aag_date_range;
+select 'At A Glance';
 
 
 -- Town Population:  11,428						(Gov. census estimates 2017)
@@ -166,17 +170,20 @@ select (julianday(last) - julianday(first))/7 as value
 -- Website (url):
 
 
--- Client Demographics & Social Context
+select '';
+select 'Client Demographics & Social Context';
 -- Clients served, total:	 39
 select 'Clients served, total: '||count(*)
   from aag1_profile;
 
 --     As of July 11, 2019:      Active:  21 (54%)    Inactive:  10 (26%)     Discharged:  8 (20%)
-select (select 'Active: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=1)||
+select 'As of '||last
+      , (select 'Active: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=1)||
         (select '    Inactive: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=2)||
         (select '    Discharged: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=3)||
         (select '    Blank: '||count(*) from aag1_profile where status_profile not in(1,2,3))
-from (select cast(count(*) as real) as total from aag1_profile where status_profile in(1,2,3));
+from aag_date_range
+   , (select cast(count(*) as real) as total from aag1_profile where status_profile in(1,2,3));
 
 -- Age Range:   37 – 106 y/o
 select 'Age Range:   '||min(cast(age as int))||' - '||max(cast(age as int))||' y/o' from aag1_profile;
@@ -201,7 +208,7 @@ select 'Ethnicity/Cultural Identity:    unk.';
 -- Lives Alone:     unk.
 select 'Live Alone:  unk.';
 
--- Program Services
+select '';
 select 'Program Services';
 -- Nursing hours worked per week (avg.):   #
 select 'Nursing hours worked per week (avg.):   #';
@@ -274,7 +281,6 @@ select 'Other: '||portion||'  ('||
           from aag1_encounter);
 
 select '';
--- Client Referrals (referred by…)
 select 'Client Referrals (referred by…)';
 -- Primary Care Provider:  33%
 select 'Primary Care Provider: '||
@@ -332,8 +338,6 @@ select 'Other: '||
           from aag1_profile);
 
 select '';
-
--- Other Client Profile Information
 select 'Other Client Profile Information';
 -- Has a Living Will/DPOAH Doc:   81%
 -- Anxious/Fearful about health and well-being?:   Often: 29%      Sometimes: 68%
