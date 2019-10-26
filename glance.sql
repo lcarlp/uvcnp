@@ -15,6 +15,15 @@ select record_id
      , cast(age as real) as age
      , gender
      , date_1st_contact
+     , referred_by___1
+     , referred_by___2
+     , referred_by___3
+     , referred_by___4
+     , referred_by___5
+     , referred_by___6
+     , referred_by___7
+     , referred_by___8
+     , referred_by___9     
   from aag1
  where redcap_repeat_instrument = '';
 
@@ -264,19 +273,68 @@ select 'Other: '||portion||'  ('||
              , sum(case when type=9 or type=10 then 1 else 0 end) as portion
           from aag1_encounter);
 
+select '';
 -- Client Referrals (referred by…)
+select 'Client Referrals (referred by…)';
 -- Primary Care Provider:  33%
+select 'Primary Care Provider: '||
+          cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when referred_by___4 = 1 then 1 else 0 end) as portion
+          from aag1_profile);
 -- Family:   26%
--- Client Referrals, (cont.)
+select 'Family: '||
+          cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when referred_by___2 = 1 then 1 else 0 end) as portion
+          from aag1_profile);
 -- Self:   13%
+select 'Self: '||
+          cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when referred_by___1 = 1 then 1 else 0 end) as portion
+          from aag1_profile);
 -- Neighbor/Friend:   13%
+select 'Neighbor/Friend: '||
+          cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when referred_by___3 = 1 then 1 else 0 end) as portion
+          from aag1_profile);
 -- Fast Squad/Ambulance Service:   5%
+select 'Fast Squad/Ambulance Service: '||
+          cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when referred_by___8 = 1 then 1 else 0 end) as portion
+          from aag1_profile);
 -- Community Agency:  0%
+select 'Community Agency: '||
+          cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when referred_by___5 = 1 then 1 else 0 end) as portion
+          from aag1_profile);
 -- Clergy:   0%
+select 'Clergy: '||
+          cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when referred_by___6 = 1 then 1 else 0 end) as portion
+          from aag1_profile);
 -- Hosp./SNF Discharge Coord.:   0%
+select 'Hosp./SNF Discharge Coord.: '||
+          cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when referred_by___7 = 1 then 1 else 0 end) as portion
+          from aag1_profile);
 -- Other:   18%
+select 'Other: '||
+          cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when referred_by___9 = 1 then 1 else 0 end) as portion
+          from aag1_profile);
+
+select '';
 
 -- Other Client Profile Information
+select 'Other Client Profile Information';
 -- Has a Living Will/DPOAH Doc:   81%
 -- Anxious/Fearful about health and well-being?:   Often: 29%      Sometimes: 68%
 -- Client has a caregiver(s)?:   Yes:  33%     No:  67%
