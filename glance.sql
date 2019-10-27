@@ -33,6 +33,7 @@ select record_id
      , client_anx_before
      , care_giver
      , provider1_affiliation
+     , hospital_used
   from aag1
  where redcap_repeat_instrument = '';
 
@@ -465,9 +466,55 @@ select 'No data:  '||cast(round(portion*100./total) as int)||'%'
           from aag1_profile)
  where portion > 0;
 
--- Hospital Most Often Used
+select '';
+select 'Hospital Most Often Used';
 -- DHMC:   97%
+select 'DHMC:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when hospital_used = 1 then 1 else 0 end) as portion
+          from aag1_profile);
 -- APD:   3%
+select 'APD:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when hospital_used = 2 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'Mt. Ascutney Hospital:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when hospital_used = 3 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'Gifford Medical Center:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when hospital_used = 4 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'Valley Regional Hospital:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when hospital_used = 5 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'Cottage Hospital:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when hospital_used = 6 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'New London Hospital:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when hospital_used = 7 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'Other:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when hospital_used = 8 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'No data:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when hospital_used = '' then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+
 
 -- Top Client Problems: (% of clients for whom problems were identified and documented. R=23 (59%))
 --     •	Impaired Mobility 	65%
