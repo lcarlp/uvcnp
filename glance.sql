@@ -141,9 +141,13 @@ select record_id
   join aag_date_range d
  where e.encounter_date between d.first and d.last;
 
-drop view if exists aag1_weeks;
-create view aag1_weeks as
-select (julianday(last) - julianday(first))/7 as value
+drop view if exists aag1_dates;
+create view aag1_dates as
+select first
+     , last
+     , (julianday(last) - julianday(first))/7 as weeks
+     , 'x' first_formatted
+     , 'x' last_formatted
   from aag_date_range;
 
 
@@ -152,7 +156,7 @@ select '';
 select '----------------------------------------------------------------------';
 select '';
 select 'Upper Valley Community Nursing Project';
-select 'Hanover Community Nurse';
+select 'Hanover Community Nurse'; 
 select first || ' - ' || last from aag_date_range;
 select 'At A Glance';
 
@@ -226,10 +230,10 @@ select 'Total number of client contacts:  '||count(*)
 
 -- Avg. number of client contacts per week (38 wks.):	8.8
 select 'Avg. number of client contacts per week ('||
-          cast(round(w.value) as int)||' wks.):	'||
-          round(count(*)/w.value,1)
+          cast(round(w.weeks) as int)||' wks.):	'||
+          round(count(*)/w.weeks,1)
   from aag1_encounter
-  join aag1_weeks as w;
+  join aag1_dates as w;
 
 
 -- Home visits:	218  (65% of all client contacts/visits)
