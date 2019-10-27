@@ -25,6 +25,11 @@ select record_id
      , referred_by___8
      , referred_by___9
      , end_life_plan___2 -- Living will DPOAH
+     , case 
+          when end_life_plan___1 + end_life_plan___2 + end_life_plan___3 + 
+               end_life_plan___4 + end_life_plan___5 + end_life_plan___6 = 0 then 1 
+          else 0
+       end as no_end_life_plan 
   from aag1
  where redcap_repeat_instrument = '';
 
@@ -369,6 +374,16 @@ select 'Missing: '||
 select '';
 select 'Other Client Profile Information';
 -- Has a Living Will/DPOAH Doc:   81%
+select 'Has a Living Will/DPOAH Doc:   '||cast(round(portion*100./total) as int)||'%  ('||
+          portion||')'
+  from (select count(*) as total
+             , sum(case when end_life_plan___2 = 1 then 1 else 0 end) as portion
+          from aag1_profile);
+select 'No end of life plan entered:   '||cast(round(portion*100./total) as int)||'%   ('||
+          portion||')'
+  from (select count(*) as total
+             , sum(case when no_end_life_plan = 1 then 1 else 0 end) as portion
+          from aag1_profile);
 -- Anxious/Fearful about health and well-being?:   Often: 29%      Sometimes: 68%
 -- Client has a caregiver(s)?:   Yes:  33%     No:  67%
 
