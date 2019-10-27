@@ -474,4 +474,5 @@ select 'Affiliation of Primary Care Provider';
 --     •	Every client does not necessarily need or receive a comprehensive assessment. Problems, Interventions and Nurse-reported Outcomes are not done or documented for every client. Therefore, these reported findings represent the percentage of clients for whom Problems, Interventions and Outcomes were assessed and documented, not the percentage of ALL clients. Like the other findings, this data cannot be generalized to ALL clients enrolled in your Community or Parish Nurse program.
 
 -- ✯ ✯ ✯ ✯
-
+-- Go back to csv mode, because it is more convenient for routine queries/debugging etc.
+.mode csv
