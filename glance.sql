@@ -352,6 +352,19 @@ select 'Other: '||
   from (select count(*) as total
              , sum(case when referred_by___9 = 1 then 1 else 0 end) as portion
           from aag1_profile);
+select 'Missing: '||
+          cast(round(portion*100./total) as int)||'%  ('||portion||')'
+  from (select count(*) as total
+             , sum(case when referred_by___1
+                              + referred_by___2
+                              + referred_by___3
+                              + referred_by___4
+                              + referred_by___5
+                              + referred_by___6
+                              + referred_by___7
+                              + referred_by___8
+                              + referred_by___9 = 0 then 1 else 0 end) as portion
+          from aag1_profile );
 
 select '';
 select 'Other Client Profile Information';
