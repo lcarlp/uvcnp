@@ -160,6 +160,7 @@ select first
 
 
 .mode column
+.width 100
 select '';
 select '----------------------------------------------------------------------';
 select '';
@@ -168,19 +169,21 @@ select 'Hanover Community Nurse';
 select first_day||' '||first_month||' '||first_year||' - ' ||
          last_day||' '||last_month||' '||last_year from aag1_dates;
 select 'At A Glance';
+select '';
+select '';
 
+select 'Town Population:  11,428						(Gov. census estimates 2017)';
+select '# Residents age 65-74:  588 (5%)		# residents 75 or over:	837 (7%)';
+select 'WHERE DID ABOVE NUMBERS COME FROM??????';
 
--- Town Population:  11,428						(Gov. census estimates 2017)
--- # Residents age 65-74:  588 (5%)		# residents 75 or over:	837 (7%)
-
-
--- Community/Parish Nurse Program details
--- Program Founded:  2018
--- Annual Budget:  $
--- Funding (town appropriation or other):  $
--- Organizational Structure:
--- Contact information:  ###-###-####
--- Website (url):
+select '';
+select 'Community/Parish Nurse Program details';
+select 'Program Founded:  2018';
+select 'Annual Budget:  $';
+select 'Funding (town appropriation or other):  $';
+select 'Organizational Structure:';
+select 'Contact information:  ###-###-####';
+select 'Website (url):';
 
 
 select '';
@@ -197,10 +200,10 @@ select 'As of '||last_month||' '||last_day||', '||last_year||'    '||
           (select '    Blank: '||count(*) from aag1_profile where status_profile not in(1,2,3))
 from aag1_dates
 join (select cast(count(*) as real) as total from aag1_profile where status_profile in(1,2,3));
-
+--
 -- Age Range:   37 – 106 y/o
 select 'Age Range:   '||min(cast(age as int))||' - '||max(cast(age as int))||' y/o' from aag1_profile;
-
+--
 -- Half of the Clients are older than (median age):   83 y/o
 select 'Half of Clients are older than (median age): '||cast(avg(age) as int)
   from (select age
