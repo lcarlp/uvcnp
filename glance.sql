@@ -164,9 +164,12 @@ select first
   join month as last_month
     on last_month.number = strftime('%m',d.last);
 
-
+-- See comments after .mode & .width
 .mode column
-.width 100
+.width 120
+-- .mode colum seems to be the only thing that really works, but lines seem to
+-- be space-filled up to .width, or truncated if .width is too short.  
+
 select '';
 select '----------------------------------------------------------------------';
 select '';
@@ -386,6 +389,13 @@ select 'No end of life plan entered:   '||cast(round(portion*100./total) as int)
              , sum(case when no_end_life_plan = 1 then 1 else 0 end) as portion
           from aag1_profile);
 -- Anxious/Fearful about health and well-being?:   Often: 29%      Sometimes: 68%
+select 'Anxious/Fearful about health and well-being?:   '||
+         (select 'Often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_profile where client_anx_before=1)||
+         (select '    Sometimes: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_profile where client_anx_before=2)||
+         (select '    Not often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_profile where client_anx_before=3)||
+         (select '    No data: '|| cast(round(count(*)*100/total) as int)||'%  ('||count(*)||')' from aag1_profile where client_anx_before='')
+  from (select cast(count(*) as real) as total from aag1_profile);
+
 -- Client has a caregiver(s)?:   Yes:  33%     No:  67%
 
 -- Affiliation of Primary Care Provider
