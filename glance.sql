@@ -30,6 +30,7 @@ select record_id
                end_life_plan___4 + end_life_plan___5 + end_life_plan___6 = 0 then 1 
           else 0
        end as no_end_life_plan 
+     , client_anx_before
   from aag1
  where redcap_repeat_instrument = '';
 
