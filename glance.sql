@@ -31,6 +31,7 @@ select record_id
           else 0
        end as no_end_life_plan 
      , client_anx_before
+     , care_giver
   from aag1
  where redcap_repeat_instrument = '';
 
@@ -389,16 +390,21 @@ select 'No end of life plan entered:   '||cast(round(portion*100./total) as int)
              , sum(case when no_end_life_plan = 1 then 1 else 0 end) as portion
           from aag1_profile);
 -- Anxious/Fearful about health and well-being?:   Often: 29%      Sometimes: 68%
-select 'Anxious/Fearful about health and well-being?:   '||
-         (select 'Often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_profile where client_anx_before=1)||
+select 'Anxious/Fearful about health and well-being?:'||
+         (select '   Often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_profile where client_anx_before=1)||
          (select '    Sometimes: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_profile where client_anx_before=2)||
          (select '    Not often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_profile where client_anx_before=3)||
          (select '    No data: '|| cast(round(count(*)*100/total) as int)||'%  ('||count(*)||')' from aag1_profile where client_anx_before='')
   from (select cast(count(*) as real) as total from aag1_profile);
-
 -- Client has a caregiver(s)?:   Yes:  33%     No:  67%
+select 'Client has a caregiver(s)?:'||
+          (select '   Yes:  '||cast(round(count(*)*100/total) as int)||'%' from aag1_profile where care_giver=1)||
+          (select '   No:  '||cast(round(count(*)*100/total) as int)||'%' from aag1_profile where care_giver=0)||
+          (select '   No data:  '||cast(round(count(*)*100/total) as int)||'% ('||count(*)||')' from aag1_profile where care_giver='')
+  from (select cast(count(*) as real) as total from aag1_profile);
 
--- Affiliation of Primary Care Provider
+select '';
+select 'Affiliation of Primary Care Provider';
 -- DHMC:   87%
 -- APD:   3%
 -- Private/Community-based Practice:   3%
