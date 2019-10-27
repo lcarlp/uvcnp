@@ -146,9 +146,17 @@ create view aag1_dates as
 select first
      , last
      , (julianday(last) - julianday(first))/7 as weeks
-     , 'x' first_formatted
-     , 'x' last_formatted
-  from aag_date_range;
+     , first_month.name first_month
+     , strftime('%d',d.first) first_day
+     , strftime('%Y',d.first) first_year     
+     , last_month.name last_month
+     , strftime('%d',d.last) last_day
+     , strftime('%Y',d.last) last_year     
+  from aag_date_range as d
+  join month as first_month
+    on first_month.number = strftime('%m',d.first)
+  join month as last_month
+    on last_month.number = strftime('%m',d.last);
 
 
 .mode column
@@ -157,7 +165,8 @@ select '----------------------------------------------------------------------';
 select '';
 select 'Upper Valley Community Nursing Project';
 select 'Hanover Community Nurse'; 
-select first || ' - ' || last from aag_date_range;
+select first_day||' '||first_month||' '||first_year||' - ' ||
+         last_day||' '||last_month||' '||last_year from aag1_dates;
 select 'At A Glance';
 
 
@@ -181,13 +190,13 @@ select 'Clients served, total: '||count(*)
   from aag1_profile;
 
 --     As of July 11, 2019:      Active:  21 (54%)    Inactive:  10 (26%)     Discharged:  8 (20%)
-select 'As of '||last
-      , (select 'Active: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=1)||
-        (select '    Inactive: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=2)||
-        (select '    Discharged: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=3)||
-        (select '    Blank: '||count(*) from aag1_profile where status_profile not in(1,2,3))
-from aag_date_range
-   , (select cast(count(*) as real) as total from aag1_profile where status_profile in(1,2,3));
+select 'As of '||last_month||' '||last_day||', '||last_year||'    '||
+          (select 'Active: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=1)||
+          (select '    Inactive: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=2)||
+          (select '    Discharged: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=3)||
+          (select '    Blank: '||count(*) from aag1_profile where status_profile not in(1,2,3))
+from aag1_dates
+join (select cast(count(*) as real) as total from aag1_profile where status_profile in(1,2,3));
 
 -- Age Range:   37 – 106 y/o
 select 'Age Range:   '||min(cast(age as int))||' - '||max(cast(age as int))||' y/o' from aag1_profile;
