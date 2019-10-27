@@ -32,6 +32,7 @@ select record_id
        end as no_end_life_plan 
      , client_anx_before
      , care_giver
+     , provider1_affiliation
   from aag1
  where redcap_repeat_instrument = '';
 
@@ -406,9 +407,63 @@ select 'Client has a caregiver(s)?:'||
 select '';
 select 'Affiliation of Primary Care Provider';
 -- DHMC:   87%
+select 'DHMC:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 1 then 1 else 0 end) as portion
+          from aag1_profile);
 -- APD:   3%
+select 'APD:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 2 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'Mt. Ascutney Hospital:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 3 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'Gifford Medical Center:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 4 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'Valley Regional Hospital:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 5 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'Cottage Hospital:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 6 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'New London Hospital:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 7 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
 -- Private/Community-based Practice:   3%
+select 'Private/Community-based Practice:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 8 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
 -- VAH:   7%
+select 'VA:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 9 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'Other:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 10 then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
+select 'No data:  '||cast(round(portion*100./total) as int)||'%'
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = '' then 1 else 0 end) as portion
+          from aag1_profile)
+ where portion > 0;
 
 -- Hospital Most Often Used
 -- DHMC:   97%
