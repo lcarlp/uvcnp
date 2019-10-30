@@ -222,12 +222,13 @@ select cast(count(*) as real) as it
  where problems > 0;
 
 
-
 -- See comments after .mode & .width
 .mode column
-.width 0
+.width 150
 -- .mode colum seems to be the only thing that really works
--- .width 0 selects width based on query... which is ideal in our case.  
+-- unfortunately, .width 150 seems to pad to 150.
+-- Based on the SQLite3 documentation, .width 0 should work, but it
+-- seems to mess up some queries.  Why?
 
 select '';
 select '----------------------------------------------------------------------';
@@ -593,130 +594,130 @@ select 'Top Client Problems: (% of clients for whom problems were identified and
 select '    '||label||':  '||percentage
   from (
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Frequent ED visits or EMS calls' label
+        'Frequent ED visits/EMS calls' label
     from aag1_problem
     join aag1_has_problems
-  where ed_visits = 1
+   where ed_visits = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Not taking meds correctly' label
+        'Not taking medications correctly' label
     from aag1_problem
     join aag1_has_problems
-  where incorrect_meds = 1
+   where incorrect_meds = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Ineffective enactment of therapeutic recommendations (diet, exercise, wound care)' label
+        'Ineffective enactment of therapeutic recommendations' label
     from aag1_problem
     join aag1_has_problems
-  where ineff_ther = 1
+   where ineff_ther = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
         'Symptom(s) not well controlled' label
     from aag1_problem
     join aag1_has_problems
-  where sympt_manag = 1
+   where sympt_manag = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
         'Frailty' label
     from aag1_problem
     join aag1_has_problems
-  where frailty = 1
+   where frailty = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Impaired cognitive functioning, poor decision making, and/or problem solving' label
+        'Impaired cognitive functioning' label
     from aag1_problem
     join aag1_has_problems
-  where impair_cog = 1
+   where impair_cog = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Mental health issue, depression, anxiety or substance abuse' label
+        'Mental Health or Substance Abuse Issue' label
     from aag1_problem
     join aag1_has_problems
-  where ment_heal = 1
+   where ment_heal = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
         'Self-care deficit in performing ADLs' label
     from aag1_problem
     join aag1_has_problems
-  where self_care_prob_list = 1
+   where self_care_prob_list = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Impaired physical mobility' label
+        'Impaired Mobility' label
     from aag1_problem
     join aag1_has_problems
-  where imp_phys_mob = 1
+   where imp_phys_mob = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Fall risk' label
+        'High Fall Risk' label
     from aag1_problem
     join aag1_has_problems
-  where fall = 1
+   where fall = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
         'Difficulty living at home' label
     from aag1_problem
     join aag1_has_problems
-  where stay_home = 1
+   where stay_home = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Problems with bills, insurance paperwork, enrollments' label
+        'Problems with bills, insurance etc.' label
     from aag1_problem
     join aag1_has_problems
-  where prob_bills = 1
+   where prob_bills = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
         'Anticipated stressful transition to another level of care' label
     from aag1_problem
     join aag1_has_problems
-  where stress_trans = 1
+   where stress_trans = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Incomplete end of life planning and documentation' label
+        'Incomplete end of life planning' label
     from aag1_problem
     join aag1_has_problems
-  where incom_acp = 1
+   where incom_acp = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
         'Other problems' label
     from aag1_problem
     join aag1_has_problems
-  where other_prob_list = 1
+   where other_prob_list = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
         'Social isolation' label
     from aag1_problem
     join aag1_has_problems
-  where sdoh_iso = 1
+   where sdoh_iso = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Nutrition, poor' label
+        'Poor Nutrition' label
     from aag1_problem
     join aag1_has_problems
-  where nutr_poor = 1
+   where nutr_poor = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Housing, deficient' label
+        'Deficient Housing' label
     from aag1_problem
     join aag1_has_problems
-  where hous_def = 1
+   where hous_def = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Transportation, lack' label
+        'Lack of Transportation' label
     from aag1_problem
     join aag1_has_problems
-  where sdoh_transp = 1
+   where sdoh_transp = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-        'Finances, struggling/inadequate' label
+        'Financial struggles' label
     from aag1_problem
     join aag1_has_problems
-  where sdoh_finance = 1
+   where sdoh_finance = 1
   union all
   select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
         'Other social' label
     from aag1_problem
     join aag1_has_problems
-  where sdoh_other_2 = 1 )
+   where sdoh_other_2 = 1 )
 order by percentage desc;
 
 
