@@ -8,8 +8,8 @@ create view aag1 as
 select * from all1
 join aag_town using (redcap_data_access_group);
 
-drop view if exists aag1_profile;
-create view aag1_profile as
+drop view if exists aag1_client;
+create view aag1_client as
 select record_id
      , status_profile
      , cast(age as real) as age
@@ -35,6 +35,8 @@ select record_id
      , provider1_affiliation
      , hospital_used
   from aag1
+  join aag_date_range d
+    on coalesce(date_1st_contact,d.last) <= d.last
  where redcap_repeat_instrument = '';
 
 -- The following superfically complicated view takes into account that the
@@ -213,6 +215,8 @@ select record_id
      +   sdoh_finance___1
      +   sdoh_other_2___1 problems
   from aag1
+  join aag_date_range d
+    on coalesce(date_1st_contact,d.last) <= d.last
  where redcap_repeat_instrument = '';
 
 drop view if exists aag1_has_problems;
@@ -362,7 +366,11 @@ create view aag1_problem_percent as
 select ( select count(*) from aag1_problem_percent2 where sort_key >= this.sort_key ) rank
      , percentage
      , label
-  from aag1_problem_percent2 this;
+  from aag1_problem_percent2 this
+-- This view is pretty slow to query.  If it gets too slow with more data,
+-- it would probably help to use a temporary table for the output from 
+-- aag1_problem_percent2.
+;
 
 
 -- See comments after .mode & .width
@@ -402,34 +410,34 @@ select '';
 select 'Client Demographics & Social Context';
 -- Clients served, total:	 39
 select 'Clients served, total: '||count(*)
-  from aag1_profile;
+  from aag1_client;
 
 --     As of July 11, 2019:      Active:  21 (54%)    Inactive:  10 (26%)     Discharged:  8 (20%)
 select 'As of '||last_month||' '||last_day||', '||last_year||'    '||
-          (select 'Active: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=1)||
-          (select '    Inactive: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=2)||
-          (select '    Discharged: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_profile where status_profile=3)||
-          (select '    Blank: '||count(*) from aag1_profile where status_profile not in(1,2,3))
+          (select 'Active: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_client where status_profile=1)||
+          (select '    Inactive: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_client where status_profile=2)||
+          (select '    Discharged: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_client where status_profile=3)||
+          (select '    Blank: '||count(*) from aag1_client where status_profile not in(1,2,3))
 from aag1_dates
-join (select cast(count(*) as real) as total from aag1_profile where status_profile in(1,2,3));
+join (select cast(count(*) as real) as total from aag1_client where status_profile in(1,2,3));
 --
 -- Age Range:   37 – 106 y/o
-select 'Age Range:   '||min(cast(age as int))||' - '||max(cast(age as int))||' y/o' from aag1_profile;
+select 'Age Range:   '||min(cast(age as int))||' - '||max(cast(age as int))||' y/o' from aag1_client;
 --
 -- Half of the Clients are older than (median age):   83 y/o
 select 'Half of Clients are older than (median age): '||cast(avg(age) as int)
   from (select age
-          from aag1_profile
+          from aag1_client
          order by age
-         limit 2 - (select count(*) from aag1_profile) % 2    -- odd 1, even 2
-         offset (select (count(*) - 1) / 2 from aag1_profile) );
+         limit 2 - (select count(*) from aag1_client) % 2    -- odd 1, even 2
+         offset (select (count(*) - 1) / 2 from aag1_client) );
 
 
 -- Gender:    male    41%      female      59%
-select (select 'Gender: male  '||cast(round(count(*)*100/total) as int)||'%' from aag1_profile where gender=1)||
-(select '    female: '||cast(round(count(*)*100/total) as int)||'%' from aag1_profile where gender=2)||
-(select '    Blank: '||count(*) from aag1_profile where gender not in(1,2))
-from (select cast(count(*) as real) as total from aag1_profile where gender in(1,2));
+select (select 'Gender: male  '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where gender=1)||
+(select '    female: '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where gender=2)||
+(select '    Blank: '||count(*) from aag1_client where gender not in(1,2))
+from (select cast(count(*) as real) as total from aag1_client where gender in(1,2));
 
 -- Ethnicity/Cultural Identity:    unk.
 select 'Ethnicity/Cultural Identity:    unk.';
@@ -515,55 +523,55 @@ select 'Primary Care Provider: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___4 = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 -- Family:   26%
 select 'Family: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___2 = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 -- Self:   13%
 select 'Self: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___1 = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 -- Neighbor/Friend:   13%
 select 'Neighbor/Friend: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___3 = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 -- Fast Squad/Ambulance Service:   5%
 select 'Fast Squad/Ambulance Service: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___8 = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 -- Community Agency:  0%
 select 'Community Agency: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___5 = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 -- Clergy:   0%
 select 'Clergy: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___6 = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 -- Hosp./SNF Discharge Coord.:   0%
 select 'Hosp./SNF Discharge Coord.: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___7 = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 -- Other:   18%
 select 'Other: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___9 = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 select 'Missing: '||
           cast(round(portion*100./total) as int)||'%  ('||portion||')'
   from (select count(*) as total
@@ -576,7 +584,7 @@ select 'Missing: '||
                               + referred_by___7
                               + referred_by___8
                               + referred_by___9 = 0 then 1 else 0 end) as portion
-          from aag1_profile );
+          from aag1_client );
 
 select '';
 select 'Other Client Profile Information';
@@ -585,25 +593,25 @@ select 'Has a Living Will/DPOAH Doc:   '||cast(round(portion*100./total) as int)
           portion||')'
   from (select count(*) as total
              , sum(case when end_life_plan___2 = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 select 'No end of life plan entered:   '||cast(round(portion*100./total) as int)||'%   ('||
           portion||')'
   from (select count(*) as total
              , sum(case when no_end_life_plan = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 -- Anxious/Fearful about health and well-being?:   Often: 29%      Sometimes: 68%
 select 'Anxious/Fearful about health and well-being?:'||
-         (select '   Often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_profile where client_anx_before=1)||
-         (select '    Sometimes: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_profile where client_anx_before=2)||
-         (select '    Not often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_profile where client_anx_before=3)||
-         (select '    No data: '|| cast(round(count(*)*100/total) as int)||'%  ('||count(*)||')' from aag1_profile where client_anx_before='')
-  from (select cast(count(*) as real) as total from aag1_profile);
+         (select '   Often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_client where client_anx_before=1)||
+         (select '    Sometimes: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_client where client_anx_before=2)||
+         (select '    Not often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_client where client_anx_before=3)||
+         (select '    No data: '|| cast(round(count(*)*100/total) as int)||'%  ('||count(*)||')' from aag1_client where client_anx_before='')
+  from (select cast(count(*) as real) as total from aag1_client);
 -- Client has a caregiver(s)?:   Yes:  33%     No:  67%
 select 'Client has a caregiver(s)?:'||
-          (select '   Yes:  '||cast(round(count(*)*100/total) as int)||'%' from aag1_profile where care_giver=1)||
-          (select '   No:  '||cast(round(count(*)*100/total) as int)||'%' from aag1_profile where care_giver=0)||
-          (select '   No data:  '||cast(round(count(*)*100/total) as int)||'% ('||count(*)||')' from aag1_profile where care_giver='')
-  from (select cast(count(*) as real) as total from aag1_profile);
+          (select '   Yes:  '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where care_giver=1)||
+          (select '   No:  '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where care_giver=0)||
+          (select '   No data:  '||cast(round(count(*)*100/total) as int)||'% ('||count(*)||')' from aag1_client where care_giver='')
+  from (select cast(count(*) as real) as total from aag1_client);
 
 select '';
 select 'Affiliation of Primary Care Provider';
@@ -611,59 +619,59 @@ select 'Affiliation of Primary Care Provider';
 select 'DHMC:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when provider1_affiliation = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 -- APD:   3%
 select 'APD:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when provider1_affiliation = 2 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'Mt. Ascutney Hospital:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when provider1_affiliation = 3 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'Gifford Medical Center:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when provider1_affiliation = 4 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'Valley Regional Hospital:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when provider1_affiliation = 5 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'Cottage Hospital:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when provider1_affiliation = 6 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'New London Hospital:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when provider1_affiliation = 7 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 -- Private/Community-based Practice:   3%
 select 'Private/Community-based Practice:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when provider1_affiliation = 8 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 -- VAH:   7%
 select 'VA:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when provider1_affiliation = 9 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'Other:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when provider1_affiliation = 10 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'No data:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when provider1_affiliation = '' then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 
 select '';
@@ -672,47 +680,47 @@ select 'Hospital Most Often Used';
 select 'DHMC:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when hospital_used = 1 then 1 else 0 end) as portion
-          from aag1_profile);
+          from aag1_client);
 -- APD:   3%
 select 'APD:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when hospital_used = 2 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'Mt. Ascutney Hospital:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when hospital_used = 3 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'Gifford Medical Center:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when hospital_used = 4 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'Valley Regional Hospital:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when hospital_used = 5 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'Cottage Hospital:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when hospital_used = 6 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'New London Hospital:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when hospital_used = 7 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'Other:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when hospital_used = 8 then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 select 'No data:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when hospital_used = '' then 1 else 0 end) as portion
-          from aag1_profile)
+          from aag1_client)
  where portion > 0;
 
 
