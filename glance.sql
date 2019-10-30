@@ -225,9 +225,9 @@ select cast(count(*) as real) as it
 
 -- See comments after .mode & .width
 .mode column
-.width 120
--- .mode colum seems to be the only thing that really works, but lines seem to
--- be space-filled up to .width, or truncated if .width is too short.  
+.width 0
+-- .mode colum seems to be the only thing that really works
+-- .width 0 selects width based on query... which is ideal in our case.  
 
 select '';
 select '----------------------------------------------------------------------';
@@ -770,5 +770,5 @@ order by percentage desc;
 --     •	Every client does not necessarily need or receive a comprehensive assessment. Problems, Interventions and Nurse-reported Outcomes are not done or documented for every client. Therefore, these reported findings represent the percentage of clients for whom Problems, Interventions and Outcomes were assessed and documented, not the percentage of ALL clients. Like the other findings, this data cannot be generalized to ALL clients enrolled in your Community or Parish Nurse program.
 
 -- ✯ ✯ ✯ ✯
--- Go back to csv mode, because it is more convenient for routine queries/debugging etc.
-.mode csv
+-- Go back to list mode, because it is more convenient for routine queries/debugging etc.
+.mode list
