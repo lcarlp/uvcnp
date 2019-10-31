@@ -169,55 +169,61 @@ select first
   join month as last_month
     on last_month.number = strftime('%m',d.last);
 
-drop view if exists aag1_problem;
-create view aag1_problem as
+drop view if exists aag1_problem1;
+create view aag1_problem1 as
 select record_id
-     , ed_visits___1 as ed_visits                        
-     , incorrect_meds___1 as incorrect_meds              
-     , ineff_ther___1 as ineff_ther                      
-     , sympt_manag___1 as sympt_manag                    
-     , frailty___1 as frailty                            
-     , impair_cog___1 as impair_cog                      
-     , ment_heal___1 as ment_heal                        
-     , self_care_prob_list___1 as self_care_prob_list    
-     , imp_phys_mob___1 as imp_phys_mob                  
-     , fall___1 as fall                                  
-     , stay_home___1 as stay_home                        
-     , prob_bills___1 as prob_bills                      
-     , stress_trans___1 as stress_trans                  
-     , incom_acp___1 as incom_acp                        
-     , other_prob_list___1 as other_prob_list            
-     , sdoh_iso___1 as sdoh_iso                          
-     , nutr_poor___1 as nutr_poor                        
-     , hous_def___1 as hous_def                          
-     , sdoh_transp___1 as sdoh_transp                    
-     , sdoh_finance___1 as sdoh_finance                  
-     , sdoh_other_2___1 as sdoh_other_2                  
-     , ed_visits___1
-     +   incorrect_meds___1
-     +   ineff_ther___1
-     +   sympt_manag___1
-     +   frailty___1
-     +   impair_cog___1
-     +   ment_heal___1
-     +   self_care_prob_list___1
-     +   imp_phys_mob___1
-     +   fall___1
-     +   stay_home___1
-     +   prob_bills___1
-     +   stress_trans___1
-     +   incom_acp___1
-     +   other_prob_list___1
-     +   sdoh_iso___1
-     +   nutr_poor___1
-     +   hous_def___1
-     +   sdoh_transp___1
-     +   sdoh_finance___1
-     +   sdoh_other_2___1 problems
+     , ed_visits___1 + ed_visits___2 ed_visits
+     , incorrect_meds___1 + incorrect_meds___2 incorrect_meds
+     , ineff_ther___1 + ineff_ther___2 ineff_ther
+     , sympt_manag___1 + sympt_manag___2 sympt_manag
+     , frailty___1 + frailty___2 frailty
+     , impair_cog___1 + impair_cog___2 impair_cog
+     , ment_heal___1 + ment_heal___2 ment_heal
+     , self_care_prob_list___1 + self_care_prob_list___2 self_care_prob_list
+     , imp_phys_mob___1 + imp_phys_mob___2 imp_phys_mob
+     , fall___1 + fall___2 fall
+     , stay_home___1 + stay_home___2 stay_home
+     , prob_bills___1 + prob_bills___2 prob_bills
+     , stress_trans___1 + stress_trans___2 stress_trans
+     , incom_acp___1 + incom_acp___2 incom_acp
+     , other_prob_list___1 + other_prob_list___2 other_prob_list
+     , sdoh_iso___1 + sdoh_iso___2 sdoh_iso
+     , nutr_poor___1 + nutr_poor___2 nutr_poor
+     , hous_def___1 + hous_def___2 hous_def
+     , sdoh_transp___1 + sdoh_transp___2 sdoh_transp
+     , sdoh_finance___1 + sdoh_finance___2 sdoh_finance
+     , sdoh_other_2___1 + sdoh_other_2___2 sdoh_other_2
   from aag1
   join aag_date_range d
     on coalesce(date_1st_contact,d.last) <= d.last
  where redcap_repeat_instrument = '';
+
+
+drop view if exists aag1_problem;
+create view aag1_problem as
+select aag1_problem1.*
+     , ed_visits
+     +   incorrect_meds
+     +   ineff_ther
+     +   sympt_manag
+     +   frailty
+     +   impair_cog
+     +   ment_heal
+     +   self_care_prob_list
+     +   imp_phys_mob
+     +   fall
+     +   stay_home
+     +   prob_bills
+     +   stress_trans
+     +   incom_acp
+     +   other_prob_list
+     +   sdoh_iso
+     +   nutr_poor
+     +   hous_def
+     +   sdoh_transp
+     +   sdoh_finance
+     +   sdoh_other_2 problems
+  from aag1_problem1;
 
 drop view if exists aag1_has_problems;
 create view aag1_has_problems as
@@ -227,137 +233,159 @@ select cast(count(*) as real) as it
 
 drop view if exists aag1_problem_percent1;
 create view aag1_problem_percent1 as
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Frequent ED visits/EMS calls' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Frequent ED visits/EMS calls' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where ed_visits = 1
+ where ed_visits > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Not taking medications correctly' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Not taking medications correctly' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where incorrect_meds = 1
+ where incorrect_meds > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Ineffective enactment of therapeutic recommendations' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Ineffective enactment of therapeutic recommendations' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where ineff_ther = 1
+ where ineff_ther > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Symptom(s) not well controlled' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Symptom(s) not well controlled' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where sympt_manag = 1
+ where sympt_manag > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Frailty' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Frailty' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where frailty = 1
+ where frailty > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Impaired cognitive functioning' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Impaired cognitive functioning' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where impair_cog = 1
+ where impair_cog > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Mental Health or Substance Abuse Issue' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Mental Health or Substance Abuse Issue' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where ment_heal = 1
+ where ment_heal > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Self-care deficit in performing ADLs' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Self-care deficit in performing ADLs' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where self_care_prob_list = 1
+ where self_care_prob_list > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Impaired Mobility' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Impaired Mobility' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where imp_phys_mob = 1
+ where imp_phys_mob > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'High Fall Risk' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'High Fall Risk' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where fall = 1
+ where fall > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Difficulty living at home' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Difficulty living at home' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where stay_home = 1
+ where stay_home > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Problems with bills, insurance etc.' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Problems with bills, insurance etc.' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where prob_bills = 1
+ where prob_bills > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Anticipated stressful transition to another level of care' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Anticipated stressful transition to another level of care' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where stress_trans = 1
+ where stress_trans > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Incomplete end of life planning' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Incomplete end of life planning' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where incom_acp = 1
+ where incom_acp > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Other problems' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Other problems' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where other_prob_list = 1
+ where other_prob_list > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Social isolation' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Social isolation' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where sdoh_iso = 1
+ where sdoh_iso > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Poor Nutrition' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Poor Nutrition' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where nutr_poor = 1
+ where nutr_poor > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Deficient Housing' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Deficient Housing' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where hous_def = 1
+ where hous_def > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Lack of Transportation' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Lack of Transportation' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where sdoh_transp = 1
+ where sdoh_transp > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Financial struggles' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Financial struggles' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where sdoh_finance = 1
+ where sdoh_finance > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage,
-      'Other social' label
+select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+     , 'Other social' label
+     , count(*) c
   from aag1_problem
   join aag1_has_problems
- where sdoh_other_2 = 1;
+ where sdoh_other_2 > 0;
 
 drop view if exists aag1_problem_percent2;
 create view aag1_problem_percent2 as
 select (100 + percentage)||label as sort_key
      , percentage
      , label||substr('                    ',1,min(length(label),20-length(label))) as label
+     , c
   from aag1_problem_percent1
  where percentage > 0;
 
@@ -366,6 +394,7 @@ create view aag1_problem_percent as
 select ( select count(*) from aag1_problem_percent2 where sort_key >= this.sort_key ) rank
      , percentage
      , label
+     , c
   from aag1_problem_percent2 this
 -- This view is pretty slow to query.  If it gets too slow with more data,
 -- it would probably help to use a temporary table for the output from 
@@ -723,7 +752,7 @@ select 'No data:  '||cast(round(portion*100./total) as int)||'%'
           from aag1_client)
  where portion > 0;
 
-
+select '';
 -- Top Client Problems: (% of clients for whom problems were identified and documented. R=23 (59%))
 select 'Top Client Problems: (% of clients for whom problems were identified and documented. R='||
           portion||'  ('||cast(round(portion*100./total) as int)||'%))'
