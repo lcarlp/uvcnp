@@ -904,7 +904,7 @@ select 'No data:  '||cast(round(portion*100./total) as int)||'%'
              , sum(case when hospital_used = '' then 1 else 0 end) as portion
           from aag1_client)
  where portion > 0;
-
+/******
 select '';
 -- Top Client Problems: (% of clients for whom problems were identified and documented. R=23 (59%))
 select 'Top Client Problems: (% of clients for whom problems were identified and documented. R='||
@@ -962,13 +962,49 @@ select 100+rank||'01'||100+i
   join aag1_intervene5
  using (name);
 select text from aag1_temp1 order by sort_key;
-
--- Nurse-Reported Functional Health Assessment - Reported at every interval visit
+******/
+select '';
+select 'Nurse-Reported Functional Health Assessment - Reported at every interval visit';
 --     •	Physical Condition:  Declined:  15%    Unchanged:  73%    Improved:  12%
 --     •	Emotional Status:    Declined:  18%    Unchanged:  70%    Improved:  12%
 --     •	Cognitive Status:      Declined:  4%      Unchanged:  96%    Improved:  0.4%
 --     •	Had a Fall Since Last Visit?:        Yes:  7%    No:  93%
 --     •	Hospitalized Since Last Visit?:    Yes:  7%    No:  93%
+select 'Physical Condition:'||
+          (select '  Declined: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where phys_cond_nursescale=1)||
+          (select '  Unchanged: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where phys_cond_nursescale=2)||
+          (select '  Improved: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where phys_cond_nursescale=3)||
+          (select '  Blank: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where phys_cond_nursescale not in(1,2,3))
+  from (select count(*) as total from aag1_encounter1);
+
+select 'Emotional Status:'||
+          (select '  Declined: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where emot_stat_nursescale=1)||
+          (select '  Unchanged: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where emot_stat_nursescale=2)||
+          (select '  Improved: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where emot_stat_nursescale=3)||
+          (select '  Blank: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where emot_stat_nursescale not in(1,2,3))
+  from (select count(*) as total from aag1_encounter1);          
+
+select 'Cognitive Status:'||
+          (select '  Declined: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where cog_stat_nursescale=1)||
+          (select '  Unchanged: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where cog_stat_nursescale=2)||
+          (select '  Improved: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where cog_stat_nursescale=3)||
+          (select '  Blank: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where cog_stat_nursescale not in(1,2,3))
+  from (select count(*) as total from aag1_encounter1);          
+
+select 'Had a Fall Since Last Visit?:'||
+          (select '  Yes: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where fall_sincelast=1)||
+          (select '  No: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where fall_sincelast=0)||
+          (select '  Blank: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where fall_sincelast not in(0,1))
+  from (select count(*) as total from aag1_encounter1);          
+
+select 'Hospitalized Since Last Visit?:'||
+          (select '  Yes: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where hospit_since_last=1)||
+          (select '  No: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where hospit_since_last=0)||
+          (select '  Blank: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where hospit_since_last not in(0,1))
+  from (select count(*) as total from aag1_encounter1);          
+
+
+
 
 -- Reason for Discharge  (R=7)
 --     •	Moved away from service area     43%
