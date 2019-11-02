@@ -378,6 +378,14 @@ select ( select count(*) from aag1_problem_percent2 where sort_key >= this.sort_
 -- aag1_problem_percent2.
 ;
 
+drop view if exists aag1_intervene_encounter;
+create view aag1_intervene_encounter as
+select *
+  from aag1
+  join aag_date_range d
+    on today_date_v2 between d.first and d.last
+ where redcap_repeat_instrument = 'interval_contacts';
+
 drop view if exists aag1_intervene1;
 create view aag1_intervene1 as
 select record_id
@@ -420,10 +428,7 @@ select record_id
        house_fina_food_interv___7 +
        house_fina_food_interv___8 +
        house_fina_food_interv___9 as house_fina_food_interv
-  from aag1
-  join aag_date_range d
-    on today_date_v2 between d.first and d.last
- where redcap_repeat_instrument = 'interval_contacts';
+  from aag1_intervene_encounter;
 
 drop view if exists aag1_intervene_all;
 create view aag1_intervene_all as
@@ -491,6 +496,56 @@ select ( select count(*) from aag1_intervene4 where sort_key >= this.sort_key ) 
      , percentage
      , label
   from aag1_intervene4 this;
+
+drop view if exists aag1_intervene_sub1;
+create view aag1_intervene_sub1 as
+select 'pcp_for_v2' name, 1 i, count(*) value, 'For Symptom Management' label from aag1_intervene_encounter where pcp_for_v2___1=1 union all
+select 'pcp_for_v2', 2, count(*), 'To be seen' from aag1_intervene_encounter where pcp_for_v2___2=1 union all
+select 'pcp_for_v2', 3, count(*), 'Medication or care clarification' from aag1_intervene_encounter where pcp_for_v2___3=1 union all
+select 'pcp_for_v2', 4, count(*), 'Worsening condition' from aag1_intervene_encounter where pcp_for_v2___4=1 union all
+select 'pcp_for_v2', 5, count(*), 'Discuss referral to VNA, Hospice,  PT' from aag1_intervene_encounter where pcp_for_v2___5=1 union all
+select 'pcp_for_v2', 6, count(*), 'Other' from aag1_intervene_encounter where pcp_for_v2___6=1 union all
+select 'med_interv', 1, count(*), 'Educate re medications and how to take them' from aag1_intervene_encounter where med_interv___1=1 union all
+select 'med_interv', 2, count(*), 'Fill pill box(es)' from aag1_intervene_encounter where med_interv___2=1 union all
+select 'med_interv', 3, count(*), 'Help to obtain medications' from aag1_intervene_encounter where med_interv___3=1 union all
+select 'med_interv', 4, count(*), 'Monitor medication adherence' from aag1_intervene_encounter where med_interv___4=1 union all
+select 'med_interv', 5, count(*), 'Change in medications' from aag1_intervene_encounter where med_interv___5=1 union all
+select 'med_interv', 6, count(*), 'Other' from aag1_intervene_encounter where med_interv___6=1 union all
+select 'sympt_interv', 1, count(*), 'Teach re symptom management and monitor symptoms over time' from aag1_intervene_encounter where sympt_interv___1=1 union all
+select 'sympt_interv', 2, count(*), 'Reassure client and make recommendations re anxiety, depression, sleep, and mental health concerns' from aag1_intervene_encounter where sympt_interv___2=1 union all
+select 'sympt_interv', 3, count(*), 'Instruct and reassure re: what to do if s/he needs emergency help' from aag1_intervene_encounter where sympt_interv___3=1 union all
+select 'sympt_interv', 4, count(*), 'Give/ recommend and discuss educational materials re: health maintenance, medical conditions, and related resources' from aag1_intervene_encounter where sympt_interv___4=1 union all
+select 'sympt_interv', 5, count(*), 'Monitor BP, heart rate, SOB, weight, blood sugar level, pulse, oxygen, hydration' from aag1_intervene_encounter where sympt_interv___5=1 union all
+select 'sympt_interv', 6, count(*), 'Other' from aag1_intervene_encounter where sympt_interv___6=1 union all
+select 'mob_interv', 1, count(*), 'Teach client self-care r/t incontinence, bowel problems, dressing and hygiene' from aag1_intervene_encounter where mob_interv___1=1 union all
+select 'mob_interv', 2, count(*), 'Teach and make recommendations re: mobility, activity, and/or exercise' from aag1_intervene_encounter where mob_interv___2=1 union all
+select 'mob_interv', 3, count(*), 'Obtain durable medical equipment and instruct on usage' from aag1_intervene_encounter where mob_interv___3=1 union all
+select 'mob_interv', 4, count(*), 'Make recommendations to reduce fall risk' from aag1_intervene_encounter where mob_interv___4=1 union all
+select 'mob_interv', 5, count(*), 'Point out and make suggestions re: environmental safety risks' from aag1_intervene_encounter where mob_interv___5=1 union all
+select 'mob_interv', 6, count(*), 'Other' from aag1_intervene_encounter where mob_interv___6=1 union all
+select 'cg_fam_interv', 1, count(*), 'Support family/care giver(s) with family member who is frail or has a cognitive deficit' from aag1_intervene_encounter where cg_fam_interv___1=1 union all
+select 'cg_fam_interv', 2, count(*), 'Facilitate family dialogue re caregiving decisions & strategies' from aag1_intervene_encounter where cg_fam_interv___2=1 union all
+select 'cg_fam_interv', 3, count(*), 'Discuss and plan respite for care giver' from aag1_intervene_encounter where cg_fam_interv___3=1 union all
+select 'cg_fam_interv', 4, count(*), 'Coordinate a care setting transition' from aag1_intervene_encounter where cg_fam_interv___4=1 union all
+select 'cg_fam_interv', 5, count(*), 'Other' from aag1_intervene_encounter where cg_fam_interv___5=1 union all
+select 'house_fina_food_interv', 1, count(*), 'Discuss options for getting help with household tasks (shopping, cleaning, food prep, house repairs)' from aag1_intervene_encounter where house_fina_food_interv___1=1 union all
+select 'house_fina_food_interv', 2, count(*), 'Suggest or arrange socialization opportunities' from aag1_intervene_encounter where house_fina_food_interv___2=1 union all
+select 'house_fina_food_interv', 3, count(*), 'Identify resources for help with transportation' from aag1_intervene_encounter where house_fina_food_interv___3=1 union all
+select 'house_fina_food_interv', 4, count(*), 'Address food insecurity' from aag1_intervene_encounter where house_fina_food_interv___4=1 union all
+select 'house_fina_food_interv', 5, count(*), 'Address housing inadequacy' from aag1_intervene_encounter where house_fina_food_interv___5=1 union all
+select 'house_fina_food_interv', 6, count(*), 'Facilitate getting help for finances, legal documents, taxes' from aag1_intervene_encounter where house_fina_food_interv___6=1 union all
+select 'house_fina_food_interv', 7, count(*), 'Initiate advance planning discussions and document completion' from aag1_intervene_encounter where house_fina_food_interv___7=1 union all
+select 'house_fina_food_interv', 8, count(*), 'Advise re immunizations' from aag1_intervene_encounter where house_fina_food_interv___8=1 union all
+select 'house_fina_food_interv', 9, count(*), 'Other' from aag1_intervene_encounter where house_fina_food_interv___9=1;
+
+drop view if exists aag1_intervene_sub2;
+create view aag1_intervene_sub2 as
+select name, sub1.i, sub1.value, sub1.label
+     , cast(round(100.*sub1.value/a.value) as int) percentage
+  from aag1_intervene_sub1 sub1
+  join aag1_intervene2 a
+ using (name);
+
 
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
@@ -871,9 +926,6 @@ order by rank;
 
 select '';
 select 'Top Nurse interventions:   (% of client visits in which nursing interventions were performed and documented.)';
-select rank||'. '||label||'  '||percentage||'%'
-  from aag1_intervene5
- order by rank;
 --     •	Medication reconciliation, education and management coaching   33%
 -- [Educate re medications and how to take them (21%), Fill pill box(es) (29%), Help to obtain medications (20%), Monitor medication adherence (69%), Assist with change in medications (9%)]
 
@@ -890,7 +942,21 @@ select rank||'. '||label||'  '||percentage||'%'
 -- [Support family/care giver(s) with family member who is frail or has a cognitive deficit (6%), Facilitate family dialogue re caregiving decisions & strategies (56%), Discuss and plan respite for caregiver (0.0%), Coordinate a care setting transition (31%), Other (13%)]
 --     •	Address ADLs & mobility-related support    7%
 -- [Teach client self-care r/t incontinence, bowel problems, dressing and hygiene (10%), Teach and make recommendations re: mobility, activity, and/or exercise (38%), Obtain durable medical equipment and instruct on usage (10%), Make recommendations to reduce fall risk (14%), Point out and make suggestions re: environmental safety risks (5%), Other ( 33%)]
+-- We could use a view for this instead of a temporary table, but this seems a little easier to understand
+-- and probably performs better.
+drop table if exists aag1_temp1;
+create table aag1_temp1 as
+select 100+rank||'00000' sort_key
+     , rank||'. '||label||'  '||percentage||'%' as text
+  from aag1_intervene5;
 
+insert into aag1_temp1
+select 100+rank||'01'||100+i
+     , '    '||sub2.label||'('||sub2.percentage||'%)'
+  from aag1_intervene_sub2 sub2
+  join aag1_intervene5
+ using (name);
+select text from aag1_temp1 order by sort_key;
 
 -- Nurse-Reported Functional Health Assessment - Reported at every interval visit
 --     •	Physical Condition:  Declined:  15%    Unchanged:  73%    Improved:  12%
