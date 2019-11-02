@@ -235,147 +235,126 @@ drop view if exists aag1_problem_percent1;
 create view aag1_problem_percent1 as
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Frequent ED visits/EMS calls' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where ed_visits > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Not taking medications correctly' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where incorrect_meds > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Ineffective enactment of therapeutic recommendations' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where ineff_ther > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Symptom(s) not well controlled' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where sympt_manag > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Frailty' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where frailty > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Impaired cognitive functioning' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where impair_cog > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Mental Health or Substance Abuse Issue' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where ment_heal > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Self-care deficit in performing ADLs' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where self_care_prob_list > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Impaired Mobility' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where imp_phys_mob > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'High Fall Risk' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where fall > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Difficulty living at home' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where stay_home > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Problems with bills, insurance etc.' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where prob_bills > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Anticipated stressful transition to another level of care' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where stress_trans > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Incomplete end of life planning' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where incom_acp > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Other problems' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where other_prob_list > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Social isolation' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where sdoh_iso > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Poor Nutrition' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where nutr_poor > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Deficient Housing' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where hous_def > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Lack of Transportation' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where sdoh_transp > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Financial struggles' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where sdoh_finance > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
      , 'Other social' label
-     , count(*) c
   from aag1_problem
   join aag1_has_problems
  where sdoh_other_2 > 0;
@@ -385,7 +364,6 @@ create view aag1_problem_percent2 as
 select (100 + percentage)||label as sort_key
      , percentage
      , label||substr('                    ',1,min(length(label),20-length(label))) as label
-     , c
   from aag1_problem_percent1
  where percentage > 0;
 
@@ -394,7 +372,6 @@ create view aag1_problem_percent as
 select ( select count(*) from aag1_problem_percent2 where sort_key >= this.sort_key ) rank
      , percentage
      , label
-     , c
   from aag1_problem_percent2 this
 -- This view is pretty slow to query.  If it gets too slow with more data,
 -- it would probably help to use a temporary table for the output from 
