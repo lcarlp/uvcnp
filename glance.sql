@@ -378,6 +378,122 @@ select ( select count(*) from aag1_problem_percent2 where sort_key >= this.sort_
 -- aag1_problem_percent2.
 ;
 
+drop view if exists aag1_intervene1;
+create view aag1_intervene1 as
+select record_id
+     , redcap_repeat_instance
+     , pcp_for_v2___1 +
+       pcp_for_v2___2 +
+       pcp_for_v2___3 +
+       pcp_for_v2___4 +
+       pcp_for_v2___5 +
+       pcp_for_v2___6 as pcp_for_v2
+     , med_interv___1 +
+       med_interv___2 +
+       med_interv___3 +
+       med_interv___4 +
+       med_interv___5 +
+       med_interv___6 as med_interv
+     , sympt_interv___1 +
+       sympt_interv___2 +
+       sympt_interv___3 +
+       sympt_interv___4 +
+       sympt_interv___5 +
+       sympt_interv___6 as sympt_interv
+     , mob_interv___1 +
+       mob_interv___2 +
+       mob_interv___3 +
+       mob_interv___4 +
+       mob_interv___5 +
+       mob_interv___6 as mob_interv
+     , cg_fam_interv___1 +
+       cg_fam_interv___2 +
+       cg_fam_interv___3 +
+       cg_fam_interv___4 +
+       cg_fam_interv___5 as cg_fam_interv
+     , house_fina_food_interv___1 +
+       house_fina_food_interv___2 +
+       house_fina_food_interv___3 +
+       house_fina_food_interv___4 +
+       house_fina_food_interv___5 +
+       house_fina_food_interv___6 +
+       house_fina_food_interv___7 +
+       house_fina_food_interv___8 +
+       house_fina_food_interv___9 as house_fina_food_interv
+  from aag1
+  join aag_date_range d
+    on today_date_v2 between d.first and d.last
+ where redcap_repeat_instrument = 'interval_contacts';
+
+drop view if exists aag1_intervene_all;
+create view aag1_intervene_all as
+select record_id
+     , redcap_repeat_instance
+     , pcp_for_v2 + med_interv + sympt_interv + mob_interv + 
+            cg_fam_interv + house_fina_food_interv as interv_sum
+     , pcp_for_v2 || med_interv || sympt_interv || mob_interv || 
+            cg_fam_interv || house_fina_food_interv as interv
+  from aag1_intervene1;
+
+drop view if exists aag1_intervene2;
+create view aag1_intervene2 as
+select 'pcp_for_v2' name, sum(case when pcp_for_v2 > 0 then 1 else 0 end) value, count(*) total
+  from aag1_intervene1
+union all
+select 'med_interv', sum(case when med_interv> 0 then 1 else 0 end), count(*)
+  from aag1_intervene1
+union all
+select 'sympt_interv', sum(case when sympt_interv > 0 then 1 else 0 end), count(*)
+  from aag1_intervene1
+union all
+select 'mob_interv', sum(case when mob_interv > 0 then 1 else 0 end), count(*)
+  from aag1_intervene1
+union all
+select 'cg_fam_interv', sum(case when cg_fam_interv > 0 then 1 else 0 end), count(*)
+  from aag1_intervene1
+union all
+select 'house_fina_food_interv', sum(case when house_fina_food_interv > 0 then 1 else 0 end), count(*)
+  from aag1_intervene1;
+
+drop view if exists aag1_intervene_label;
+create view aag1_intervene_label as
+select 'pcp_for_v2' name,'Care coordination & clarification with providers' label union all
+select 'med_interv','Medication reconciliation, education and management coaching' union all
+select 'sympt_interv','Symptom management - assessment & education' union all
+select 'mob_interv','Address ADLs & mobility-related support' union all
+select 'cg_fam_interv','Family and caregiver support' union all
+select 'house_fina_food_interv','Address other support services';
+
+drop view if exists aag1_intervene3;
+create view aag1_intervene3 as
+select name
+     , value
+     , cast(round(value*100./total) as int) percentage
+     , label
+  from aag1_intervene2
+  join aag1_intervene_label
+ using (name);
+
+drop view if exists aag1_intervene4;
+create view aag1_intervene4 as
+select name
+     , value
+     , percentage
+     , label
+     , (100 + percentage)||name as sort_key
+  from aag1_intervene3;
+
+drop view if exists aag1_intervene5;
+create view aag1_intervene5 as
+select ( select count(*) from aag1_intervene4 where sort_key >= this.sort_key ) rank
+     , name
+     , value
+     , percentage
+     , label
+  from aag1_intervene4 this;
+
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
 
 -- See comments after .mode & .width
 .mode column
@@ -753,7 +869,11 @@ select '    '||rank||'. '||label||'  '||percentage||'%'
 order by rank;
 
 
--- Top Nurse interventions:   (% of client visits in which nursing interventions were performed and documented.)
+select '';
+select 'Top Nurse interventions:   (% of client visits in which nursing interventions were performed and documented.)';
+select rank||'. '||label||'  '||percentage||'%'
+  from aag1_intervene5
+ order by rank;
 --     •	Medication reconciliation, education and management coaching   33%
 -- [Educate re medications and how to take them (21%), Fill pill box(es) (29%), Help to obtain medications (20%), Monitor medication adherence (69%), Assist with change in medications (9%)]
 
