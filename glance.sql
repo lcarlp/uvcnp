@@ -604,6 +604,84 @@ select ( select count(*) from aag1_discharge_reason2 where sort_key >= this.sort
   from aag1_discharge_reason2 this;
 
 
+drop view if exists aag1_6month;
+create view aag1_6month as
+select *
+  from aag1
+  join aag_date_range d
+    on date_sixmonth between d.first and d.last
+ where redcap_repeat_instrument = 'month_report';
+
+drop view if exists aag1_discharge_outcome1;
+create view aag1_discharge_outcome1 as
+select 'Prevented medication-related, adverse outcomes or ineffective therapeutic effect' label
+     ,  cast(round(portion*100./total) as int) percentage
+  from (select count(*) as total
+             , sum(case when nurse_report_all___1 = 1 then 1 else 0 end) as portion
+          from aag1_discharge)
+union all
+select 'Helped client and/or family to be less anxious about dealing with their situation'
+     ,  cast(round(portion*100./total) as int)
+  from (select count(*) as total
+             , sum(case when nurse_report_all___2 = 1 then 1 else 0 end) as portion
+          from aag1_discharge)
+union all
+select 'Helped improve client''s management of illness symptoms'
+     ,  cast(round(portion*100./total) as int)
+  from (select count(*) as total
+             , sum(case when nurse_report_all___3 = 1 then 1 else 0 end) as portion
+          from aag1_discharge)
+union all
+select 'Prevented Emergency Call, ED Visit, or Re-hospitalization'
+     ,  cast(round(portion*100./total) as int)
+  from (select count(*) as total
+             , sum(case when nurse_report_all___4 = 1 then 1 else 0 end) as portion
+          from aag1_discharge)
+union all
+select 'Improved client''s functioning in daily life'
+     ,  cast(round(portion*100./total) as int)
+  from (select count(*) as total
+             , sum(case when nurse_report_all___5 = 1 then 1 else 0 end) as portion
+          from aag1_discharge)
+union all
+select 'Enabled client to continue living in home for at least 6 months'
+     ,  cast(round(portion*100./total) as int)
+  from (select count(*) as total
+             , sum(case when nurse_report_all___6 = 1 then 1 else 0 end) as portion
+          from aag1_discharge)
+union all
+select 'Other'
+     ,  cast(round(portion*100./total) as int)
+  from (select count(*) as total
+             , sum(case when nurse_report_all___7 = 1 then 1 else 0 end) as portion
+          from aag1_discharge)     
+union all
+select 'Missing data'
+     ,  cast(round(portion*100./total) as int)
+  from (select count(*) as total
+             , sum(case 
+                    when 1 in(nurse_report_all___1,nurse_report_all___2,nurse_report_all___3,
+                              nurse_report_all___4,nurse_report_all___5,nurse_report_all___6,
+                              nurse_report_all___7) then 0
+                    else 1
+                   end) as portion
+          from aag1_discharge);          
+
+drop view if exists aag1_discharge_outcome2;
+create view aag1_discharge_outcome2 as
+select (100 + percentage)||label as sort_key
+     , label
+     , percentage
+  from aag1_discharge_outcome1;
+  
+drop view if exists aag1_discharge_outcome;
+create view aag1_discharge_outcome as
+select ( select count(*) from aag1_discharge_outcome2 where sort_key >= this.sort_key ) rank
+     , label
+     , percentage
+  from aag1_discharge_outcome2 this;
+  
+
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
@@ -623,7 +701,8 @@ select '';
 select 'Upper Valley Community Nursing Project';
 select 'Hanover Community Nurse'; 
 select first_day||' '||first_month||' '||first_year||' - ' ||
-         last_day||' '||last_month||' '||last_year from aag1_dates;
+         last_day||' '||last_month||' '||last_year 
+  from aag1_dates;
 select 'At A Glance';
 select '';
 select '';
@@ -1073,7 +1152,9 @@ select '   '||rank||'.  '||label||'  '||percentage||'%'
 
 select '';
 -- Nurse-Reported Outcomes - Reported at 6-months or Discharge: (% of clients who were discharged or had a 6-month assessment and were documented. R=7)
-
+select 'Nurse-Reported Outcomes - Reported at 6-months or Discharge:'||
+         ' (% of clients who were discharged or had a 6-month assessment and were documented. R='||count(*)
+  from aag1_discharge;
 --     •	Helped client and/or family to be less anxious about dealing with their situation     71%
 --     •	Enabled client to continue living in home for at least 6 months	14%
 --     •	Helped improve client’s management of illness symptoms	     0%
@@ -1081,16 +1162,32 @@ select '';
 --     •	Prevented medication-related, adverse outcomes or ineffective therapeutic effect	0%
 --     •	Prevented Emergency Call, ED Visit, or Re-hospitalization	0%
 --     •	Other	29%
+select '  '||rank||'.  '||label||'  '||percentage||'%'
+  from aag1_discharge_outcome
+ order by rank;
+select '';
+select '✯ ✯ ✯';
 
--- ✯ ✯ ✯
-
--- Clarifications:
---     •	The Client Problems, Nurse Interventions, and Nurse-Reported Outcomes in this report are based on information entered into the Upper Valley Community Nurse Project’s Electronic Documentation System used by your community/parish nurse. Importantly, Client Problems do not represent the prevalence of these conditions in the larger community; rather, they profile the clients served by your community or parish nurse.
-
---     •	The data reported here is based upon UVCNP Electronic Documentation Project input from October 15, 2018 to July 11, 2019 (38 weeks). Utilization of the system to document client care (40-60% of clients for most forms) affects the data analysis and reported findings cannot be generalized to the nurse’s entire client list. We expect the relevance and accuracy of the data to improve over time as the nurses gain experience and efficiency in using the documentation system and utilization of the EDS increases.
-
---     •	Every client does not necessarily need or receive a comprehensive assessment. Problems, Interventions and Nurse-reported Outcomes are not done or documented for every client. Therefore, these reported findings represent the percentage of clients for whom Problems, Interventions and Outcomes were assessed and documented, not the percentage of ALL clients. Like the other findings, this data cannot be generalized to ALL clients enrolled in your Community or Parish Nurse program.
-
--- ✯ ✯ ✯ ✯
+select '';
+select 'Clarifications:';
+select '     •	The Client Problems, Nurse Interventions, and Nurse-Reported Outcomes in this report are based on information entered into the 
+Upper Valley Community Nurse Project’s Electronic Documentation System used by your community/parish nurse. 
+Importantly, Client Problems do not represent the prevalence of these conditions in the larger community; rather, they profile the clients served 
+by your community or parish nurse.';
+select '';
+select '     •	The data reported here is based upon UVCNP Electronic Documentation Project input from '||
+        first_month||' '||first_day||', '||first_year||' - ' ||last_month||' '||last_day||', '||last_year||
+        ' ('||weeks||' weeks).  Utilization of the system to document client care (40-60% of clients for most forms)'||
+        ' affects the data analysis and reported findings cannot be generalized to the nurse’s entire client list.'||
+        ' We expect the relevance and accuracy of the data to improve over time as the nurses gain experience and'||
+        ' efficiency in using the documentation system and utilization of the EDS increases.';
+select '';
+select '     •	Every client does not necessarily need or receive a comprehensive assessment. Problems, Interventions'||
+        ' and Nurse-reported Outcomes are not done or documented for every client. Therefore, these reported findings'||
+        ' represent the percentage of clients for whom Problems, Interventions and Outcomes were assessed and documented,'||
+        ' not the percentage of ALL clients. Like the other findings, this data cannot be generalized to ALL clients'||
+        ' enrolled in your Community or Parish Nurse program.';
+select '';
+select '✯ ✯ ✯ *';
 -- Go back to list mode, because it is more convenient for routine queries/debugging etc.
 .mode list
