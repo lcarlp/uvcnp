@@ -1170,24 +1170,27 @@ select '✯ ✯ ✯';
 
 select '';
 select 'Clarifications:';
-select '     •	The Client Problems, Nurse Interventions, and Nurse-Reported Outcomes in this report are based on information entered into the 
-Upper Valley Community Nurse Project’s Electronic Documentation System used by your community/parish nurse. 
-Importantly, Client Problems do not represent the prevalence of these conditions in the larger community; rather, they profile the clients served 
-by your community or parish nurse.';
+select '     •	The Client Problems, Nurse Interventions, and Nurse-Reported Outcomes in this report are based on';
+select '        information entered into the Upper Valley Community Nurse Project’s Electronic Documentation';
+select '        System used by your community/parish nurse. Importantly, Client Problems do not represent the';
+select '        prevalence of these conditions in the larger community; rather, they profile the clients served by';
+select '        your community or parish nurse.';
 select '';
-select '     •	The data reported here is based upon UVCNP Electronic Documentation Project input from '||
-        first_month||' '||first_day||', '||first_year||' - ' ||last_month||' '||last_day||', '||last_year||
-        ' ('||weeks||' weeks).  Utilization of the system to document client care (40-60% of clients for most forms)'||
-        ' affects the data analysis and reported findings cannot be generalized to the nurse’s entire client list.'||
-        ' We expect the relevance and accuracy of the data to improve over time as the nurses gain experience and'||
-        ' efficiency in using the documentation system and utilization of the EDS increases.';
+select '     •	The data reported here is based upon UVCNP Electronic Documentation Project input from';
+select '        '||first_month||' '||first_day||', '||first_year||' - ' ||last_month||' '||last_day||', '||last_year||
+        ' ('||cast(round(weeks) as int)||' weeks).  Utilization of the system to document client care (40-60% of '
+  from aag1_dates;      
+select '        clients for most forms) affects the data analysis and reported findings cannot be generalized to the';
+select '        nurse’s entire client list.  We expect the relevance and accuracy of the data to improve over time as';
+select '        the nurses gain experience and efficiency in using the documentation system and utilization of the ';
+select '        EDS increases.';
 select '';
-select '     •	Every client does not necessarily need or receive a comprehensive assessment. Problems, Interventions'||
-        ' and Nurse-reported Outcomes are not done or documented for every client. Therefore, these reported findings'||
-        ' represent the percentage of clients for whom Problems, Interventions and Outcomes were assessed and documented,'||
-        ' not the percentage of ALL clients. Like the other findings, this data cannot be generalized to ALL clients'||
-        ' enrolled in your Community or Parish Nurse program.';
+select '     •	Every client does not necessarily need or receive a comprehensive assessment. Problems,';
+select '        Interventions and Nurse-reported Outcomes are not done or documented for every client. Therefore,';
+select '        these reported findings represent the percentage of clients for whom Problems, Interventions and';
+select '        Outcomes were assessed and documented, not the percentage of ALL clients. Like the other findings,';
+select '        this data cannot be generalized to ALL clients enrolled in your Community or Parish Nurse program.';
 select '';
-select '✯ ✯ ✯ *';
+select '✯ ✯ ✯ ✯';
 -- Go back to list mode, because it is more convenient for routine queries/debugging etc.
 .mode list
