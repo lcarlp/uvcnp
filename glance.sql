@@ -552,6 +552,62 @@ select name, sub1.i, sub1.value, sub1.label
  using (name);
 
 
+drop view if exists aag1_discharge;
+create view aag1_discharge as
+select *
+  from aag1
+  join aag_date_range d
+    on coalesce(date_today_dis,d.last) between d.first and d.last
+ where redcap_repeat_instrument = 'discharge_report'
+ -- The date should be required, but it is not.
+ ;
+
+1, Services no longer needed | 2, Services not wanted | 3, Death | 4, Moved away from Service Area | 5, Other
+
+drop view if exists aag1_discharge_reason1;
+create view aag1_discharge_reason1 as
+select 'Services no longer needed' label
+     , cast(round(sum(case when reason_disch=1 then 1 else 0 end)*100./count(*)) as int) percentage
+  from aag1_discharge
+union all
+select 'Services not wanted' label
+     , cast(round(sum(case when reason_disch=2 then 1 else 0 end)*100./count(*)) as int)
+  from aag1_discharge
+union all
+select 'Death' label
+     , cast(round(sum(case when reason_disch=3 then 1 else 0 end)*100./count(*)) as int)
+  from aag1_discharge
+union all
+select 'Moved away from Service Area' label
+     , cast(round(sum(case when reason_disch=4 then 1 else 0 end)*100./count(*)) as int)
+  from aag1_discharge
+union all
+select 'Other' label
+     , cast(round(sum(case when reason_disch=5 then 1 else 0 end)*100./count(*)) as int)
+  from aag1_discharge
+union all
+select 'Blank' label
+     , cast(round(sum(case when reason_disch in(1,2,3,4,5) then 0 else 1 end)*100./count(*)) as int)
+  from aag1_discharge;
+
+drop view if exists aag1_discharge_reason2;
+create view aag1_discharge_reason2 as
+select (100+percentage)||label sort_key
+     , label
+     , percentage
+  from aag1_discharge_reason1
+ where percentage > 0;
+
+drop view if exists aag1_discharge_reason;
+create view aag1_discharge_reason as
+select ( select count(*) from aag1_discharge_reason2 where sort_key >= this.sort_key ) rank
+     , label
+     , percentage
+  from aag1_discharge_reason2 this;
+
+
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
 
@@ -951,12 +1007,12 @@ select 'Top Nurse interventions:   (% of client visits in which nursing interven
 -- and probably performs better.
 drop table if exists aag1_temp1;
 create table aag1_temp1 as
-select 100+rank||'00000' sort_key
+select (100+rank)||'00000' sort_key
      , rank||'. '||label||'  '||percentage||'%' as text
   from aag1_intervene5;
 
 insert into aag1_temp1
-select 100+rank||'01'||100+i
+select (100+rank)||'01'||100+i
      , '    '||sub2.label||'('||sub2.percentage||'%)'
   from aag1_intervene_sub2 sub2
   join aag1_intervene5
@@ -1004,14 +1060,22 @@ select 'Hospitalized Since Last Visit?:'||
   from (select count(*) as total from aag1_encounter1);          
 
 
-
-
+select '';
 -- Reason for Discharge  (R=7)
+select 'Reason for Discharge  (R='||count(*)||')'
+  from aag1_discharge;
 --     •	Moved away from service area     43%
 --     •	Death	     29%
 --     •	Services no longer needed	29%
 --     •	Services not wanted	0%
+select '   '||rank||'.  '||label||'  '||percentage||'%'
+  from aag1_discharge_reason
+ order by rank; 
+
+
+select '';
 -- Nurse-Reported Outcomes - Reported at 6-months or Discharge: (% of clients who were discharged or had a 6-month assessment and were documented. R=7)
+
 --     •	Helped client and/or family to be less anxious about dealing with their situation     71%
 --     •	Enabled client to continue living in home for at least 6 months	14%
 --     •	Helped improve client’s management of illness symptoms	     0%
