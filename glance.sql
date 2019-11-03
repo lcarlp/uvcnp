@@ -562,8 +562,6 @@ select *
  -- The date should be required, but it is not.
  ;
 
-1, Services no longer needed | 2, Services not wanted | 3, Death | 4, Moved away from Service Area | 5, Other
-
 drop view if exists aag1_discharge_reason1;
 create view aag1_discharge_reason1 as
 select 'Services no longer needed' label
