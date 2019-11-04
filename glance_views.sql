@@ -578,6 +578,17 @@ select *
  -- The date should be required, but it is not.
  ;
 
+drop view if exists aag1_month_report;
+create view aag1_month_report as
+select *
+  from aag1
+  join aag_date_range d
+    on coalesce(date_sixmonth,d.last) between d.first and d.last
+    or date_sixmonth = ''
+ where redcap_repeat_instrument = 'month_report'
+ ;
+
+
 drop view if exists aag1_discharge_reason1;
 create view aag1_discharge_reason1 as
 select 'Services no longer needed' label
