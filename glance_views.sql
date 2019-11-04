@@ -1,5 +1,7 @@
 -- Views used by the "At A Glance" (AAG) report.
 
+-- Review uses of coalesce.  Missing dates are '', not null.
+
 drop view if exists aag1;
 create view aag1 as
 select * from all1
@@ -571,6 +573,7 @@ select *
   from aag1
   join aag_date_range d
     on coalesce(date_today_dis,d.last) between d.first and d.last
+    or date_today_dis = ''
  where redcap_repeat_instrument = 'discharge_report'
  -- The date should be required, but it is not.
  ;
@@ -673,9 +676,9 @@ select 'Missing data'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
              , sum(case 
-                    when 1 in(nurse_report_all___1,nurse_report_all___2,nurse_report_all___3,
-                              nurse_report_all___4,nurse_report_all___5,nurse_report_all___6,
-                              nurse_report_all___7) then 0
+                    when nurse_report_all___1 + nurse_report_all___2 + nurse_report_all___3 + 
+                              nurse_report_all___4 + nurse_report_all___5 + nurse_report_all___6 + 
+                              nurse_report_all___7 > 0 then 0
                     else 1
                    end) as portion
           from aag1_discharge);          
@@ -685,7 +688,8 @@ create view aag1_discharge_outcome2 as
 select (100 + percentage)||label as sort_key
      , label
      , percentage
-  from aag1_discharge_outcome1;
+  from aag1_discharge_outcome1
+ where percentage > 0;
   
 drop view if exists aag1_discharge_outcome;
 create view aag1_discharge_outcome as
