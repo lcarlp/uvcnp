@@ -152,6 +152,22 @@ select record_id
   join aag_date_range d
  where e.encounter_date between d.first and d.last;
 
+
+drop view if exists month;
+create view month(number,name) as 
+select 1,'January' union all
+select 2,'February' union all
+select 3,'March' union all
+select 4,'April' union all
+select 5,'May' union all
+select 6,'June' union all
+select 7,'July' union all
+select 8,'August' union all
+select 9,'September' union all
+select 10,'October' union all
+select 11,'November' union all
+select 12,'December';
+
 drop view if exists aag1_dates;
 create view aag1_dates as
 select first
@@ -165,9 +181,9 @@ select first
      , strftime('%Y',d.last) last_year     
   from aag_date_range as d
   join month as first_month
-    on first_month.number = strftime('%m',d.first)
+    on first_month.number = cast(strftime('%m',d.first) as int)
   join month as last_month
-    on last_month.number = strftime('%m',d.last);
+    on last_month.number = cast(strftime('%m',d.last) as int);
 
 drop view if exists aag1_problem1;
 create view aag1_problem1 as
