@@ -481,7 +481,7 @@ select 'Nurse-Reported Outcomes - Reported at 6-months or Discharge:'||
 --     •	Prevented Emergency Call, ED Visit, or Re-hospitalization	0%
 --     •	Other	29%
 select '  '||rank||'.  '||label||'  '||percentage||'%'
-  from aag1_discharge_outcome
+  from aag1_outcome
  order by rank;
 select '';
 select '✯ ✯ ✯';

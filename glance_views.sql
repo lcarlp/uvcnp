@@ -578,16 +578,6 @@ select *
  -- The date should be required, but it is not.
  ;
 
-drop view if exists aag1_month_report;
-create view aag1_month_report as
-select *
-  from aag1
-  join aag_date_range d
-    on coalesce(date_sixmonth,d.last) between d.first and d.last
-    or date_sixmonth = ''
- where redcap_repeat_instrument = 'month_report'
- ;
-
 
 drop view if exists aag1_discharge_reason1;
 create view aag1_discharge_reason1 as
@@ -636,78 +626,122 @@ create view aag1_6month as
 select *
   from aag1
   join aag_date_range d
-    on date_sixmonth between d.first and d.last
+    on coalesce(date_sixmonth,d.last) between d.first and d.last
+    or date_sixmonth = ''
  where redcap_repeat_instrument = 'month_report';
 
-drop view if exists aag1_discharge_outcome1;
-create view aag1_discharge_outcome1 as
+drop view if exists aag_outcome1;
+create view aag_outcome1 as 
+select record_id
+     , redcap_repeat_instrument
+     , redcap_repeat_instance
+     , nurse_out_6_mont___1 as outcome_1
+     , nurse_out_6_mont___2 as outcome_2
+     , nurse_out_6_mont___3 as outcome_3
+     , nurse_out_6_mont___4 as outcome_4
+     , nurse_out_6_mont___5 as outcome_5
+     , nurse_out_6_mont___6 as outcome_6
+     , nurse_out_6_mont___7 as outcome_7
+     , nurse_out_6_mont___8 as outcome_8
+     , nurse_out_6_mont___9 as outcome_9
+  from aag1_6month
+union all
+select record_id
+     , redcap_repeat_instrument
+     , redcap_repeat_instance
+     , 0 as outcome_1
+     , 0 as outcome_2
+     , nurse_report_all___1 as outcome_3
+     , nurse_report_all___2 as outcome_4
+     , nurse_report_all___3 as outcome_5
+     , nurse_report_all___4 as outcome_6
+     , nurse_report_all___5 as outcome_7
+     , nurse_report_all___6 as outcome_8
+     , nurse_report_all___7 as outcome_9
+  from aag1_discharge;
+
+
+drop view if exists aag1_outcome2;
+create view aag1_outcome2 as
+select 'Decreased risk of falls' label
+     ,  cast(round(portion*100./total) as int) percentage
+  from (select count(*) as total
+             , sum(case when outcome_1 = 1 then 1 else 0 end) as portion
+          from aag_outcome1)
+union all
+select 'Improved cognitive function, less confusion' label
+     ,  cast(round(portion*100./total) as int) percentage
+  from (select count(*) as total
+             , sum(case when outcome_2 = 1 then 1 else 0 end) as portion
+          from aag_outcome1)
+union all
 select 'Prevented medication-related, adverse outcomes or ineffective therapeutic effect' label
      ,  cast(round(portion*100./total) as int) percentage
   from (select count(*) as total
-             , sum(case when nurse_report_all___1 = 1 then 1 else 0 end) as portion
-          from aag1_discharge)
+             , sum(case when outcome_3 = 1 then 1 else 0 end) as portion
+          from aag_outcome1)
 union all
 select 'Helped client and/or family to be less anxious about dealing with their situation'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
-             , sum(case when nurse_report_all___2 = 1 then 1 else 0 end) as portion
-          from aag1_discharge)
+             , sum(case when outcome_4 = 1 then 1 else 0 end) as portion
+          from aag_outcome1)
 union all
 select 'Helped improve client''s management of illness symptoms'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
-             , sum(case when nurse_report_all___3 = 1 then 1 else 0 end) as portion
-          from aag1_discharge)
+             , sum(case when outcome_5 = 1 then 1 else 0 end) as portion
+          from aag_outcome1)
 union all
 select 'Prevented Emergency Call, ED Visit, or Re-hospitalization'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
-             , sum(case when nurse_report_all___4 = 1 then 1 else 0 end) as portion
-          from aag1_discharge)
+             , sum(case when outcome_6 = 1 then 1 else 0 end) as portion
+          from aag_outcome1)
 union all
 select 'Improved client''s functioning in daily life'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
-             , sum(case when nurse_report_all___5 = 1 then 1 else 0 end) as portion
-          from aag1_discharge)
+             , sum(case when outcome_7 = 1 then 1 else 0 end) as portion
+          from aag_outcome1)
 union all
 select 'Enabled client to continue living in home for at least 6 months'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
-             , sum(case when nurse_report_all___6 = 1 then 1 else 0 end) as portion
-          from aag1_discharge)
+             , sum(case when outcome_8 = 1 then 1 else 0 end) as portion
+          from aag_outcome1)
 union all
 select 'Other'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
-             , sum(case when nurse_report_all___7 = 1 then 1 else 0 end) as portion
-          from aag1_discharge)     
+             , sum(case when outcome_9 = 1 then 1 else 0 end) as portion
+          from aag_outcome1)     
 union all
 select 'Missing data'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
              , sum(case 
-                    when nurse_report_all___1 + nurse_report_all___2 + nurse_report_all___3 + 
-                              nurse_report_all___4 + nurse_report_all___5 + nurse_report_all___6 + 
-                              nurse_report_all___7 > 0 then 0
+                    when outcome_1 + outcome_2 + outcome_3 + 
+                              outcome_4 + outcome_5 + outcome_6 + 
+                              outcome_7 + outcome_8 + outcome_9 > 0 then 0
                     else 1
                    end) as portion
-          from aag1_discharge);          
+          from aag_outcome1);          
 
-drop view if exists aag1_discharge_outcome2;
-create view aag1_discharge_outcome2 as
+drop view if exists aag1_outcome3;
+create view aag1_outcome3 as
 select (100 + percentage)||label as sort_key
      , label
      , percentage
-  from aag1_discharge_outcome1
+  from aag1_outcome2
  where percentage > 0;
   
-drop view if exists aag1_discharge_outcome;
-create view aag1_discharge_outcome as
-select ( select count(*) from aag1_discharge_outcome2 where sort_key >= this.sort_key ) rank
+drop view if exists aag1_outcome;
+create view aag1_outcome as
+select ( select count(*) from aag1_outcome3 where sort_key >= this.sort_key ) rank
      , label
      , percentage
-  from aag1_discharge_outcome2 this;
+  from aag1_outcome3 this;
   
 --- End of views.
 -------------------------------------------------------------------------------------------------------
