@@ -78,9 +78,9 @@ select '   Ethnicity/Cultural Identity:    unk.';
 select '   Live Alone:  unk.';
 
 select '';
-select '   Program Services';
+select 'Program Services';
 -- Nursing hours worked per week (avg.):   #
-select 'Nursing hours worked per week (avg.):   #';
+select '   Nursing hours worked per week (avg.):   #';
 -- Total number of initial contacts/assessments:    19
 select '   Total number of initial contacts/assessments:  '||count(*)
   from aag1_encounter as e
@@ -355,7 +355,7 @@ select '   No data:  '||cast(round(portion*100./total) as int)||'%'
              , sum(case when hospital_used = '' then 1 else 0 end) as portion
           from aag1_client)
  where portion > 0;
-/******
+
 select '';
 -- Top Client Problems: (% of clients for whom problems were identified and documented. R=23 (59%))
 select 'Top Client Problems: (% of clients for whom problems were identified and documented. R='||
@@ -412,8 +412,8 @@ select (100+rank)||'01'||100+i
   from aag1_intervene_sub2 sub2
   join aag1_intervene5
  using (name);
-select text from aag1_temp1 order by sort_key;
-******/
+select text from aag1_temp1 order by cast(sort_key as text);
+
 select '';
 select 'Nurse-Reported Functional Health Assessment - Reported at every interval visit';
 --     •	Physical Condition:  Declined:  15%    Unchanged:  73%    Improved:  12%
