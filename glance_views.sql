@@ -4,7 +4,7 @@
 
 drop view if exists aag1;
 create view aag1 as
-select * from all1
+select * from redcap_export
 join aag_town using (redcap_data_access_group);
 
 drop view if exists aag1_client;
