@@ -17,7 +17,8 @@ select '';
 select '----------------------------------------------------------------------';
 select '';
 select 'Upper Valley Community Nursing Project';
-select 'Hanover Community Nurse'; 
+select town||' Community Nurse'
+  from aag_town;
 select first_day||' '||first_month||' '||first_year||' - ' ||
          last_day||' '||last_month||' '||last_year 
   from aag1_dates;
@@ -25,9 +26,9 @@ select 'At A Glance';
 select '';
 select '';
 
-select 'Town Population:  11,428						(Gov. census estimates 2017)';
-select '   # Residents age 65-74:  588 (5%)		# residents 75 or over:	837 (7%)';
-select 'WHERE DID ABOVE NUMBERS COME FROM??????';
+--select 'Town Population:  11,428						(Gov. census estimates 2017)';
+--select '   # Residents age 65-74:  588 (5%)		# residents 75 or over:	837 (7%)';
+--select 'WHERE DID ABOVE NUMBERS COME FROM??????';
 
 select '';
 select 'Community/Parish Nurse Program details';
