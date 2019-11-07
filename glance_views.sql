@@ -579,6 +579,21 @@ select name, sub1.i, sub1.value, sub1.label
  using (name);
 
 
+drop view if exists aag1_social_context;
+create view aag1_social_context as
+select record_id
+     , max(redcap_repeat_instance)
+     , address_v2
+  from aag1
+  join aag_date_range d
+    on coalesce(date_sc,d.last) between d.first and d.last
+    or date_sc = ''
+ where redcap_repeat_instrument = 'social_context'
+ group by record_id
+ -- The date should be required, but it is not.
+ -- Uses a SQLite trick to get address_v2 for max repeat instance.
+ ;
+
 drop view if exists aag1_discharge;
 create view aag1_discharge as
 select *
