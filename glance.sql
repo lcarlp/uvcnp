@@ -404,12 +404,12 @@ select 'Top Nurse interventions:   (% of client visits in which nursing interven
 drop table if exists aag1_temp1;
 create table aag1_temp1 as
 select (100+rank)||'00000' sort_key
-     , rank||'. '||label||'  '||percentage||'%' as text
+     , '   '||rank||'. '||label||'  '||percentage||'%' as text
   from aag1_intervene5;
 
 insert into aag1_temp1
 select (100+rank)||'01'||100+i
-     , '    '||sub2.label||'('||sub2.percentage||'%)'
+     , '        '||sub2.label||'('||sub2.percentage||'%)'
   from aag1_intervene_sub2 sub2
   join aag1_intervene5
  using (name);
