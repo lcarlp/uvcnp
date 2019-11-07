@@ -38,7 +38,9 @@ select record_id
   from aag1
   join aag_date_range d
     on coalesce(date_1st_contact,d.last) <= d.last
- where redcap_repeat_instrument = '';
+ where redcap_repeat_instrument = ''
+ -- We exclude clients entered after the end date.
+ ;
 
 drop view if exists aag1_client_age;
 create view aag1_client_age as
@@ -583,14 +585,18 @@ drop view if exists aag1_social_context;
 create view aag1_social_context as
 select record_id
      , max(redcap_repeat_instance)
+     , date_sc
      , address_v2
   from aag1
   join aag_date_range d
-    on coalesce(date_sc,d.last) between d.first and d.last
+    on date_sc <= d.last
     or date_sc = ''
  where redcap_repeat_instrument = 'social_context'
+   and record_id in(select record_id from aag1_client)
  group by record_id
  -- The date should be required, but it is not.
+ -- We attempt to exclude recently entered records, and
+ -- we only look at clients who are included.
  -- Uses a SQLite trick to get address_v2 for max repeat instance.
  ;
 

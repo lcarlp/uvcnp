@@ -6,6 +6,7 @@
 .read glance_views.sql
 
 -- See comments after .mode & .width
+.headers off
 .mode column
 .width 150
 -- .mode colum seems to be the only thing that really works
@@ -48,9 +49,9 @@ select '   Clients served, total: '||count(*)
 
 --     As of July 11, 2019:      Active:  21 (54%)    Inactive:  10 (26%)     Discharged:  8 (20%)
 select '      As of '||last_month||' '||last_day||', '||last_year||'    '||
-          (select 'Active: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_client where status_profile=1)||
-          (select '    Inactive: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_client where status_profile=2)||
-          (select '    Discharged: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_client where status_profile=3)||
+          (select 'Active: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_client where status_profile=1)||
+          (select '    Inactive: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_client where status_profile=2)||
+          (select '    Discharged: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_client where status_profile=3)||
           (select '    Not recorded: '||count(*) from aag1_client where status_profile not in(1,2,3))
 from aag1_dates
 join (select cast(count(*) as real) as total from aag1_client where status_profile in(1,2,3));
@@ -77,8 +78,8 @@ select '   Half of Clients are older than (median age): '||cast(avg(age) as int)
          
 
 -- Gender:    male    41%      female      59%
-select (select '   Gender: male  '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where gender=1)||
-(select '    female: '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where gender=2)||
+select (select '   Gender: male  '||cast(round(count(*)*100./total) as int)||'%' from aag1_client where gender=1)||
+(select '    female: '||cast(round(count(*)*100./total) as int)||'%' from aag1_client where gender=2)||
 (select '    Not recorded: '||count(*) from aag1_client where gender not in(1,2))
 from (select cast(count(*) as real) as total from aag1_client where gender in(1,2));
 
@@ -265,16 +266,16 @@ select '   No end of life plan entered:   '||cast(round(portion*100./total) as i
           from aag1_client);
 -- Anxious/Fearful about health and well-being?:   Often: 29%      Sometimes: 68%
 select '   Anxious/Fearful about health and well-being?:'||
-         (select '   Often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_client where client_anx_before=1)||
-         (select '    Sometimes: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_client where client_anx_before=2)||
-         (select '    Not often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_client where client_anx_before=3)||
-         (select '    Not recorded: '|| cast(round(count(*)*100/total) as int)||'%  ('||count(*)||')' from aag1_client where client_anx_before='')
+         (select '   Often: '|| cast(round(count(*)*100./total) as int)||'%' from aag1_client where client_anx_before=1)||
+         (select '    Sometimes: '|| cast(round(count(*)*100./total) as int)||'%' from aag1_client where client_anx_before=2)||
+         (select '    Not often: '|| cast(round(count(*)*100./total) as int)||'%' from aag1_client where client_anx_before=3)||
+         (select '    Not recorded: '|| cast(round(count(*)*100./total) as int)||'%  ('||count(*)||')' from aag1_client where client_anx_before='')
   from (select cast(count(*) as real) as total from aag1_client);
 -- Client has a caregiver(s)?:   Yes:  33%     No:  67%
 select '   Client has a caregiver(s)?:'||
-          (select '   Yes:  '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where care_giver=1)||
-          (select '   No:  '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where care_giver=0)||
-          (select '   Not recorded:  '||cast(round(count(*)*100/total) as int)||'% ('||count(*)||')' from aag1_client where care_giver='')
+          (select '   Yes:  '||cast(round(count(*)*100./total) as int)||'%' from aag1_client where care_giver=1)||
+          (select '   No:  '||cast(round(count(*)*100./total) as int)||'%' from aag1_client where care_giver=0)||
+          (select '   Not recorded:  '||cast(round(count(*)*100./total) as int)||'% ('||count(*)||')' from aag1_client where care_giver='')
   from (select cast(count(*) as real) as total from aag1_client);
 
 select '';
@@ -502,7 +503,7 @@ select '   '||rank||'.  '||label||'  '||percentage||'%'
 select '';
 -- Nurse-Reported Outcomes - Reported at 6-months or Discharge: (% of clients who were discharged or had a 6-month assessment and were documented. R=7)
 select 'Nurse-Reported Outcomes - Reported at 6-months or Discharge:'||
-         ' (% of clients who were discharged or had a 6-month assessment and were documented. R='||count(*)
+         ' (% of clients who were discharged or had a 6-month assessment and were documented. R='||count(*)||')'
   from aag1_discharge;
 --     •	Helped client and/or family to be less anxious about dealing with their situation     71%
 --     •	Enabled client to continue living in home for at least 6 months	14%
