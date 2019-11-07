@@ -603,7 +603,7 @@ select 'Other' label
      , cast(round(sum(case when reason_disch=5 then 1 else 0 end)*100./count(*)) as int)
   from aag1_discharge
 union all
-select 'Blank' label
+select 'Not recorded' label
      , cast(round(sum(case when reason_disch in(1,2,3,4,5) then 0 else 1 end)*100./count(*)) as int)
   from aag1_discharge;
 
@@ -719,7 +719,7 @@ select 'Other'
              , sum(case when outcome_9 = 1 then 1 else 0 end) as portion
           from aag_outcome1)     
 union all
-select 'Missing data'
+select 'Not recorded'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
              , sum(case 

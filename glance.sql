@@ -51,7 +51,7 @@ select '      As of '||last_month||' '||last_day||', '||last_year||'    '||
           (select 'Active: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_client where status_profile=1)||
           (select '    Inactive: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_client where status_profile=2)||
           (select '    Discharged: '||count(*)||' ('||cast(round(count(*)*100/total) as int)||'%)' from aag1_client where status_profile=3)||
-          (select '    Blank: '||count(*) from aag1_client where status_profile not in(1,2,3))
+          (select '    Not recorded: '||count(*) from aag1_client where status_profile not in(1,2,3))
 from aag1_dates
 join (select cast(count(*) as real) as total from aag1_client where status_profile in(1,2,3));
 --
@@ -70,7 +70,7 @@ select '   Half of Clients are older than (median age): '||cast(avg(age) as int)
 -- Gender:    male    41%      female      59%
 select (select '   Gender: male  '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where gender=1)||
 (select '    female: '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where gender=2)||
-(select '    Blank: '||count(*) from aag1_client where gender not in(1,2))
+(select '    Not recorded: '||count(*) from aag1_client where gender not in(1,2))
 from (select cast(count(*) as real) as total from aag1_client where gender in(1,2));
 
 -- Ethnicity/Cultural Identity:    unk.
@@ -157,56 +157,65 @@ select '   Primary Care Provider: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___4 = 1 then 1 else 0 end) as portion
-          from aag1_client);
+          from aag1_client)
+ where portion >0;
 -- Family:   26%
 select '   Family: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___2 = 1 then 1 else 0 end) as portion
-          from aag1_client);
+          from aag1_client)
+ where portion >0;
 -- Self:   13%
 select '   Self: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___1 = 1 then 1 else 0 end) as portion
-          from aag1_client);
+          from aag1_client)
+ where portion >0;
 -- Neighbor/Friend:   13%
 select '   Neighbor/Friend: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___3 = 1 then 1 else 0 end) as portion
-          from aag1_client);
+          from aag1_client)
+ where portion >0;
 -- Fast Squad/Ambulance Service:   5%
 select '   Fast Squad/Ambulance Service: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___8 = 1 then 1 else 0 end) as portion
-          from aag1_client);
+          from aag1_client)
+ where portion >0;
 -- Community Agency:  0%
 select '   Community Agency: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___5 = 1 then 1 else 0 end) as portion
-          from aag1_client);
+          from aag1_client)
+ where portion >0;
 -- Clergy:   0%
 select '   Clergy: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___6 = 1 then 1 else 0 end) as portion
-          from aag1_client);
+          from aag1_client)
+ where portion >0;
 -- Hosp./SNF Discharge Coord.:   0%
 select '   Hosp./SNF Discharge Coord.: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___7 = 1 then 1 else 0 end) as portion
-          from aag1_client);
+          from aag1_client)
+ where portion >0;
 -- Other:   18%
 select '   Other: '||
           cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when referred_by___9 = 1 then 1 else 0 end) as portion
-          from aag1_client);
-select '   Missing: '||
+          from aag1_client)
+ where portion >0;
+select '   Not recorded: '||
           cast(round(portion*100./total) as int)||'%  ('||portion||')'
   from (select count(*) as total
              , sum(case when referred_by___1
@@ -218,7 +227,8 @@ select '   Missing: '||
                               + referred_by___7
                               + referred_by___8
                               + referred_by___9 = 0 then 1 else 0 end) as portion
-          from aag1_client );
+          from aag1_client )
+ where portion >0;
 
 select '';
 select 'Other Client Profile Information';
@@ -238,13 +248,13 @@ select '   Anxious/Fearful about health and well-being?:'||
          (select '   Often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_client where client_anx_before=1)||
          (select '    Sometimes: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_client where client_anx_before=2)||
          (select '    Not often: '|| cast(round(count(*)*100/total) as int)||'%' from aag1_client where client_anx_before=3)||
-         (select '    No data: '|| cast(round(count(*)*100/total) as int)||'%  ('||count(*)||')' from aag1_client where client_anx_before='')
+         (select '    Not recorded: '|| cast(round(count(*)*100/total) as int)||'%  ('||count(*)||')' from aag1_client where client_anx_before='')
   from (select cast(count(*) as real) as total from aag1_client);
 -- Client has a caregiver(s)?:   Yes:  33%     No:  67%
 select '   Client has a caregiver(s)?:'||
           (select '   Yes:  '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where care_giver=1)||
           (select '   No:  '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where care_giver=0)||
-          (select '   No data:  '||cast(round(count(*)*100/total) as int)||'% ('||count(*)||')' from aag1_client where care_giver='')
+          (select '   Not recorded:  '||cast(round(count(*)*100/total) as int)||'% ('||count(*)||')' from aag1_client where care_giver='')
   from (select cast(count(*) as real) as total from aag1_client);
 
 select '';
@@ -302,7 +312,7 @@ select '   Other:  '||cast(round(portion*100./total) as int)||'%'
              , sum(case when provider1_affiliation = 10 then 1 else 0 end) as portion
           from aag1_client)
  where portion > 0;
-select '   No data:  '||cast(round(portion*100./total) as int)||'%'
+select '   Not recorded:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when provider1_affiliation = '' then 1 else 0 end) as portion
           from aag1_client)
@@ -351,7 +361,7 @@ select '   Other:  '||cast(round(portion*100./total) as int)||'%'
              , sum(case when hospital_used = 8 then 1 else 0 end) as portion
           from aag1_client)
  where portion > 0;
-select '   No data:  '||cast(round(portion*100./total) as int)||'%'
+select '   Not recorded:  '||cast(round(portion*100./total) as int)||'%'
   from (select count(*) as total
              , sum(case when hospital_used = '' then 1 else 0 end) as portion
           from aag1_client)
@@ -426,33 +436,33 @@ select '  *  Physical Condition:'||
           (select '  Declined: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where phys_cond_nursescale=1)||
           (select '  Unchanged: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where phys_cond_nursescale=2)||
           (select '  Improved: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where phys_cond_nursescale=3)||
-          (select '  Blank: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where phys_cond_nursescale not in(1,2,3))
+          (select '  Not recorded: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where phys_cond_nursescale not in(1,2,3))
   from (select count(*) as total from aag1_encounter1);
 
 select '  *  Emotional Status:'||
           (select '  Declined: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where emot_stat_nursescale=1)||
           (select '  Unchanged: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where emot_stat_nursescale=2)||
           (select '  Improved: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where emot_stat_nursescale=3)||
-          (select '  Blank: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where emot_stat_nursescale not in(1,2,3))
+          (select '  Not recorded: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where emot_stat_nursescale not in(1,2,3))
   from (select count(*) as total from aag1_encounter1);          
 
 select '  *  Cognitive Status:'||
           (select '  Declined: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where cog_stat_nursescale=1)||
           (select '  Unchanged: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where cog_stat_nursescale=2)||
           (select '  Improved: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where cog_stat_nursescale=3)||
-          (select '  Blank: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where cog_stat_nursescale not in(1,2,3))
+          (select '  Not recorded: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where cog_stat_nursescale not in(1,2,3))
   from (select count(*) as total from aag1_encounter1);          
 
 select '  *  Had a Fall Since Last Visit?:'||
           (select '  Yes: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where fall_sincelast=1)||
           (select '  No: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where fall_sincelast=0)||
-          (select '  Blank: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where fall_sincelast not in(0,1))
+          (select '  Not recorded: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where fall_sincelast not in(0,1))
   from (select count(*) as total from aag1_encounter1);          
 
 select '  *  Hospitalized Since Last Visit?:'||
           (select '  Yes: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where hospit_since_last=1)||
           (select '  No: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where hospit_since_last=0)||
-          (select '  Blank: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where hospit_since_last not in(0,1))
+          (select '  Not recorded: '||cast(round(count(*)*100./total) as int)||'%' from aag1_encounter1 where hospit_since_last not in(0,1))
   from (select count(*) as total from aag1_encounter1);          
 
 
