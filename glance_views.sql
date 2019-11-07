@@ -40,6 +40,16 @@ select record_id
     on coalesce(date_1st_contact,d.last) <= d.last
  where redcap_repeat_instrument = '';
 
+drop view if exists aag1_client_age;
+create view aag1_client_age as
+select record_id, age
+  from aag1_client
+ where age >= 1
+-- Ignore low ages that likely resulted from the nurse entering today's
+-- date into the birthday field.
+;
+
+
 -- The following superfically complicated view takes into account that the
 -- user might select more than one method for a contact.  For methods 1-9,
 -- if more than one is selected, we count that as multiple encounters.  We 

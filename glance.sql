@@ -56,16 +56,25 @@ from aag1_dates
 join (select cast(count(*) as real) as total from aag1_client where status_profile in(1,2,3));
 --
 -- Age Range:   37 – 106 y/o
-select '   Age Range:   '||min(cast(age as int))||' - '||max(cast(age as int))||' y/o' from aag1_client;
+select '   Age Range:   '||min(cast(age as int))||' - '||max(cast(age as int))||' y/o' 
+  from aag1_client_age;
+--
+select 'WARNING:  MANY LOW AGES IGNORED.  ONLY CONSIDERED '||
+       age_count||' OUT OF '||all_clients||'.'
+  from (select count(*) as all_clients from aag1_client)
+  join (select count(*) as age_count from aag1_client_age)
+ where (100.*age_count/all_clients) < 90
+-- Generate a warning if nore than 10% of clients are excluded.
+;
 --
 -- Half of the Clients are older than (median age):   83 y/o
 select '   Half of Clients are older than (median age): '||cast(avg(age) as int)
   from (select age
-          from aag1_client
+          from aag1_client_age
          order by age
-         limit 2 - (select count(*) from aag1_client) % 2    -- odd 1, even 2
-         offset (select (count(*) - 1) / 2 from aag1_client) );
-
+         limit 2 - (select count(*) from aag1_client_age) % 2    -- odd 1, even 2
+         offset (select (count(*) - 1) / 2 from aag1_client_age) );
+         
 
 -- Gender:    male    41%      female      59%
 select (select '   Gender: male  '||cast(round(count(*)*100/total) as int)||'%' from aag1_client where gender=1)||
