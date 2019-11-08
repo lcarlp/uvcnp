@@ -38,8 +38,10 @@ select record_id
   from aag1
   join aag_date_range d
     on coalesce(date_1st_contact,d.last) <= d.last
+    or coalesce(today,d.last) <= d.last
  where redcap_repeat_instrument = ''
  -- We exclude clients entered after the end date.
+ -- Note that the above compares will be true for dates = to ''
  ;
 
 drop view if exists aag1_client_age;
@@ -225,6 +227,7 @@ select record_id
   from aag1
   join aag_date_range d
     on coalesce(date_1st_contact,d.last) <= d.last
+    or coalesce(today,d.last) <= d.last
  where redcap_repeat_instrument = '';
 
 
