@@ -12,6 +12,7 @@ select *
 drop view if exists aag1_client;
 create view aag1_client as
 select record_id
+     , redcap_data_access_group town
      , status_profile
      , cast(age as real) as age
      , gender
@@ -63,6 +64,7 @@ select record_id, age
 drop view if exists aag1_encounter_all;
 create view aag1_encounter_all as
 select record_id
+     , redcap_data_access_group town
      , date_1st_contact as encounter_date
      , 1 as initial
      , meth_1st_contact as type
@@ -70,6 +72,7 @@ select record_id
  where redcap_repeat_instrument = ''
 union all
 select record_id
+     , redcap_data_access_group town
      , today_date_v2 as encounter_date
      , 0 as initial
      , 1 as type
@@ -78,6 +81,7 @@ select record_id
    and cont_meth_v2___1 = 1
 union all
 select record_id
+     , redcap_data_access_group town
      , today_date_v2 as encounter_date
      , 0 as initial
      , 2 as type
@@ -86,6 +90,7 @@ select record_id
    and cont_meth_v2___2 = 1
 union all
 select record_id
+     , redcap_data_access_group town
      , today_date_v2 as encounter_date
      , 0 as initial
      , 3 as type
@@ -94,6 +99,7 @@ select record_id
    and cont_meth_v2___3 = 1
 union all
 select record_id
+     , redcap_data_access_group town
      , today_date_v2 as encounter_date
      , 0 as initial
      , 4 as type
@@ -102,6 +108,7 @@ select record_id
    and cont_meth_v2___4 = 1
 union all
 select record_id
+     , redcap_data_access_group town
      , today_date_v2 as encounter_date
      , 0 as initial
      , 5 as type
@@ -110,6 +117,7 @@ select record_id
    and cont_meth_v2___5 = 1
 union all
 select record_id
+     , redcap_data_access_group town
      , today_date_v2 as encounter_date
      , 0 as initial
      , 6 as type
@@ -118,6 +126,7 @@ select record_id
    and cont_meth_v2___6 = 1
 union all
 select record_id
+     , redcap_data_access_group town
      , today_date_v2 as encounter_date
      , 0 as initial
      , 7 as type
@@ -126,6 +135,7 @@ select record_id
    and cont_meth_v2___7 = 1
 union all
 select record_id
+     , redcap_data_access_group town
      , today_date_v2 as encounter_date
      , 0 as initial
      , 8 as type
@@ -134,6 +144,7 @@ select record_id
    and cont_meth_v2___8 = 1
 union all
 select record_id
+     , redcap_data_access_group town
      , today_date_v2 as encounter_date
      , 0 as initial
      , 9 as type
@@ -142,6 +153,7 @@ select record_id
    and cont_meth_v2___9 = 1
 union all
 select record_id
+     , redcap_data_access_group town
      , today_date_v2 as encounter_date
      , 0 as initial
      , 10 as type
@@ -160,6 +172,7 @@ select record_id
 drop view if exists aag1_encounter;
 create view aag1_encounter as
 select record_id
+     , town
      , encounter_date
      , initial
      , type
@@ -203,6 +216,7 @@ select first
 drop view if exists aag1_problem1;
 create view aag1_problem1 as
 select record_id
+     , redcap_data_access_group town
      , ed_visits___1 + ed_visits___2 ed_visits
      , incorrect_meds___1 + incorrect_meds___2 incorrect_meds
      , ineff_ther___1 + ineff_ther___2 ineff_ther
@@ -426,6 +440,7 @@ select *
 drop view if exists aag1_intervene1;
 create view aag1_intervene1 as
 select record_id
+     , redcap_data_access_group town
      , redcap_repeat_instance
      , pcp_for_v2___1 +
        pcp_for_v2___2 +
@@ -470,6 +485,7 @@ select record_id
 drop view if exists aag1_intervene_all;
 create view aag1_intervene_all as
 select record_id
+     , redcap_data_access_group town
      , redcap_repeat_instance
      , pcp_for_v2 + med_interv + sympt_interv + mob_interv + 
             cg_fam_interv + house_fina_food_interv as interv_sum
@@ -587,6 +603,7 @@ select name, sub1.i, sub1.value, sub1.label
 drop view if exists aag1_social_context;
 create view aag1_social_context as
 select record_id
+     , redcap_data_access_group town
      , max(redcap_repeat_instance)
      , date_sc
      , address_v2
@@ -669,6 +686,7 @@ select *
 drop view if exists aag_outcome1;
 create view aag_outcome1 as 
 select record_id
+     , redcap_data_access_group town
      , redcap_repeat_instrument
      , redcap_repeat_instance
      , nurse_out_6_mont___1 as outcome_1
@@ -683,6 +701,7 @@ select record_id
   from aag1_6month
 union all
 select record_id
+     , redcap_data_access_group town
      , redcap_repeat_instrument
      , redcap_repeat_instance
      , 0 as outcome_1
