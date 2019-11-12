@@ -91,15 +91,17 @@ from (select cast(count(*) as real) as total from aag1_client where gender in(1,
 ---select '   Ethnicity/Cultural Identity:    unk.';
 -- Lives Alone:     unk.
 select '   Lives Alone:'||
-          (select '    Yes: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_social_context where address_v2=1)||
-          (select '    No: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_social_context where cast(address_v2 as int) in(2,3,4,5))||
+          (select '    Yes: '||count(*)||' ('||cast(round(count(*)*100./total_social) as int)||'%)' from aag1_social_context where address_v2=1)||
+          (select '    No: '||count(*)||' ('||cast(round(count(*)*100./total_social) as int)||'%)' from aag1_social_context where cast(address_v2 as int) in(2,3,4,5))||
           '    Not recorded: '||no_social||' ('||cast(round(no_social*100./total) as int)||'%)' 
-from (select cast(count(*) as real) as total from aag1_client)
-join (select count(*) as no_social 
-        from (select record_id from aag1_client 
-              except 
-              select record_id from aag1_social_context 
-               where cast(address_v2 as int) in(1,2,3,4,5)));
+  from (select cast(count(*) as real) as total from aag1_client)
+  join (select cast(count(*) as real) as total_social from aag1_social_context
+         where cast(address_v2 as int) in(1,2,3,4,5))
+  join (select count(*) as no_social 
+          from (select record_id from aag1_client 
+                except 
+                select record_id from aag1_social_context 
+                 where cast(address_v2 as int) in(1,2,3,4,5)));
 
 
 
@@ -125,7 +127,6 @@ select '   Avg. number of client contacts per week ('||
           round(count(*)/w.weeks,1)
   from aag1_encounter
   join aag1_dates as w;
-
 
 -- Home visits:	218  (65% of all client contacts/visits)
 select '   Home visits: '||portion||'  ('||
@@ -180,78 +181,70 @@ select 'Client Referrals (referred by…)';
 -- Primary Care Provider:  33%
 select '   Primary Care Provider: '||
           cast(round(portion*100./total) as int)||'%'
-  from (select count(*) as total
+  from (select sum(referred_by_any) as total
              , sum(case when referred_by___4 = 1 then 1 else 0 end) as portion
           from aag1_client)
  where portion >0;
 -- Family:   26%
 select '   Family: '||
           cast(round(portion*100./total) as int)||'%'
-  from (select count(*) as total
+  from (select sum(referred_by_any) as total
              , sum(case when referred_by___2 = 1 then 1 else 0 end) as portion
           from aag1_client)
  where portion >0;
 -- Self:   13%
 select '   Self: '||
           cast(round(portion*100./total) as int)||'%'
-  from (select count(*) as total
+  from (select sum(referred_by_any) as total
              , sum(case when referred_by___1 = 1 then 1 else 0 end) as portion
           from aag1_client)
  where portion >0;
 -- Neighbor/Friend:   13%
 select '   Neighbor/Friend: '||
           cast(round(portion*100./total) as int)||'%'
-  from (select count(*) as total
+  from (select sum(referred_by_any) as total
              , sum(case when referred_by___3 = 1 then 1 else 0 end) as portion
           from aag1_client)
  where portion >0;
 -- Fast Squad/Ambulance Service:   5%
 select '   Fast Squad/Ambulance Service: '||
           cast(round(portion*100./total) as int)||'%'
-  from (select count(*) as total
+  from (select sum(referred_by_any) as total
              , sum(case when referred_by___8 = 1 then 1 else 0 end) as portion
           from aag1_client)
  where portion >0;
 -- Community Agency:  0%
 select '   Community Agency: '||
           cast(round(portion*100./total) as int)||'%'
-  from (select count(*) as total
+  from (select sum(referred_by_any) as total
              , sum(case when referred_by___5 = 1 then 1 else 0 end) as portion
           from aag1_client)
  where portion >0;
 -- Clergy:   0%
 select '   Clergy: '||
           cast(round(portion*100./total) as int)||'%'
-  from (select count(*) as total
+  from (select sum(referred_by_any) as total
              , sum(case when referred_by___6 = 1 then 1 else 0 end) as portion
           from aag1_client)
  where portion >0;
 -- Hosp./SNF Discharge Coord.:   0%
 select '   Hosp./SNF Discharge Coord.: '||
           cast(round(portion*100./total) as int)||'%'
-  from (select count(*) as total
+  from (select sum(referred_by_any) as total
              , sum(case when referred_by___7 = 1 then 1 else 0 end) as portion
           from aag1_client)
  where portion >0;
 -- Other:   18%
 select '   Other: '||
           cast(round(portion*100./total) as int)||'%'
-  from (select count(*) as total
+  from (select sum(referred_by_any) as total
              , sum(case when referred_by___9 = 1 then 1 else 0 end) as portion
           from aag1_client)
  where portion >0;
 select '   Not recorded: '||
           cast(round(portion*100./total) as int)||'%  ('||portion||')'
   from (select count(*) as total
-             , sum(case when referred_by___1
-                              + referred_by___2
-                              + referred_by___3
-                              + referred_by___4
-                              + referred_by___5
-                              + referred_by___6
-                              + referred_by___7
-                              + referred_by___8
-                              + referred_by___9 = 0 then 1 else 0 end) as portion
+             , sum(1-referred_by_any) as portion
           from aag1_client )
  where portion >0;
 
@@ -260,27 +253,31 @@ select 'Other Client Profile Information';
 -- Has a Living Will/DPOAH Doc:   81%
 select '   Has a Living Will/DPOAH Doc:   '||cast(round(portion*100./total) as int)||'%  ('||
           portion||')'
-  from (select count(*) as total
+  from (select sum(end_life_plan_any) as total
              , sum(case when end_life_plan___2 = 1 then 1 else 0 end) as portion
           from aag1_client);
-select '   No end of life plan entered:   '||cast(round(portion*100./total) as int)||'%   ('||
+select '   No end of life plan recorded:   '||cast(round(portion*100./total) as int)||'%   ('||
           portion||')'
   from (select count(*) as total
-             , sum(case when no_end_life_plan = 1 then 1 else 0 end) as portion
+             , sum(1-end_life_plan_any) as portion
           from aag1_client);
 -- Anxious/Fearful about health and well-being?:   Often: 29%      Sometimes: 68%
 select '   Anxious/Fearful about health and well-being?:'||
          (select '   Often: '|| cast(round(count(*)*100./total) as int)||'%' from aag1_client where client_anx_before=1)||
          (select '    Sometimes: '|| cast(round(count(*)*100./total) as int)||'%' from aag1_client where client_anx_before=2)||
          (select '    Not often: '|| cast(round(count(*)*100./total) as int)||'%' from aag1_client where client_anx_before=3)||
-         (select '    Not recorded: '|| cast(round(count(*)*100./total) as int)||'%  ('||count(*)||')' from aag1_client where client_anx_before='')
-  from (select cast(count(*) as real) as total from aag1_client);
+         (select '    Not recorded: '|| cast(round(count(*)*100./client_total) as int)||'%  ('||count(*)||')' from aag1_client where client_anx_before='')
+  from (select count(*)  as client_total
+             , sum(case when client_anx_before > 0 then 1 else 0 end) total
+          from aag1_client);
 -- Client has a caregiver(s)?:   Yes:  33%     No:  67%
 select '   Client has a caregiver(s)?:'||
           (select '   Yes:  '||cast(round(count(*)*100./total) as int)||'%' from aag1_client where care_giver=1)||
           (select '   No:  '||cast(round(count(*)*100./total) as int)||'%' from aag1_client where care_giver=0)||
-          (select '   Not recorded:  '||cast(round(count(*)*100./total) as int)||'% ('||count(*)||')' from aag1_client where care_giver='')
-  from (select cast(count(*) as real) as total from aag1_client);
+          (select '   Not recorded:  '||cast(round(count(*)*100./client_total) as int)||'% ('||count(*)||')' from aag1_client where care_giver='')
+  from (select count(*) as client_total
+             , sum(case when care_giver = 1 then 1 when care_giver = 0 then 1 else 0 end) total
+          from aag1_client);
 
 select '';
 select 'Affiliation of Primary Care Provider';

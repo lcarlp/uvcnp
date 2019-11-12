@@ -26,12 +26,24 @@ select record_id
      , referred_by___7
      , referred_by___8
      , referred_by___9
+     , case
+        when referred_by___1 +
+                referred_by___2 +
+                referred_by___3 +
+                referred_by___4 +
+                referred_by___5 +
+                referred_by___6 +
+                referred_by___7 +
+                referred_by___8 +
+                referred_by___9 > 0 then 1
+        else 0
+        end as referred_by_any
      , end_life_plan___2 -- Living will DPOAH
      , case 
           when end_life_plan___1 + end_life_plan___2 + end_life_plan___3 + 
-               end_life_plan___4 + end_life_plan___5 + end_life_plan___6 = 0 then 1 
+               end_life_plan___4 + end_life_plan___5 + end_life_plan___6 > 0 then 1 
           else 0
-       end as no_end_life_plan 
+       end as end_life_plan_any
      , client_anx_before
      , care_giver
      , provider1_affiliation
