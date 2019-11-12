@@ -19,7 +19,11 @@ select '----------------------------------------------------------------------';
 select '';
 select 'Upper Valley Community Nursing Project';
 select town||' Community Nurse'
-  from aag_town;
+  from aag_town
+ where 1 = (select count(*) from aag_town);
+select 'Community Nurses for '||group_concat(town,', ')
+  from aag_town
+ where 1 < (select count(*) from aag_town);
 select first_day||' '||first_month||' '||first_year||' - ' ||
          last_day||' '||last_month||' '||last_year 
   from aag1_dates;
