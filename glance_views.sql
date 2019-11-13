@@ -47,7 +47,9 @@ select record_id
      , client_anx_before
      , care_giver
      , provider1_affiliation
+     , case when provider1_affiliation = '' then 0 else 1 end as provider1_affiliation_any
      , hospital_used
+     , case when hospital_used = '' then 0 else 1 end as hospital_used_any
   from aag1
   join aag_date_range d
     on coalesce(date_1st_contact,d.last) <= d.last
