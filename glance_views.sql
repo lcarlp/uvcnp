@@ -446,7 +446,7 @@ select *
     on today_date_v2 between d.first and d.last
  where redcap_repeat_instrument = 'interval_contacts'
  -- This version of encounters is one-to-one with
- -- intervale_contacts, unlike the other one that adds 
+ -- interval_contacts, unlike the other one that adds 
  -- additional encounters if there is more than one type
  -- in one encounter
  ;
