@@ -697,8 +697,8 @@ select *
     or date_sixmonth = ''
  where redcap_repeat_instrument = 'month_report';
 
-drop view if exists aag_outcome1;
-create view aag_outcome1 as 
+drop view if exists aag1_outcome1;
+create view aag1_outcome1 as 
 select record_id
      , redcap_data_access_group town
      , redcap_repeat_instrument
@@ -736,55 +736,55 @@ select 'Decreased risk of falls' label
      ,  cast(round(portion*100./total) as int) percentage
   from (select count(*) as total
              , sum(case when outcome_1 = 1 then 1 else 0 end) as portion
-          from aag_outcome1)
+          from aag1_outcome1)
 union all
 select 'Improved cognitive function, less confusion' label
      ,  cast(round(portion*100./total) as int) percentage
   from (select count(*) as total
              , sum(case when outcome_2 = 1 then 1 else 0 end) as portion
-          from aag_outcome1)
+          from aag1_outcome1)
 union all
 select 'Prevented medication-related, adverse outcomes or ineffective therapeutic effect' label
      ,  cast(round(portion*100./total) as int) percentage
   from (select count(*) as total
              , sum(case when outcome_3 = 1 then 1 else 0 end) as portion
-          from aag_outcome1)
+          from aag1_outcome1)
 union all
 select 'Helped client and/or family to be less anxious about dealing with their situation'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
              , sum(case when outcome_4 = 1 then 1 else 0 end) as portion
-          from aag_outcome1)
+          from aag1_outcome1)
 union all
 select 'Helped improve client''s management of illness symptoms'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
              , sum(case when outcome_5 = 1 then 1 else 0 end) as portion
-          from aag_outcome1)
+          from aag1_outcome1)
 union all
 select 'Prevented Emergency Call, ED Visit, or Re-hospitalization'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
              , sum(case when outcome_6 = 1 then 1 else 0 end) as portion
-          from aag_outcome1)
+          from aag1_outcome1)
 union all
 select 'Improved client''s functioning in daily life'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
              , sum(case when outcome_7 = 1 then 1 else 0 end) as portion
-          from aag_outcome1)
+          from aag1_outcome1)
 union all
 select 'Enabled client to continue living in home for at least 6 months'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
              , sum(case when outcome_8 = 1 then 1 else 0 end) as portion
-          from aag_outcome1)
+          from aag1_outcome1)
 union all
 select 'Other'
      ,  cast(round(portion*100./total) as int)
   from (select count(*) as total
              , sum(case when outcome_9 = 1 then 1 else 0 end) as portion
-          from aag_outcome1)     
+          from aag1_outcome1)     
 union all
 select 'Not recorded'
      ,  cast(round(portion*100./total) as int)
@@ -795,7 +795,7 @@ select 'Not recorded'
                               outcome_7 + outcome_8 + outcome_9 > 0 then 0
                     else 1
                    end) as portion
-          from aag_outcome1);          
+          from aag1_outcome1);          
 
 drop view if exists aag1_outcome3;
 create view aag1_outcome3 as

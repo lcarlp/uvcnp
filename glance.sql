@@ -505,7 +505,7 @@ select '';
 -- Nurse-Reported Outcomes - Reported at 6-months or Discharge: (% of clients who were discharged or had a 6-month assessment and were documented. R=7)
 select 'Nurse-Reported Outcomes - Reported at 6-months or Discharge:'||
          ' (% of clients who were discharged or had a 6-month assessment and were documented. R='||count(*)||')'
-  from aag1_discharge;
+  from aag1_outcome1;
 --     •	Helped client and/or family to be less anxious about dealing with their situation     71%
 --     •	Enabled client to continue living in home for at least 6 months	14%
 --     •	Helped improve client’s management of illness symptoms	     0%
