@@ -1,8 +1,22 @@
-10/06-10/12 10/10 AAG 5 hours total 5 hours
-10/13-10/19 total 0 hours
-10/20-10/26 10/22 AAG 2 hours 10/23 Meeting with Cindy & Sarah Jo 1 hour  10/25 AAG 5 hours  10/26 AAG 3 hours total 11 hours
-10/27-11/02 10/27 AAG 7 hours 10/29 AAG 2 hours 10/30 AAG 4 hours 10/31 1 hour total 14 hours
-Total 30 hours for October, Billing for 20 hours
-11/02 AAG 4 hours total 4 hours
-11/03-11/09 11/03 AAG 1 hour 11/04 AAG 5 hours 11/05 AAG 5 hours 11/07 AAG 4 hours 11/08 AAG 1 hour total 16 hours
-11/10-11/16 11/10 AAG 2 hours 
+date,task,hours
+10/10/19,AAG,5
+10/22/19,AAG,2 
+10/23/19,Meeting with Cindy & Sarah Jo,1  
+10/25/19,AAG,5  
+10/26/19,AAG,3 
+10/27/19,AAG,7 
+10/29/19,AAG,2 
+10/30/19,AAG,4 
+10/31/19,AAG,1 
+,Total 30 hours for October Billing for 20 hours
+11/02/19,AAG,4
+11/03/19,AAG,1 
+11/04/19,AAG,5 
+11/05/19,AAG,5 
+11/07/19,AAG,4 
+11/08/19,AAG,1 
+11/10/19,AAG,2 
+11/12/19,AAG,1.5
+11/14/19,Board Meeting,1.5
+11/15/19,Jason Houle Class,1
+11/16/19,Data Verification with Sarah Jo,1
