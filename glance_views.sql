@@ -194,6 +194,13 @@ select record_id
   join aag_date_range d
  where e.encounter_date between d.first and d.last;
 
+drop view if exists aag1_client_served;
+create view aag1_client_served as
+select distinct 
+       record_id
+     , town
+  from aag1_encounter;
+
 
 drop view if exists month;
 create view month(number,name) as 
