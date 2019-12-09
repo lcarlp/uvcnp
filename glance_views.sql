@@ -81,7 +81,7 @@ select record_id
      , redcap_data_access_group town
      , date_1st_contact as encounter_date
      , 1 as initial
-     , meth_1st_contact as type
+     , cast(meth_1st_contact as integer) as type
   from aag1
  where redcap_repeat_instrument = ''
 union all
@@ -230,9 +230,9 @@ select first
      , strftime('%Y',d.last) last_year     
   from aag_date_range as d
   join month as first_month
-    on first_month.number = cast(strftime('%m',d.first) as int)
+    on first_month.number = cast(strftime('%m',d.first) as integer)
   join month as last_month
-    on last_month.number = cast(strftime('%m',d.last) as int);
+    on last_month.number = cast(strftime('%m',d.last) as integer);
 
 drop view if exists aag1_problem1;
 create view aag1_problem1 as
@@ -300,127 +300,127 @@ select cast(count(*) as real) as it
 
 drop view if exists aag1_problem_percent1;
 create view aag1_problem_percent1 as
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Frequent ED visits/EMS calls' label
   from aag1_problem
   join aag1_has_problems
  where ed_visits > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Not taking medications correctly' label
   from aag1_problem
   join aag1_has_problems
  where incorrect_meds > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Ineffective enactment of therapeutic recommendations' label
   from aag1_problem
   join aag1_has_problems
  where ineff_ther > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Symptom(s) not well controlled' label
   from aag1_problem
   join aag1_has_problems
  where sympt_manag > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Frailty' label
   from aag1_problem
   join aag1_has_problems
  where frailty > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Impaired cognitive functioning' label
   from aag1_problem
   join aag1_has_problems
  where impair_cog > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Mental Health or Substance Abuse Issue' label
   from aag1_problem
   join aag1_has_problems
  where ment_heal > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Self-care deficit in performing ADLs' label
   from aag1_problem
   join aag1_has_problems
  where self_care_prob_list > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Impaired Mobility' label
   from aag1_problem
   join aag1_has_problems
  where imp_phys_mob > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'High Fall Risk' label
   from aag1_problem
   join aag1_has_problems
  where fall > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Difficulty living at home' label
   from aag1_problem
   join aag1_has_problems
  where stay_home > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Problems with bills, insurance etc.' label
   from aag1_problem
   join aag1_has_problems
  where prob_bills > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Anticipated stressful transition to another level of care' label
   from aag1_problem
   join aag1_has_problems
  where stress_trans > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Incomplete end of life planning' label
   from aag1_problem
   join aag1_has_problems
  where incom_acp > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Other problems' label
   from aag1_problem
   join aag1_has_problems
  where other_prob_list > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Social isolation' label
   from aag1_problem
   join aag1_has_problems
  where sdoh_iso > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Poor Nutrition' label
   from aag1_problem
   join aag1_has_problems
  where nutr_poor > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Deficient Housing' label
   from aag1_problem
   join aag1_has_problems
  where hous_def > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Lack of Transportation' label
   from aag1_problem
   join aag1_has_problems
  where sdoh_transp > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Financial struggles' label
   from aag1_problem
   join aag1_has_problems
  where sdoh_finance > 0
 union all
-select cast(round(count(*)*100./aag1_has_problems.it) as int) percentage
+select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Other social' label
   from aag1_problem
   join aag1_has_problems
@@ -547,7 +547,7 @@ drop view if exists aag1_intervene3;
 create view aag1_intervene3 as
 select name
      , value
-     , cast(round(value*100./total) as int) percentage
+     , cast(round(value*100./total) as integer) percentage
      , label
   from aag1_intervene2
   join aag1_intervene_label
@@ -615,7 +615,7 @@ select 'house_fina_food_interv', 9, count(*), 'Other' from aag1_encounter1 where
 drop view if exists aag1_intervene_sub2;
 create view aag1_intervene_sub2 as
 select name, sub1.i, sub1.value, sub1.label
-     , cast(round(100.*sub1.value/a.value) as int) percentage
+     , cast(round(100.*sub1.value/a.value) as integer) percentage
   from aag1_intervene_sub1 sub1
   join aag1_intervene2 a
  using (name);
@@ -656,27 +656,27 @@ select *
 drop view if exists aag1_discharge_reason1;
 create view aag1_discharge_reason1 as
 select 'Services no longer needed' label
-     , cast(round(sum(case when reason_disch=1 then 1 else 0 end)*100./count(*)) as int) percentage
+     , cast(round(sum(case when reason_disch=1 then 1 else 0 end)*100./count(*)) as integer) percentage
   from aag1_discharge
 union all
 select 'Services not wanted' label
-     , cast(round(sum(case when reason_disch=2 then 1 else 0 end)*100./count(*)) as int)
+     , cast(round(sum(case when reason_disch=2 then 1 else 0 end)*100./count(*)) as integer)
   from aag1_discharge
 union all
 select 'Death' label
-     , cast(round(sum(case when reason_disch=3 then 1 else 0 end)*100./count(*)) as int)
+     , cast(round(sum(case when reason_disch=3 then 1 else 0 end)*100./count(*)) as integer)
   from aag1_discharge
 union all
 select 'Moved away from Service Area' label
-     , cast(round(sum(case when reason_disch=4 then 1 else 0 end)*100./count(*)) as int)
+     , cast(round(sum(case when reason_disch=4 then 1 else 0 end)*100./count(*)) as integer)
   from aag1_discharge
 union all
 select 'Other' label
-     , cast(round(sum(case when reason_disch=5 then 1 else 0 end)*100./count(*)) as int)
+     , cast(round(sum(case when reason_disch=5 then 1 else 0 end)*100./count(*)) as integer)
   from aag1_discharge
 union all
 select 'Not recorded' label
-     , cast(round(sum(case when reason_disch in(1,2,3,4,5) then 0 else 1 end)*100./count(*)) as int)
+     , cast(round(sum(case when reason_disch in(1,2,3,4,5) then 0 else 1 end)*100./count(*)) as integer)
   from aag1_discharge;
 
 drop view if exists aag1_discharge_reason2;
@@ -740,61 +740,61 @@ select record_id
 drop view if exists aag1_outcome2;
 create view aag1_outcome2 as
 select 'Decreased risk of falls' label
-     ,  cast(round(portion*100./total) as int) percentage
+     ,  cast(round(portion*100./total) as integer) percentage
   from (select count(*) as total
              , sum(case when outcome_1 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
 select 'Improved cognitive function, less confusion' label
-     ,  cast(round(portion*100./total) as int) percentage
+     ,  cast(round(portion*100./total) as integer) percentage
   from (select count(*) as total
              , sum(case when outcome_2 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
 select 'Prevented medication-related, adverse outcomes or ineffective therapeutic effect' label
-     ,  cast(round(portion*100./total) as int) percentage
+     ,  cast(round(portion*100./total) as integer) percentage
   from (select count(*) as total
              , sum(case when outcome_3 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
 select 'Helped client and/or family to be less anxious about dealing with their situation'
-     ,  cast(round(portion*100./total) as int)
+     ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case when outcome_4 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
 select 'Helped improve client''s management of illness symptoms'
-     ,  cast(round(portion*100./total) as int)
+     ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case when outcome_5 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
 select 'Prevented Emergency Call, ED Visit, or Re-hospitalization'
-     ,  cast(round(portion*100./total) as int)
+     ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case when outcome_6 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
 select 'Improved client''s functioning in daily life'
-     ,  cast(round(portion*100./total) as int)
+     ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case when outcome_7 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
 select 'Enabled client to continue living in home for at least 6 months'
-     ,  cast(round(portion*100./total) as int)
+     ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case when outcome_8 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
 select 'Other'
-     ,  cast(round(portion*100./total) as int)
+     ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case when outcome_9 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)     
 union all
 select 'Not recorded'
-     ,  cast(round(portion*100./total) as int)
+     ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case 
                     when outcome_1 + outcome_2 + outcome_3 + 
