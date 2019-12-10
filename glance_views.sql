@@ -1,6 +1,7 @@
 -- Views used by the "At A Glance" (AAG) report.
 
--- Review uses of coalesce.  Missing dates are '', not null.
+-- Note that missing dates are '', not null, so coalesce may not
+-- do what you expect or want.
 
 drop view if exists aag1;
 create view aag1 as
@@ -624,9 +625,7 @@ select name, sub1.i, sub1.value, sub1.label
 drop view if exists aag1_social_context;
 create view aag1_social_context as
 select record_id
-     , redcap_data_access_group town
      , max(redcap_repeat_instance)
-     , date_sc
      , address_v2
   from aag1
   join aag_date_range d
