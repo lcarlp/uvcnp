@@ -10,13 +10,14 @@ select *
   join aag_town 
     on redcap_data_access_group = lower(town);
 
-drop view if exists aag1_client;
-create view aag1_client as
+drop view if exists aag1_client_all;
+create view aag1_client_all as
 select record_id
      , redcap_data_access_group town
      , status_profile
      , cast(age as real) as age
      , gender
+     , today as admit_date
      , date_1st_contact
      , referred_by___1
      , referred_by___2
@@ -52,13 +53,48 @@ select record_id
      , hospital_used
      , case when hospital_used = '' then 0 else 1 end as hospital_used_any
   from aag1
-  join aag_date_range d
-    on coalesce(date_1st_contact,d.last) <= d.last
-    or coalesce(today,d.last) <= d.last
  where redcap_repeat_instrument = ''
- -- We exclude clients entered after the end date.
- -- Note that the above compares will be true for dates = to ''
  ;
+
+drop view if exists aag1_encountered1;
+create view aag1_encountered1 as
+select record_id
+     , redcap_data_access_group town
+     , date_1st_contact as encounter_date
+     , 1 as initial
+  from aag1
+ where redcap_repeat_instrument = ''
+union all
+select record_id
+     , redcap_data_access_group town
+     , today_date_v2 as encounter_date
+     , 0 as initial
+  from aag1
+ where redcap_repeat_instrument = 'interval_contacts';
+
+drop view if exists aag1_encountered;
+create view aag1_encountered as
+select record_id
+     , town
+     , encounter_date
+     , initial
+  from aag1_encountered1 e
+  join aag_date_range d
+ where e.encounter_date between d.first and d.last
+ -- Picks up anyone with an encounter in the range.
+ ;
+
+
+drop view if exists aag1_client;
+create view aag1_client as
+select *
+  from aag1_client_all
+ where record_id in(
+         select record_id from aag1_encountered )
+ -- For clients served, only show them if they had an encounter
+ -- within the range.
+ ;
+
 
 drop view if exists aag1_client_age;
 create view aag1_client_age as
@@ -195,13 +231,6 @@ select record_id
   join aag_date_range d
  where e.encounter_date between d.first and d.last;
 
-drop view if exists aag1_client_served;
-create view aag1_client_served as
-select distinct 
-       record_id
-     , town
-  from aag1_encounter;
-
 
 drop view if exists month;
 create view month(number,name) as 
@@ -261,10 +290,12 @@ select record_id
      , sdoh_finance___1 + sdoh_finance___2 sdoh_finance
      , sdoh_other_2___1 + sdoh_other_2___2 sdoh_other_2
   from aag1
-  join aag_date_range d
-    on coalesce(date_1st_contact,d.last) <= d.last
-    or coalesce(today,d.last) <= d.last
- where redcap_repeat_instrument = '';
+ where redcap_repeat_instrument = ''
+   and record_id in(
+         select record_id from aag1_encountered )
+ -- For clients served, only show them if they had an encounter
+ -- within the range.
+ ;
 
 
 drop view if exists aag1_problem;
@@ -632,7 +663,7 @@ select record_id
     on date_sc <= d.last
     or date_sc = ''
  where redcap_repeat_instrument = 'social_context'
-   and record_id in(select record_id from aag1_client)
+   and record_id in(select record_id from aag1_encountered)
  group by record_id
  -- The date should be required, but it is not.
  -- We attempt to exclude recently entered records, and
@@ -648,6 +679,7 @@ select *
     on coalesce(date_today_dis,d.last) between d.first and d.last
     or date_today_dis = ''
  where redcap_repeat_instrument = 'discharge_report'
+   and record_id in(select record_id from aag1_encountered)
  -- The date should be required, but it is not.
  ;
 
@@ -701,7 +733,8 @@ select *
   join aag_date_range d
     on coalesce(date_sixmonth,d.last) between d.first and d.last
     or date_sixmonth = ''
- where redcap_repeat_instrument = 'month_report';
+ where redcap_repeat_instrument = 'month_report'
+   and record_id in(select record_id from aag1_encountered);
 
 drop view if exists aag1_outcome1;
 create view aag1_outcome1 as 

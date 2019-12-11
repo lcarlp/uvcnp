@@ -1,5 +1,5 @@
 -- SQL Script to generate the "At A Glance" (AAG) report.
--- Table all1 is assumed to have been imported from a CSV export of the REDCap database.
+-- Table   from redcap_export is assumed to have been imported from a CSV export of the REDCap database.
 -- Table aag_town is manually populated to contain a list of towns included in the report.
 -- Table aag_date_range is manually populated to contain an inclusive range of dates for the report.
 
@@ -17,6 +17,8 @@
 select '';
 select '----------------------------------------------------------------------';
 select '';
+select '                    AT A GLANCE';
+select '';
 select 'Upper Valley Community Nursing Project';
 select town||' Community Nurse'
   from aag_town
@@ -27,31 +29,47 @@ select 'Community Nurses for '||group_concat(town,', ')
 select first_day||' '||first_month||' '||first_year||' - ' ||
          last_day||' '||last_month||' '||last_year 
   from aag1_dates;
-select 'At A Glance';
-select '';
-select '';
-
---select 'Town Population:  11,428						(Gov. census estimates 2017)';
---select '   # Residents age 65-74:  588 (5%)		# residents 75 or over:	837 (7%)';
---select 'WHERE DID ABOVE NUMBERS COME FROM??????';
 
 select '';
-select 'Community/Parish Nurse Program details';
-select '   Program Founded:  2018';
-select '   Annual Budget:  $';
-select '   Funding (town appropriation or other):  $';
-select '   Organizational Structure:';
-select '   Contact information:  ###-###-####';
-select '   Website (url):';
-
-
 select '';
 select 'Client Demographics & Social Context';
--- Clients served, total:	 39
-select '   Clients served, total: '||count(*)
-  from aag1_client;
+-- Half of the Clients are older than (median age):   83 y/o
+select '   Half of Clients are older than (median age): '||cast(avg(age) as int)
+  from (select age
+          from aag1_client_age
+         order by age
+         limit 2 - (select count(*) from aag1_client_age) % 2    -- odd 1, even 2
+         offset (select (count(*) - 1) / 2 from aag1_client_age) );
+select 'WARNING:  MANY LOW AGES IGNORED.  ONLY CONSIDERED '||
+       age_count||' OUT OF '||all_clients||'.'
+  from (select count(*) as all_clients from aag1_client)
+  join (select count(*) as age_count from aag1_client_age)
+ where (100.*age_count/all_clients) < 90
+-- Generate a warning if nore than 10% of clients are excluded.
+;
+select 'REMOVE EXTRA>>>>>   Lives Alone:'||
+          (select '    Yes: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_social_context where address_v2=1)||
+          (select '    No: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_social_context where cast(address_v2 as int) in(2,3,4,5))||
+          '    Not recorded: '||no_social||' ('||cast(round(no_social*100./total) as int)||'%)' 
+  from (select cast(count(*) as real) as total from aag1_client)
+  join (select cast(count(*) as real) as total_social from aag1_social_context
+         where cast(address_v2 as int) in(1,2,3,4,5))
+  join (select count(*) as no_social 
+          from (select record_id from aag1_client 
+                except 
+                select record_id from aag1_social_context 
+                 where cast(address_v2 as int) in(1,2,3,4,5)));
+select '>>>>>FINANCIALLY STRESSED???';
 
---     As of July 11, 2019:      Active:  21 (54%)    Inactive:  10 (26%)     Discharged:  8 (20%)
+select '';
+select '';
+select 'Program Services';
+select '   Clients served, total: '||count(*)||
+        '   (New: '||sum(case when date_1st_contact >= d.first then 1 end)||
+        '    Carried over: '||sum(case when date_1st_contact >= d.first then 0 else 1 end)||')'
+  from aag1_client
+  join aag_date_range as d;
+select '';
 select '      As of '||last_month||' '||last_day||', '||last_year||'    '||
           (select 'Active: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_client where status_profile=1)||
           (select '    Inactive: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_client where status_profile=2)||
@@ -59,6 +77,25 @@ select '      As of '||last_month||' '||last_day||', '||last_year||'    '||
           (select '    Not recorded: '||count(*) from aag1_client where status_profile not in(1,2,3))
 from aag1_dates
 join (select cast(count(*) as real) as total from aag1_client where status_profile in(1,2,3));
+select '';
+select '   Total number of client contacts:  '||count(*)
+  from aag1_encounter;
+select '   Avg. number of client contacts per week ('||
+          cast(round(w.weeks) as int)||' wks.):	'||
+          round(count(*)/w.weeks,1)
+  from aag1_encounter
+  join aag1_dates as w;
+select 'Average number of contacts per client during period: '||mean||
+        '      Range: '||low||' - '||high
+  from (select round(cast(count(*) as real)/count(distinct record_id)) as mean
+          from aag1_encounter),
+      (select min(c) as low, max(c) as high
+          from (select record_id, count(*) as c 
+                  from aag1_encounter 
+                group by record_id));        
+
+/****
+--     As of July 11, 2019:      Active:  21 (54%)    Inactive:  10 (26%)     Discharged:  8 (20%)
 --
 -- Age Range:   37 – 106 y/o
 select '   Age Range:   '||min(cast(age as int))||' - '||max(cast(age as int))||' y/o' 
@@ -72,13 +109,6 @@ select 'WARNING:  MANY LOW AGES IGNORED.  ONLY CONSIDERED '||
 -- Generate a warning if nore than 10% of clients are excluded.
 ;
 --
--- Half of the Clients are older than (median age):   83 y/o
-select '   Half of Clients are older than (median age): '||cast(avg(age) as int)
-  from (select age
-          from aag1_client_age
-         order by age
-         limit 2 - (select count(*) from aag1_client_age) % 2    -- odd 1, even 2
-         offset (select (count(*) - 1) / 2 from aag1_client_age) );
          
 
 -- Gender:    male    41%      female      59%
@@ -87,9 +117,6 @@ select (select '   Gender: male  '||cast(round(count(*)*100./total) as int)||'%'
 (select '    Not recorded: '||count(*) from aag1_client where gender not in(1,2))
 from (select cast(count(*) as real) as total from aag1_client where gender in(1,2));
 
--- Ethnicity/Cultural Identity:    unk.
----select '   Ethnicity/Cultural Identity:    unk.';
--- Lives Alone:     unk.
 select '   Lives Alone:'||
           (select '    Yes: '||count(*)||' ('||cast(round(count(*)*100./total_social) as int)||'%)' from aag1_social_context where address_v2=1)||
           (select '    No: '||count(*)||' ('||cast(round(count(*)*100./total_social) as int)||'%)' from aag1_social_context where cast(address_v2 as int) in(2,3,4,5))||
@@ -118,15 +145,6 @@ select '   Total number of follow-up contacts:	  '||count(*)
   from aag1_encounter e
  where e.initial = 0;
 -- Total number of client contacts:     336
-select '   Total number of client contacts:  '||count(*)
-  from aag1_encounter e;
-
--- Avg. number of client contacts per week (38 wks.):	8.8
-select '   Avg. number of client contacts per week ('||
-          cast(round(w.weeks) as int)||' wks.):	'||
-          round(count(*)/w.weeks,1)
-  from aag1_encounter
-  join aag1_dates as w;
 
 -- Home visits:	218  (65% of all client contacts/visits)
 select '   Home visits: '||portion||'  ('||
@@ -544,4 +562,5 @@ select '        this data cannot be generalized to ALL clients enrolled in your 
 select '';
 select '✯ ✯ ✯ ✯';
 -- Go back to list mode, because it is more convenient for routine queries/debugging etc.
+****/
 .mode list
