@@ -297,8 +297,8 @@ select record_id
  -- within the range.
  ;
 
-drop view if exists aag1_affiliation;
-create view aag1_affiliation as
+drop view if exists aag1_affiliation1;
+create view aag1_affiliation1 as
 select 'DHMC' as label
      , cast(round(portion*100./total) as integer) as percentage
   from (select count(*) as total
@@ -369,8 +369,27 @@ select 'Other'
           from aag1_client)
  where portion > 0;
 
-drop view if exists aag1_hospital_used;
-create view aag1_hospital_used as
+drop view if exists aag1_affiliation2;
+create view aag1_affiliation2 as
+select (100 + percentage)||label as sort_key
+     , label
+     , percentage
+  from aag1_affiliation1;
+     
+drop view if exists aag1_affiliation;
+create view aag1_affiliation as
+select ( select count(*) from aag1_affiliation2 where sort_key >= this.sort_key ) rank
+     , percentage
+     , label
+  from aag1_affiliation2 this
+-- This view is pretty slow to query.  If it gets too slow with more data,
+-- it would probably help to use a temporary table for the output from 
+-- aag1_affiliation2.
+;
+
+
+drop view if exists aag1_hospital_used1;
+create view aag1_hospital_used1 as
 select 'DHMC' as label
      , cast(round(portion*100./total) as integer) as percentage
   from (select count(*) as total
@@ -427,7 +446,23 @@ select 'Other'
           from aag1_client)
  where portion > 0;
 
-
+drop view if exists aag1_hospital_used2;
+create view aag1_hospital_used2 as
+select (100 + percentage)||label as sort_key
+     , label
+     , percentage
+  from aag1_hospital_used1;
+     
+drop view if exists aag1_hospital_used;
+create view aag1_hospital_used as
+select ( select count(*) from aag1_hospital_used2 where sort_key >= this.sort_key ) rank
+     , percentage
+     , label
+  from aag1_hospital_used2 this
+-- This view is pretty slow to query.  If it gets too slow with more data,
+-- it would probably help to use a temporary table for the output from 
+-- aag1_hospital_used2.
+;
 
 
 drop view if exists aag1_problem;

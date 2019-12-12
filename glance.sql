@@ -198,17 +198,15 @@ select '';
 select 'Affiliation of Primary Care Provider';
 select '   '||label||': '||percentage||'%'
   from aag1_affiliation
- where percentage > 2 
- order by percentage desc 
- limit 3;
+ where rank < 3 or (rank = 3 and percentage > 2)
+  order by rank;
 
 select '';
 select 'Hospital Most Often Used';
 select '   '||label||': '||percentage||'%'
   from aag1_hospital_used
- where percentage > 2 
- order by percentage desc 
- limit 3;
+ where rank < 3 or (rank = 3 and percentage > 2)
+ order by rank;
 
 select '';
 select 'Top 10 Client Problems: (% of clients for whom problems were identified and documented. R='||
