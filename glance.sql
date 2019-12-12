@@ -196,17 +196,11 @@ select '   Not recorded: '||
 
 select '';
 select 'Affiliation of Primary Care Provider';
--- DHMC:   87%
-select '   DHMC:  '||cast(round(portion*100./total) as int)||'%'
-  from (select sum(provider1_affiliation_any) as total
-             , sum(case when provider1_affiliation = 1 then 1 else 0 end) as portion
-          from aag1_client);
--- APD:   3%
-select '   APD:  '||cast(round(portion*100./total) as int)||'%'
-  from (select sum(provider1_affiliation_any) as total
-             , sum(case when provider1_affiliation = 2 then 1 else 0 end) as portion
-          from aag1_client)
- where portion > 0;
+select '   '||label||': '||percentage||'%'
+  from aag1_affiliation1 
+ where percentage > 2 
+ order by percentage desc 
+ limit 3;
 
 select '';
 select 'Hospital Most Often Used';

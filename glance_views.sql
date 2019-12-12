@@ -297,6 +297,78 @@ select record_id
  -- within the range.
  ;
 
+drop view if exists aag1_affiliation;
+create view aag1_affiliation as
+select 'DHMC' as label
+     , cast(round(portion*100./total) as integer) as percentage
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 1 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'APD'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 2 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Mt. Ascutney'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 3 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Gifford Medical Center'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 4 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Valley Regional'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 5 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Cottage'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 6 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'New London'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 7 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Private or Community-based Practice'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 8 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'VA'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 9 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Other'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when provider1_affiliation = 10 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0;
+
 
 drop view if exists aag1_problem;
 create view aag1_problem as
