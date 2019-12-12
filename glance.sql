@@ -197,24 +197,18 @@ select '   Not recorded: '||
 select '';
 select 'Affiliation of Primary Care Provider';
 select '   '||label||': '||percentage||'%'
-  from aag1_affiliation1 
+  from aag1_affiliation
  where percentage > 2 
  order by percentage desc 
  limit 3;
 
 select '';
 select 'Hospital Most Often Used';
--- DHMC:   97%
-select '   DHMC:  '||cast(round(portion*100./total) as int)||'%'
-  from (select sum(hospital_used_any) as total
-             , sum(case when hospital_used = 1 then 1 else 0 end) as portion
-          from aag1_client);
--- APD:   3%
-select '   APD:  '||cast(round(portion*100./total) as int)||'%'
-  from (select sum(hospital_used_any) as total
-             , sum(case when hospital_used = 2 then 1 else 0 end) as portion
-          from aag1_client)
- where portion > 0;
+select '   '||label||': '||percentage||'%'
+  from aag1_hospital_used
+ where percentage > 2 
+ order by percentage desc 
+ limit 3;
 
 select '';
 select 'Top 10 Client Problems: (% of clients for whom problems were identified and documented. R='||

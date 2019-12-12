@@ -369,6 +369,66 @@ select 'Other'
           from aag1_client)
  where portion > 0;
 
+drop view if exists aag1_hospital_used;
+create view aag1_hospital_used as
+select 'DHMC' as label
+     , cast(round(portion*100./total) as integer) as percentage
+  from (select count(*) as total
+             , sum(case when hospital_used = 1 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all          
+select 'APD'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when hospital_used = 2 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Mt. Ascutney'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when hospital_used = 3 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Gifford Medical Center'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when hospital_used = 4 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Valley Regional'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when hospital_used = 5 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Cottage'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when hospital_used = 6 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'New London'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when hospital_used = 7 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Other'
+     , cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when hospital_used = 8 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0;
+
+
+
 
 drop view if exists aag1_problem;
 create view aag1_problem as
