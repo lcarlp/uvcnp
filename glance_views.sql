@@ -268,27 +268,27 @@ drop view if exists aag1_problem1;
 create view aag1_problem1 as
 select record_id
      , redcap_data_access_group town
-     , ed_visits___1 + ed_visits___2 ed_visits
-     , incorrect_meds___1 + incorrect_meds___2 incorrect_meds
-     , ineff_ther___1 + ineff_ther___2 ineff_ther
-     , sympt_manag___1 + sympt_manag___2 sympt_manag
-     , frailty___1 + frailty___2 frailty
-     , impair_cog___1 + impair_cog___2 impair_cog
-     , ment_heal___1 + ment_heal___2 ment_heal
-     , self_care_prob_list___1 + self_care_prob_list___2 self_care_prob_list
-     , imp_phys_mob___1 + imp_phys_mob___2 imp_phys_mob
-     , fall___1 + fall___2 fall
-     , stay_home___1 + stay_home___2 stay_home
-     , prob_bills___1 + prob_bills___2 prob_bills
-     , stress_trans___1 + stress_trans___2 stress_trans
-     , incom_acp___1 + incom_acp___2 incom_acp
-     , other_prob_list___1 + other_prob_list___2 other_prob_list
-     , sdoh_iso___1 + sdoh_iso___2 sdoh_iso
-     , nutr_poor___1 + nutr_poor___2 nutr_poor
-     , hous_def___1 + hous_def___2 hous_def
-     , sdoh_transp___1 + sdoh_transp___2 sdoh_transp
-     , sdoh_finance___1 + sdoh_finance___2 sdoh_finance
-     , sdoh_other_2___1 + sdoh_other_2___2 sdoh_other_2
+     , cast(max(ed_visits___1,ed_visits___2) as integer) ed_visits
+     , cast(max(incorrect_meds___1,incorrect_meds___2) as integer) incorrect_meds
+     , cast(max(ineff_ther___1,ineff_ther___2) as integer) ineff_ther
+     , cast(max(sympt_manag___1,sympt_manag___2) as integer) sympt_manag
+     , cast(max(frailty___1,frailty___2) as integer) frailty
+     , cast(max(impair_cog___1,impair_cog___2) as integer) impair_cog
+     , cast(max(ment_heal___1,ment_heal___2) as integer) ment_heal
+     , cast(max(self_care_prob_list___1,self_care_prob_list___2) as integer) self_care_prob_list
+     , cast(max(imp_phys_mob___1,imp_phys_mob___2) as integer) imp_phys_mob
+     , cast(max(fall___1,fall___2) as integer) fall
+     , cast(max(stay_home___1,stay_home___2) as integer) stay_home
+     , cast(max(prob_bills___1,prob_bills___2) as integer) prob_bills
+     , cast(max(stress_trans___1,stress_trans___2) as integer) stress_trans
+     , cast(max(incom_acp___1,incom_acp___2) as integer) incom_acp
+     , cast(max(other_prob_list___1,other_prob_list___2) as integer) other_prob_list
+     , cast(max(sdoh_iso___1,sdoh_iso___2) as integer) sdoh_iso
+     , cast(max(nutr_poor___1,nutr_poor___2) as integer) nutr_poor
+     , cast(max(hous_def___1,hous_def___2) as integer) hous_def
+     , cast(max(sdoh_transp___1,sdoh_transp___2) as integer) sdoh_transp
+     , cast(max(sdoh_finance___1,sdoh_finance___2) as integer) sdoh_finance
+     , cast(max(sdoh_other_2___1,sdoh_other_2___2) as integer) sdoh_other_2
   from aag1
  where redcap_repeat_instrument = ''
    and record_id in(
@@ -495,50 +495,50 @@ create view aag1_intervene1 as
 select record_id
      , redcap_data_access_group town
      , redcap_repeat_instance
-     , pcp_for_v2___1 +
-       pcp_for_v2___2 +
-       pcp_for_v2___3 +
-       pcp_for_v2___4 +
-       pcp_for_v2___5 +
-       pcp_for_v2___6 as pcp_for_v2
-     , med_interv___1 +
-       med_interv___2 +
-       med_interv___3 +
-       med_interv___4 +
-       med_interv___5 +
-       med_interv___6 as med_interv
-     , sympt_interv___1 +
-       sympt_interv___2 +
-       sympt_interv___3 +
-       sympt_interv___4 +
-       sympt_interv___5 +
-       sympt_interv___6 as sympt_interv
-     , mob_interv___1 +
-       mob_interv___2 +
-       mob_interv___3 +
-       mob_interv___4 +
-       mob_interv___5 +
-       mob_interv___6 as mob_interv
-     , cg_fam_interv___1 +
-       cg_fam_interv___2 +
-       cg_fam_interv___3 +
-       cg_fam_interv___4 +
-       cg_fam_interv___5 as cg_fam_interv
-     , house_fina_food_interv___1 +
-       house_fina_food_interv___2 +
-       house_fina_food_interv___3 +
-       house_fina_food_interv___4 +
-       house_fina_food_interv___5 +
-       house_fina_food_interv___6 +
-       house_fina_food_interv___7 +
-       house_fina_food_interv___8 +
-       house_fina_food_interv___9 as house_fina_food_interv
+     , cast(max(pcp_for_v2___1,
+                pcp_for_v2___2,
+                pcp_for_v2___3,
+                pcp_for_v2___4,
+                pcp_for_v2___5,
+                pcp_for_v2___6) as integer) as pcp_for_v2
+     , cast(max(med_interv___1,
+                med_interv___2,
+                med_interv___3,
+                med_interv___4,
+                med_interv___5,
+                med_interv___6) as integer) as med_interv
+     , cast(max(sympt_interv___1,
+                sympt_interv___2,
+                sympt_interv___3,
+                sympt_interv___4,
+                sympt_interv___5,
+                sympt_interv___6) as integer) as sympt_interv
+     , cast(max(mob_interv___1,
+                mob_interv___2,
+                mob_interv___3,
+                mob_interv___4,
+                mob_interv___5,
+                mob_interv___6) as integer) as mob_interv
+     , cast(max(cg_fam_interv___1,
+                cg_fam_interv___2,
+                cg_fam_interv___3,
+                cg_fam_interv___4,
+                cg_fam_interv___5) as integer) as cg_fam_interv
+     , cast(max(house_fina_food_interv___1,
+                house_fina_food_interv___2,
+                house_fina_food_interv___3,
+                house_fina_food_interv___4,
+                house_fina_food_interv___5,
+                house_fina_food_interv___6,
+                house_fina_food_interv___7,
+                house_fina_food_interv___8,
+                house_fina_food_interv___9) as integer) as house_fina_food_interv
   from aag1_encounter1;
 
 drop view if exists aag1_intervene_all;
 create view aag1_intervene_all as
 select record_id
-     , redcap_data_access_group town
+     , town
      , redcap_repeat_instance
      , pcp_for_v2 + med_interv + sympt_interv + mob_interv + 
             cg_fam_interv + house_fina_food_interv as interv_sum
