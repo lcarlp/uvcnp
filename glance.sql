@@ -47,7 +47,7 @@ select 'WARNING:  MANY LOW AGES IGNORED.  ONLY CONSIDERED '||
  where (100.*age_count/all_clients) < 90
 -- Generate a warning if nore than 10% of clients are excluded.
 ;
-select 'REMOVE EXTRA>>>>>   Lives Alone:'||
+select 'REMOVE EXTRA???   Lives Alone:'||
           (select '    Yes: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_social_context where address_v2=1)||
           (select '    No: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_social_context where cast(address_v2 as int) in(2,3,4,5))||
           '    Not recorded: '||no_social||' ('||cast(round(no_social*100./total) as int)||'%)' 
@@ -59,7 +59,7 @@ select 'REMOVE EXTRA>>>>>   Lives Alone:'||
                 except 
                 select record_id from aag1_social_context 
                  where cast(address_v2 as int) in(1,2,3,4,5)));
-select '>>>>>FINANCIALLY STRESSED???';
+select '   Financially stressed: '||percentage||'%' from aag1_problem_percent1 where label='Financial struggles';
 
 select '';
 select '';
