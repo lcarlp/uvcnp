@@ -300,6 +300,7 @@ select record_id
 drop view if exists aag1_affiliation1;
 create view aag1_affiliation1 as
 select 'DHMC' as label
+     , '01' as provider1_affiliation --To use in sort_key
      , cast(round(portion*100./total) as integer) as percentage
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 1 then 1 else 0 end) as portion
@@ -307,6 +308,7 @@ select 'DHMC' as label
  where portion > 0
 union all
 select 'APD'
+     , '02'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 2 then 1 else 0 end) as portion
@@ -314,6 +316,7 @@ select 'APD'
  where portion > 0
 union all
 select 'Mt. Ascutney'
+     , '03'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 3 then 1 else 0 end) as portion
@@ -321,6 +324,7 @@ select 'Mt. Ascutney'
  where portion > 0
 union all
 select 'Gifford Medical Center'
+     , '04'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 4 then 1 else 0 end) as portion
@@ -328,6 +332,7 @@ select 'Gifford Medical Center'
  where portion > 0
 union all
 select 'Valley Regional'
+     , '05'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 5 then 1 else 0 end) as portion
@@ -335,6 +340,7 @@ select 'Valley Regional'
  where portion > 0
 union all
 select 'Cottage'
+     , '06'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 6 then 1 else 0 end) as portion
@@ -342,6 +348,7 @@ select 'Cottage'
  where portion > 0
 union all
 select 'New London'
+     , '07' 
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 7 then 1 else 0 end) as portion
@@ -349,6 +356,7 @@ select 'New London'
  where portion > 0
 union all
 select 'Private or Community-based Practice'
+     , '08' 
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 8 then 1 else 0 end) as portion
@@ -356,6 +364,7 @@ select 'Private or Community-based Practice'
  where portion > 0
 union all
 select 'VA'
+     , '09' 
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 9 then 1 else 0 end) as portion
@@ -363,6 +372,7 @@ select 'VA'
  where portion > 0
 union all
 select 'Other'
+     , '10' 
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 10 then 1 else 0 end) as portion
@@ -371,7 +381,7 @@ select 'Other'
 
 drop view if exists aag1_affiliation2;
 create view aag1_affiliation2 as
-select (100 + percentage)||label as sort_key
+select (100 + percentage)||provider1_affiliation as sort_key
      , label
      , percentage
   from aag1_affiliation1;
@@ -391,6 +401,7 @@ select ( select count(*) from aag1_affiliation2 where sort_key >= this.sort_key 
 drop view if exists aag1_hospital_used1;
 create view aag1_hospital_used1 as
 select 'DHMC' as label
+     , '01' as hospital_used --Add to use in sort_key
      , cast(round(portion*100./total) as integer) as percentage
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 1 then 1 else 0 end) as portion
@@ -398,6 +409,7 @@ select 'DHMC' as label
  where portion > 0
 union all          
 select 'APD'
+     , '02'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 2 then 1 else 0 end) as portion
@@ -405,6 +417,7 @@ select 'APD'
  where portion > 0
 union all
 select 'Mt. Ascutney'
+     , '03'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 3 then 1 else 0 end) as portion
@@ -412,6 +425,7 @@ select 'Mt. Ascutney'
  where portion > 0
 union all
 select 'Gifford Medical Center'
+     , '04'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 4 then 1 else 0 end) as portion
@@ -419,6 +433,7 @@ select 'Gifford Medical Center'
  where portion > 0
 union all
 select 'Valley Regional'
+     , '05'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 5 then 1 else 0 end) as portion
@@ -426,6 +441,7 @@ select 'Valley Regional'
  where portion > 0
 union all
 select 'Cottage'
+     , '06'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 6 then 1 else 0 end) as portion
@@ -433,6 +449,7 @@ select 'Cottage'
  where portion > 0
 union all
 select 'New London'
+     , '07'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 7 then 1 else 0 end) as portion
@@ -440,6 +457,7 @@ select 'New London'
  where portion > 0
 union all
 select 'Other'
+     , '08'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 8 then 1 else 0 end) as portion
@@ -448,7 +466,7 @@ select 'Other'
 
 drop view if exists aag1_hospital_used2;
 create view aag1_hospital_used2 as
-select (100 + percentage)||label as sort_key
+select (100 + percentage)||hospital_used as sort_key
      , label
      , percentage
   from aag1_hospital_used1;
