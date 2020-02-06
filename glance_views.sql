@@ -10,13 +10,14 @@ select *
   join aag_town 
     on redcap_data_access_group = lower(town);
 
-drop view if exists aag1_client;
-create view aag1_client as
+drop view if exists aag1_client_all;
+create view aag1_client_all as
 select record_id
      , redcap_data_access_group town
      , status_profile
      , cast(age as real) as age
      , gender
+     , today as admit_date
      , date_1st_contact
      , referred_by___1
      , referred_by___2
@@ -52,13 +53,48 @@ select record_id
      , hospital_used
      , case when hospital_used = '' then 0 else 1 end as hospital_used_any
   from aag1
-  join aag_date_range d
-    on coalesce(date_1st_contact,d.last) <= d.last
-    or coalesce(today,d.last) <= d.last
  where redcap_repeat_instrument = ''
- -- We exclude clients entered after the end date.
- -- Note that the above compares will be true for dates = to ''
  ;
+
+drop view if exists aag1_encountered1;
+create view aag1_encountered1 as
+select record_id
+     , redcap_data_access_group town
+     , date_1st_contact as encounter_date
+     , 1 as initial
+  from aag1
+ where redcap_repeat_instrument = ''
+union all
+select record_id
+     , redcap_data_access_group town
+     , today_date_v2 as encounter_date
+     , 0 as initial
+  from aag1
+ where redcap_repeat_instrument = 'interval_contacts';
+
+drop view if exists aag1_encountered;
+create view aag1_encountered as
+select record_id
+     , town
+     , encounter_date
+     , initial
+  from aag1_encountered1 e
+  join aag_date_range d
+ where e.encounter_date between d.first and d.last
+ -- Picks up anyone with an encounter in the range.
+ ;
+
+
+drop view if exists aag1_client;
+create view aag1_client as
+select *
+  from aag1_client_all
+ where record_id in(
+         select record_id from aag1_encountered )
+ -- For clients served, only show them if they had an encounter
+ -- within the range.
+ ;
+
 
 drop view if exists aag1_client_age;
 create view aag1_client_age as
@@ -195,13 +231,6 @@ select record_id
   join aag_date_range d
  where e.encounter_date between d.first and d.last;
 
-drop view if exists aag1_client_served;
-create view aag1_client_served as
-select distinct 
-       record_id
-     , town
-  from aag1_encounter;
-
 
 drop view if exists month;
 create view month(number,name) as 
@@ -239,32 +268,219 @@ drop view if exists aag1_problem1;
 create view aag1_problem1 as
 select record_id
      , redcap_data_access_group town
-     , ed_visits___1 + ed_visits___2 ed_visits
-     , incorrect_meds___1 + incorrect_meds___2 incorrect_meds
-     , ineff_ther___1 + ineff_ther___2 ineff_ther
-     , sympt_manag___1 + sympt_manag___2 sympt_manag
-     , frailty___1 + frailty___2 frailty
-     , impair_cog___1 + impair_cog___2 impair_cog
-     , ment_heal___1 + ment_heal___2 ment_heal
-     , self_care_prob_list___1 + self_care_prob_list___2 self_care_prob_list
-     , imp_phys_mob___1 + imp_phys_mob___2 imp_phys_mob
-     , fall___1 + fall___2 fall
-     , stay_home___1 + stay_home___2 stay_home
-     , prob_bills___1 + prob_bills___2 prob_bills
-     , stress_trans___1 + stress_trans___2 stress_trans
-     , incom_acp___1 + incom_acp___2 incom_acp
-     , other_prob_list___1 + other_prob_list___2 other_prob_list
-     , sdoh_iso___1 + sdoh_iso___2 sdoh_iso
-     , nutr_poor___1 + nutr_poor___2 nutr_poor
-     , hous_def___1 + hous_def___2 hous_def
-     , sdoh_transp___1 + sdoh_transp___2 sdoh_transp
-     , sdoh_finance___1 + sdoh_finance___2 sdoh_finance
-     , sdoh_other_2___1 + sdoh_other_2___2 sdoh_other_2
+     , cast(max(ed_visits___1,ed_visits___2) as integer) ed_visits
+     , cast(max(incorrect_meds___1,incorrect_meds___2) as integer) incorrect_meds
+     , cast(max(ineff_ther___1,ineff_ther___2) as integer) ineff_ther
+     , cast(max(sympt_manag___1,sympt_manag___2) as integer) sympt_manag
+     , cast(max(frailty___1,frailty___2) as integer) frailty
+     , cast(max(impair_cog___1,impair_cog___2) as integer) impair_cog
+     , cast(max(ment_heal___1,ment_heal___2) as integer) ment_heal
+     , cast(max(self_care_prob_list___1,self_care_prob_list___2) as integer) self_care_prob_list
+     , cast(max(imp_phys_mob___1,imp_phys_mob___2) as integer) imp_phys_mob
+     , cast(max(fall___1,fall___2) as integer) fall
+     , cast(max(stay_home___1,stay_home___2) as integer) stay_home
+     , cast(max(prob_bills___1,prob_bills___2) as integer) prob_bills
+     , cast(max(stress_trans___1,stress_trans___2) as integer) stress_trans
+     , cast(max(incom_acp___1,incom_acp___2) as integer) incom_acp
+     , cast(max(other_prob_list___1,other_prob_list___2) as integer) other_prob_list
+     , cast(max(sdoh_iso___1,sdoh_iso___2) as integer) sdoh_iso
+     , cast(max(nutr_poor___1,nutr_poor___2) as integer) nutr_poor
+     , cast(max(hous_def___1,hous_def___2) as integer) hous_def
+     , cast(max(sdoh_transp___1,sdoh_transp___2) as integer) sdoh_transp
+     , cast(max(sdoh_finance___1,sdoh_finance___2) as integer) sdoh_finance
+     , cast(max(sdoh_other_2___1,sdoh_other_2___2) as integer) sdoh_other_2
   from aag1
-  join aag_date_range d
-    on coalesce(date_1st_contact,d.last) <= d.last
-    or coalesce(today,d.last) <= d.last
- where redcap_repeat_instrument = '';
+ where redcap_repeat_instrument = ''
+   and record_id in(
+         select record_id from aag1_encountered )
+ -- For clients served, only show them if they had an encounter
+ -- within the range.
+ ;
+
+drop view if exists aag1_affiliation1;
+create view aag1_affiliation1 as
+select 'DHMC' as label
+     , '01' as provider1_affiliation --To use in sort_key
+     , cast(round(portion*100./total) as integer) as percentage
+  from (select sum(provider1_affiliation_any) as total
+             , sum(case when provider1_affiliation = 1 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'APD'
+     , '02'
+     , cast(round(portion*100./total) as integer)
+  from (select sum(provider1_affiliation_any) as total
+             , sum(case when provider1_affiliation = 2 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Mt. Ascutney'
+     , '03'
+     , cast(round(portion*100./total) as integer)
+  from (select sum(provider1_affiliation_any) as total
+             , sum(case when provider1_affiliation = 3 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Gifford Medical Center'
+     , '04'
+     , cast(round(portion*100./total) as integer)
+  from (select sum(provider1_affiliation_any) as total
+             , sum(case when provider1_affiliation = 4 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Valley Regional'
+     , '05'
+     , cast(round(portion*100./total) as integer)
+  from (select sum(provider1_affiliation_any) as total
+             , sum(case when provider1_affiliation = 5 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Cottage'
+     , '06'
+     , cast(round(portion*100./total) as integer)
+  from (select sum(provider1_affiliation_any) as total
+             , sum(case when provider1_affiliation = 6 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'New London'
+     , '07' 
+     , cast(round(portion*100./total) as integer)
+  from (select sum(provider1_affiliation_any) as total
+             , sum(case when provider1_affiliation = 7 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Private or Community-based Practice'
+     , '08' 
+     , cast(round(portion*100./total) as integer)
+  from (select sum(provider1_affiliation_any) as total
+             , sum(case when provider1_affiliation = 8 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'VA'
+     , '09' 
+     , cast(round(portion*100./total) as integer)
+  from (select sum(provider1_affiliation_any) as total
+             , sum(case when provider1_affiliation = 9 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Other'
+     , '10' 
+     , cast(round(portion*100./total) as integer)
+  from (select sum(provider1_affiliation_any) as total
+             , sum(case when provider1_affiliation = 10 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0;
+
+drop view if exists aag1_affiliation2;
+create view aag1_affiliation2 as
+select (100 + percentage)||provider1_affiliation as sort_key
+     , label
+     , percentage
+  from aag1_affiliation1;
+     
+drop view if exists aag1_affiliation;
+create view aag1_affiliation as
+select ( select count(*) from aag1_affiliation2 where sort_key >= this.sort_key ) rank
+     , percentage
+     , label
+  from aag1_affiliation2 this
+-- This view is pretty slow to query.  If it gets too slow with more data,
+-- it would probably help to use a temporary table for the output from 
+-- aag1_affiliation2.
+;
+
+
+drop view if exists aag1_hospital_used1;
+create view aag1_hospital_used1 as
+select 'DHMC' as label
+     , '01' as hospital_used --Add to use in sort_key
+     , cast(round(portion*100./total) as integer) as percentage
+  from (select sum(hospital_used_any) as total
+             , sum(case when hospital_used = 1 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all          
+select 'APD'
+     , '02'
+     , cast(round(portion*100./total) as integer)
+  from (select sum(hospital_used_any) as total
+             , sum(case when hospital_used = 2 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Mt. Ascutney'
+     , '03'
+     , cast(round(portion*100./total) as integer)
+  from (select sum(hospital_used_any) as total
+             , sum(case when hospital_used = 3 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Gifford Medical Center'
+     , '04'
+     , cast(round(portion*100./total) as integer)
+  from (select sum(hospital_used_any) as total
+             , sum(case when hospital_used = 4 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Valley Regional'
+     , '05'
+     , cast(round(portion*100./total) as integer)
+  from (select sum(hospital_used_any) as total
+             , sum(case when hospital_used = 5 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Cottage'
+     , '06'
+     , cast(round(portion*100./total) as integer)
+  from (select sum(hospital_used_any) as total
+             , sum(case when hospital_used = 6 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'New London'
+     , '07'
+     , cast(round(portion*100./total) as integer)
+  from (select sum(hospital_used_any) as total
+             , sum(case when hospital_used = 7 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0
+union all
+select 'Other'
+     , '08'
+     , cast(round(portion*100./total) as integer)
+  from (select sum(hospital_used_any) as total
+             , sum(case when hospital_used = 8 then 1 else 0 end) as portion
+          from aag1_client)
+ where portion > 0;
+
+drop view if exists aag1_hospital_used2;
+create view aag1_hospital_used2 as
+select (100 + percentage)||hospital_used as sort_key
+     , label
+     , percentage
+  from aag1_hospital_used1;
+     
+drop view if exists aag1_hospital_used;
+create view aag1_hospital_used as
+select ( select count(*) from aag1_hospital_used2 where sort_key >= this.sort_key ) rank
+     , percentage
+     , label
+  from aag1_hospital_used2 this
+-- This view is pretty slow to query.  If it gets too slow with more data,
+-- it would probably help to use a temporary table for the output from 
+-- aag1_hospital_used2.
+;
 
 
 drop view if exists aag1_problem;
@@ -464,50 +680,50 @@ create view aag1_intervene1 as
 select record_id
      , redcap_data_access_group town
      , redcap_repeat_instance
-     , pcp_for_v2___1 +
-       pcp_for_v2___2 +
-       pcp_for_v2___3 +
-       pcp_for_v2___4 +
-       pcp_for_v2___5 +
-       pcp_for_v2___6 as pcp_for_v2
-     , med_interv___1 +
-       med_interv___2 +
-       med_interv___3 +
-       med_interv___4 +
-       med_interv___5 +
-       med_interv___6 as med_interv
-     , sympt_interv___1 +
-       sympt_interv___2 +
-       sympt_interv___3 +
-       sympt_interv___4 +
-       sympt_interv___5 +
-       sympt_interv___6 as sympt_interv
-     , mob_interv___1 +
-       mob_interv___2 +
-       mob_interv___3 +
-       mob_interv___4 +
-       mob_interv___5 +
-       mob_interv___6 as mob_interv
-     , cg_fam_interv___1 +
-       cg_fam_interv___2 +
-       cg_fam_interv___3 +
-       cg_fam_interv___4 +
-       cg_fam_interv___5 as cg_fam_interv
-     , house_fina_food_interv___1 +
-       house_fina_food_interv___2 +
-       house_fina_food_interv___3 +
-       house_fina_food_interv___4 +
-       house_fina_food_interv___5 +
-       house_fina_food_interv___6 +
-       house_fina_food_interv___7 +
-       house_fina_food_interv___8 +
-       house_fina_food_interv___9 as house_fina_food_interv
+     , cast(max(pcp_for_v2___1,
+                pcp_for_v2___2,
+                pcp_for_v2___3,
+                pcp_for_v2___4,
+                pcp_for_v2___5,
+                pcp_for_v2___6) as integer) as pcp_for_v2
+     , cast(max(med_interv___1,
+                med_interv___2,
+                med_interv___3,
+                med_interv___4,
+                med_interv___5,
+                med_interv___6) as integer) as med_interv
+     , cast(max(sympt_interv___1,
+                sympt_interv___2,
+                sympt_interv___3,
+                sympt_interv___4,
+                sympt_interv___5,
+                sympt_interv___6) as integer) as sympt_interv
+     , cast(max(mob_interv___1,
+                mob_interv___2,
+                mob_interv___3,
+                mob_interv___4,
+                mob_interv___5,
+                mob_interv___6) as integer) as mob_interv
+     , cast(max(cg_fam_interv___1,
+                cg_fam_interv___2,
+                cg_fam_interv___3,
+                cg_fam_interv___4,
+                cg_fam_interv___5) as integer) as cg_fam_interv
+     , cast(max(house_fina_food_interv___1,
+                house_fina_food_interv___2,
+                house_fina_food_interv___3,
+                house_fina_food_interv___4,
+                house_fina_food_interv___5,
+                house_fina_food_interv___6,
+                house_fina_food_interv___7,
+                house_fina_food_interv___8,
+                house_fina_food_interv___9) as integer) as house_fina_food_interv
   from aag1_encounter1;
 
 drop view if exists aag1_intervene_all;
 create view aag1_intervene_all as
 select record_id
-     , redcap_data_access_group town
+     , town
      , redcap_repeat_instance
      , pcp_for_v2 + med_interv + sympt_interv + mob_interv + 
             cg_fam_interv + house_fina_food_interv as interv_sum
@@ -632,7 +848,7 @@ select record_id
     on date_sc <= d.last
     or date_sc = ''
  where redcap_repeat_instrument = 'social_context'
-   and record_id in(select record_id from aag1_client)
+   and record_id in(select record_id from aag1_encountered)
  group by record_id
  -- The date should be required, but it is not.
  -- We attempt to exclude recently entered records, and
@@ -648,6 +864,7 @@ select *
     on coalesce(date_today_dis,d.last) between d.first and d.last
     or date_today_dis = ''
  where redcap_repeat_instrument = 'discharge_report'
+   and record_id in(select record_id from aag1_encountered)
  -- The date should be required, but it is not.
  ;
 
@@ -701,7 +918,8 @@ select *
   join aag_date_range d
     on coalesce(date_sixmonth,d.last) between d.first and d.last
     or date_sixmonth = ''
- where redcap_repeat_instrument = 'month_report';
+ where redcap_repeat_instrument = 'month_report'
+   and record_id in(select record_id from aag1_encountered);
 
 drop view if exists aag1_outcome1;
 create view aag1_outcome1 as 
