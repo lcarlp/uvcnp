@@ -1,0 +1,540 @@
+commit 630dd3094de34c9f2ef08c43cd7402972d5b32b4
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Nov 20 10:27:28 2019 -0500
+
+    Add view showing only clients served during period.
+
+commit 4d5b3e3154b9ca250ffe5d4ae47dd2a9e33cad58
+Merge: af3f2bd e583350
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Nov 16 19:27:38 2019 -0500
+
+    Merge branch 'master' into ValuePercentages
+
+commit e583350b3b2bac4beaeab7d14cea16899e587087
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Nov 16 19:26:34 2019 -0500
+
+    Change to more appropriate name
+
+commit a7ad2026008d34f47189072550484e2a2f1a94f8
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Nov 16 19:25:08 2019 -0500
+
+    Update hours.txt
+    
+    Added more hours and prepared to change to .csv format.
+
+commit af3f2bdba21bba9c88ad603320a46a65c4bff6c3
+Merge: ff85d8e b5c4566
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Nov 12 20:20:50 2019 -0500
+
+    Merge branch 'master' into ValuePercentages
+
+commit b5c4566e73b43ca88a97bca61b4597315853e03a
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Nov 12 20:14:49 2019 -0500
+
+    Correctec outcomes to include 6 month report and rename view.
+    
+    The report was using the wrong view to count outcomes, and that view had an inconsistent name.  Changed view name to aag1_outcome1.
+
+commit ff85d8e9a851798666d6b2060b7cba9f6d2f8a6a
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Nov 12 19:16:58 2019 -0500
+
+    Percentage changes are done.  Correct spelling error.
+
+commit 714e00779568cf1ab3b12e59bbe4e36f175802de
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Nov 12 19:04:04 2019 -0500
+
+    Changed percentage base for providers & hospitals.
+    
+    Sitll have more to change, I think.
+
+commit 0bb4c425729998e7431d9c3d1d861683f91ddd18
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Nov 12 18:43:30 2019 -0500
+
+    Changed 3 sections to use answered questions as count for percentages.
+    
+    .... will probably want to save view changes even if we do not use this version.
+    Work in progress.  Still have sections to go.
+
+commit 251414d8e1838f94acb26b8efabd27362be2b49c
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Nov 11 20:46:36 2019 -0500
+
+    Add town to several of the views...
+    
+    ... so we can research differences between towns.
+
+commit b5ce4c262784423c0318aa6ab549a4dd8864f985
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Nov 11 20:06:00 2019 -0500
+
+    Update hours.txt
+
+commit 788205975c10eb9e899b13e3fe18c91188d67cfc
+Merge: f2f5e65 88bb257
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Nov 11 20:01:50 2019 -0500
+
+    Merge branch 'master' of https://github.com/lcarlp/uvcnp
+
+commit f2f5e65c8d65a4f3abfb77a69f26d222444a2ae6
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Nov 11 20:01:37 2019 -0500
+
+    Ignore history.log
+
+commit 2505a3a3b34b0fc60e1cbc641c663ef93ec35bdf
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Nov 11 20:01:04 2019 -0500
+
+    Create hours.txt
+    
+    Tracking my hours.
+
+commit 566ca58ba0364008e63b94960bce1c0c89ba638c
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Nov 11 20:00:45 2019 -0500
+
+    New script glance_all.sql to run report for all towns.  Adjust header for multiple towns.
+
+commit 88bb257e217dc384c1f47197a9f2bd2613a5d06d
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Fri Nov 8 18:32:10 2019 -0500
+
+    Delete .bash_profile.log
+    
+    Never intended this to be here.
+
+commit 9acd3d25b5e6c96d9f7bd5ecc3ef7ad378fd773f
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Nov 8 18:17:35 2019 -0500
+
+    Sample file to set-up and run the glance.sql script.
+
+commit d59fd8d61232042475ac7835737b9f7731ede9d3
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Nov 8 10:30:35 2019 -0500
+
+    Include clients based on either today or date_1st_contact
+    
+    These dates are inconsistent, so I adjusted the code to include clients where either date was less than or equal to the end of the range.
+
+commit e192fc503e3dbee3d0ea80521b25395b29a0fd2b
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Nov 7 16:27:06 2019 -0500
+
+    Removed tables.sql - no longer needed...
+    
+    ... Since we now use a view for the month names.
+
+commit 83c9591fa1448e91a8f5ec52c5a9bb17e4219cc5
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Nov 7 16:25:55 2019 -0500
+
+    Improved aag1_social_context view, many cosmetic changes...
+    
+    ... changed most occurrences of 100 to 100. since most of the calculations should use reals.  Many of those changes were not really needed.
+
+commit fb92fd0abfb007999964584f97c0c22430866d98
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Nov 7 11:32:22 2019 -0500
+
+    Changes for Lives Alone... still not right.
+    
+    Counts are off.  Why?
+
+commit 4cd1ae3e64031f7dd3ce225c044289c3a7af6273
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Nov 7 11:02:07 2019 -0500
+
+    Ignore clients who are too young...
+    
+    .... but we report if there are more than 10% under age 1.
+
+commit bf2bdf5609c669cf91148ba991edf04978f14b6d
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Nov 7 10:30:52 2019 -0500
+
+    Changed to use "Not recorded" for all missing data, removed some zero rows.
+    
+    Trying to be consistent about missing data.
+
+commit cb68bbf455ded705b1f0b3e5c38af23e08baa6c0
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Nov 7 10:14:32 2019 -0500
+
+    Adjusted formatting of Interventions.
+
+commit 97f4e7b21282752bce44c12077ebc82b6df70501
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Nov 5 23:42:30 2019 -0500
+
+    Improve the way a single town name works.
+    
+    Shows town at top of report.  Suppressing town stats for now.
+
+commit 7820e34a7d628083bbb56dbaf845a0f8a8fc1748
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Nov 5 21:32:19 2019 -0500
+
+    Re-enable slow code, fix formatting and type bug.
+    
+    Removed /***/ comment delimiters to re-enable the slower parts of the code.  Fixed some minor indenting problems.  Enforced type on sort_key for aag1_temp1 table because otherwise, the output was coming in the wrong order.
+
+commit 60a80e0990496afc8eaeebbbbd786ea09478c4aa
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Nov 5 21:01:47 2019 -0500
+
+    Rename main Export table to redcap_export
+    
+    .... instead of all1.  This is a better name, I think.
+
+commit 8e9dffe88817f58a8b0fe542440012057e2d449d
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Nov 5 11:50:09 2019 -0500
+
+    Added outcomes from 6 month report.
+    
+    Required some view refactoring.
+    
+    Need to remove comment delimiters, test, document, and make sure there are no extraneous objects.
+
+commit d2d41ba10bb6993183a077455049cb4f4ba13d82
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Nov 4 18:03:53 2019 -0500
+
+    Added view for 6 month report...
+    
+    ... not used yet.
+
+commit ea6772bcab6e0f0660fdf1976aed5d366c2ae332
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Nov 4 18:00:38 2019 -0500
+
+    Many minor cosmetic improvements...
+    
+    ... mainly indenting items under headers.
+    Still more to do.
+
+commit 3f1930361ef9694c501694ad433a4becaecb4d38
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Nov 4 17:49:50 2019 -0500
+
+    Fixed Missing data bug in aag1_discharge_outcome1
+    
+    1 in (...) did not work as it was.  Could have quoted the '1', but decided to use a sum instead since I used that elsewhere.
+    
+    Also elided zero rows.
+
+commit 975983f4a5ddb01ce32d027710589267e0808728
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Nov 4 15:53:51 2019 -0500
+
+    Moved views into separate file: glance_views.sql
+    
+    ... to facilitate maintenance etc.
+
+commit 387979107a915b6e80ad79270196db8577f3532b
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Nov 4 12:06:45 2019 -0500
+
+    Changed month table to a month view in the glance script.
+    
+    Did this mainly to get everything in one place.
+    for some reason, this change required casting strftime('%m',d.first) to int in order for the join to work.
+
+commit 025634de061cabc55ffd5a45d87080f43d35a8bb
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Nov 3 00:26:01 2019 -0400
+
+    Cleaned up traiking clarifications... but!
+    
+    ... Outcomes is still not quite right.  Missing???
+
+commit 430f66d6adc7ae0b79df3bc75c1b9017e396a512
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Nov 3 00:13:19 2019 -0400
+
+    Work in progress - Discharge Outcomes
+    
+    Not quite working yet, but close.
+    Remember to remove comment delimiters around slow code.
+
+commit ddf1f64ed16c5b0553ec6f533175cd59348d3527
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Nov 2 23:17:37 2019 -0400
+
+    Removed extraneous line.
+
+commit 7ec8ebda8bbc6534ac7d000975829fe4c88a5f1d
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Nov 2 21:43:28 2019 -0400
+
+    Added discharge reasons... but some code is commented out!
+    
+    Some slow code still commented out for testing.
+
+commit 108854157b529edb45a7011045e0b424463cc17c
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Nov 2 17:54:10 2019 -0400
+
+    Added functional health assessments... but some code is commented out!
+    
+    Commented out some of the slow code for testing.
+
+commit c2a74d1b15f8e5276256ed0d8cedd90caa7e77c0
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Nov 2 17:30:28 2019 -0400
+
+    Renamed newer, simpler encounter view...
+    
+    ... so it will appear sensible when used in other places besides interventions.
+
+commit 610193685a57b635e167483afb7611bb62909d10
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Nov 2 17:21:24 2019 -0400
+
+    Added details for Top Nurse Interventions
+    
+    More views plus a tempoary table.  Worked the first time I ran it... to my own amazement.  Numbers are very close to Bob's.  Took a lot of analysis to get there, though.
+
+commit 2af187a74f72e2886f61602a449779705f6029f5
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Nov 2 15:36:51 2019 -0400
+
+    Added view and top level query for Top Nurse Interventions
+    
+    Does not (yet) incude any of the detail percentages.
+
+commit 9e2c17efbb560b848bd8a7711e90a2d7e75ecf4a
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Nov 2 15:23:02 2019 -0400
+
+    Removed unneeded column from aag1_problem_percent views.
+    
+    Seems to help a little with performance.
+
+commit 71c17d4593f7a8bfa825aa281647de9e1097d2cf
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Oct 31 15:24:05 2019 -0400
+
+    Include "Being Managed" in problem counts
+    
+    Based on conversation with Bob, I decided to count any problem that is either "Added" or "Being Managed" or both as a problem to be reported.
+
+commit 8ea8d33fe1ef17222b21f9228708c41b147d9806
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Oct 30 17:14:44 2019 -0400
+
+    Take dates into account in more places
+    
+    Also change name of aag1_profile to aag1_client.
+    Added comment about performance.
+
+commit 11f285559a404f9500b639ade4d67e0b6ac3e5e6
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Oct 30 13:20:28 2019 -0400
+
+    Added rank for problems
+    
+    A lot of work for what sounds like a small thing.  Complicated views etc.  Seems to work.
+
+commit dda2913767d559efb9c3e0f2ebf7c3de775d6009
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Oct 30 12:05:00 2019 -0400
+
+    Fixed formatting for problems.
+    
+    .width 0 seems not to work.
+
+commit 67073b7d3183117d2660645e7bd6170f376c53cb
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Oct 30 11:14:55 2019 -0400
+
+    Minor formatting changes.
+    
+    Changed to use ".width 0" after more carefully readin SQLite3 documentation, because it automatically chooses a wide width based on the data.  Also, go into list mode instead of csv mode at the end.  I think that will be better.
+
+commit 9e1af9e542fb67f32011663b694626779794c40f
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Oct 29 23:56:37 2019 -0400
+
+    Add view and query for Client Problems
+    
+    Still need to adjust some labels and refine formatting.  Also, some of these numbers differ from Bob's.  Better check with him.
+
+commit bf483c328d98c5fd1e0f34f4e9c549d340faf60f
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Oct 27 19:17:17 2019 -0400
+
+    Added query for hospital most often used
+    
+    Again, percentages are little lower than Bob's because they are based on the whole popuation.
+
+commit 06abb8523c6d5b46f0d619e3669bc01c22899d85
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Oct 27 19:08:47 2019 -0400
+
+    Added queries for PCP Affiliation
+    
+    Again these numbers differ some from Bob's because these are based on the entire population, not just where the value is populated.
+
+commit 6ebc811a29a833ac06893eace07f45c87508d5d6
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Oct 27 18:19:48 2019 -0400
+
+    Return to csv mode at end of script.
+
+commit faa5cb27d35bf53ff42bfdbb936af3c569096fcc
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Oct 27 18:16:24 2019 -0400
+
+    Added caregiver query...
+    
+    ... this competing "Other Client Profile Information"
+
+commit 038dcfc36b0bc0235df2b4ff8448f839c911facb
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Oct 27 15:28:38 2019 -0400
+
+    Added queries for end of life plan and fearful.
+    
+    Still need to add query about caregivers.
+
+commit 907a3839b082a8f64521fceeb983d337fd5eb42a
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Oct 27 12:43:26 2019 -0400
+
+    Update glance.sql
+
+commit 02013e75361302ead336b0cc4de5e7a80b386b04
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Oct 27 12:34:57 2019 -0400
+
+    Add Living Will/DPOAH query
+    
+    Added query for Living Will/DPOAH Doc.  My % is much less than Bob's in this case because I base total on all rows.  I also show number of rows where no data is entered.
+
+commit 1f1abab7f87ce1e711ea359915ff9bc096dd0c83
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Oct 27 12:01:04 2019 -0400
+
+    Added a query for missing referral data
+    
+    There were no missing referrals for Hanover, which I have bene using for testing, but there might be some for some of the other towns.
+
+commit b58c34f4aa8225aec99eb121aa559219d27ce13c
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Oct 27 11:42:55 2019 -0400
+
+    Cosmetic improvements
+    
+    Added headers, blank lines etc.
+    Added .width command to get rid of wrapping on long output that was apparently causing blank lines.
+
+commit eab0db10664926e93f5e2bec1ecd6b963bd19f41
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Oct 27 11:33:20 2019 -0400
+
+    Formatted dates
+    
+    Added code to aag1_dates view to get parts of dates and used those in the report to format them.
+
+commit 5977110ea16ee243da71221152384b78c833cdca
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Oct 26 21:39:54 2019 -0400
+
+    Replaced weeks view with dates view
+    
+    Dates view will have formatted dates as of next commit.
+
+commit e4a16b85156a4e2940f3d4cb0894a186adc9a40a
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Oct 26 21:27:26 2019 -0400
+
+    Add new file for static(?) tables.
+    
+    So, far, just one table in here, containing names of months for date formatting, but other tables could well go here, e.g. the date range table and the table of towns, although the latter will not have static contents.
+
+commit 9d6590f22af5a14b06e64174c17c7b492d509df3
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Oct 26 09:40:27 2019 -0400
+
+    Cosmetic improvements
+    
+    Mostly added headers etc.  Need to format dates.  How to do that?
+
+commit b8748c1022c84181a541c864eba487d07fc93e4a
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Oct 25 20:46:00 2019 -0400
+
+    Added queries for referral percentages.
+    
+    Need to add referral columns to profile view.
+    
+    Note that more than one box can be checked so total may be more than 100%.
+
+commit 4f0a27bf68c1d60e2a2c7abb278be30cc52e1830
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Oct 25 18:18:27 2019 -0400
+
+    Breakdown client encounters by type.
+    
+    Several new queries using the revised encounter view.  Numbers are very close to what Bib Rufsvold got.  They are a little higher, maybe because of additional data and maybe also because I am counting mutliple encounter methods.
+
+commit 0e2e07835f3078b62d4054ac08c5bab006c6fcac
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Oct 25 17:29:59 2019 -0400
+
+    Remove temporary view
+    
+    Remove view that was just used for experimentation and evaluation of data.
+
+commit 8f0409dfbac985a0b0eaf797332928d359878238
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Oct 25 16:42:41 2019 -0400
+
+    Refactored aag1_encounter_all view
+    
+    Re-written view view takes into account that the user might select more than one method for a contact, and we mostly count each selected method as a different encounter.  Despite this complex change, the counts only changed slightly, which is a very good thing!
+
+commit 6fdc0c1eccdd78a13c854e556c7fb438f226ec38
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Oct 25 16:09:05 2019 -0400
+
+    Added a temporary view related to encounters
+    
+    Just researching encounters.  About to try a very different method and wanted to commit first.
+
+commit 73b34fab361a162914b7bd46ca064061476ad65f
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Oct 22 19:19:23 2019 -0400
+
+    Added view for encounters etc.
+    
+    Work in progress.  Finished AAG report up to the Avg. number of client visits per week using some additional views.
+
+commit 963d40f935cd3bef1eafd4d8fb7e628daacf4c60
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Oct 11 18:53:04 2019 -0400
+
+    Fixing my email address
+
+commit 128114b0485dae948a52bfe8bcf8a386c18ef149
+Author: lcarl <lcarl@me.com>
+Date:   Fri Oct 11 17:01:10 2019 -0400
+
+    Adding new sql script to create At A Glance Report... work in progress
+
+commit a13e1d4d07ba188ecc52df1b6f3c47c27bcee024
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Fri Oct 11 10:47:42 2019 -0400
+
+    Initial commit
