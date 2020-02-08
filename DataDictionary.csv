@@ -7,7 +7,7 @@ first_name,client_profile_must_complete_form,,text,"First Name MI",,,,,,y,,y,,,,
 last_name,client_profile_must_complete_form,,text,"Last Name",,,,,,y,,y,,,,,
 preferred_name,client_profile_must_complete_form,,text,"Name client prefers to be addressed by ",,,,,,,,,,,,,
 address,client_profile_must_complete_form,,text,"Client's Contact Info (# Street, City, State, ZIP)",,,,,,,,y,,,,,
-phone,client_profile_must_complete_form,,text,"Client Phone number  (AC+ 5 digits)",,,,,,,,y,,,,,
+phone,client_profile_must_complete_form,,text,"Client Phone number  (AC+ 7 digits)",,,,,,,,y,,,,,
 email,client_profile_must_complete_form,,text,"Client Email",,,,,,,,,,,,,
 dob,client_profile_must_complete_form,,text,"Date of birth",,,date_ymd,,,,,y,,,,,
 age,client_profile_must_complete_form,,calc,"Age","rounddown(datediff([dob],'today','y'))",,,,,,,,,,,,
@@ -18,6 +18,12 @@ health_insurance,client_profile_must_complete_form,,radio,"Health Insurance ","1
 health_insurance_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,"[health_insurance] = '6'",,,,,,
 end_life_docs,client_profile_must_complete_form,,yesno,"End-of-Life Documents?",,,,,,,,,,,,,
 end_life_docs_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,,,,,,,
+concern_level,client_profile_must_complete_form,,radio,"Initial Assessment ","7, Comprehensive | 0, Limited Concern",,,,,,,,,,,,
+concern_level_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,,,,,,,
+primary_referrer,client_profile_must_complete_form,,radio,"Primary Referral Source","1, Self | 2, Family | 3, Neighbor/Friend | 4, Primary Care Provider | 5, Community Agency | 6, Clergy | 7, Hospital/ SNF discharge coordinator | 8, FAST Squad OR Ambulance Service | 9, Other",,,,,,,y,,,,,
+provider1_affiliation,client_profile_must_complete_form,,dropdown,"Affiliation of PCP","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
+hospital_used,client_profile_must_complete_form,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
+admitting_nurse,client_profile_must_complete_form,,descriptive,"Admitting Nurse Initials or Username??",,,,,,,,,,,,,
 date_contact,contact_information_must_complete_form,,text,"REQUIRED FIELD- PLEASE ENTER DATE",,,date_ymd,,,,,y,,,,,
 caregiver_info,contact_information_must_complete_form,,notes,"4) Name & contact Info for involved relative(s)/caregiver(s) 
 
@@ -30,7 +36,6 @@ provider_1,contact_information_must_complete_form,,notes,"5b) Name of Care Provi
    - Practice location
    - Phone
    - Email",,,,,,,"[number_providers] = '1' or [number_providers] = '2'",,,,,,
-provider1_affiliation,contact_information_must_complete_form,,dropdown,"Provider # 1 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,"[number_providers] = '1' or [number_providers] = '2'",,,,,,
 provider_2,contact_information_must_complete_form,,notes,"5c) Name of Care Provider #2
 
    - Practice location
@@ -46,7 +51,6 @@ provider3_affiliation,contact_information_must_complete_form,,dropdown,"Provider
 other_provider_info,contact_information_must_complete_form,,notes,"6) Contact info for other providers/coordinators
   - VNA
   -Private care giving agency ",,,,,,,,,,,,,
-hospital_used,contact_information_must_complete_form,,dropdown,"7) What hospital does the client use most of the time?","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Other (please specify in the comment box)",,,,,,,,,,,,
 date_sc,social_context,,text,"REQUIRED FIELD- TODAY'S DATE",,,date_ymd,,,,,y,,,,,
 show_first_name,social_context,,descriptive,"Client name",,,,,,,,,,,,,
 address_v2,social_context,,radio,"1) Household Composition","1, One person living alone | 2, Two persons in the same home | 3, One or two persons living with family member | 4, Independent/Assisted/Extended Care living, nursing home | 5, Other (Please describe in text box, below)",,,,,,,y,,,,,
