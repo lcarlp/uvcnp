@@ -10,8 +10,8 @@ address,client_profile_must_complete_form,,text,"Client's Contact Info (# Street
 phone,client_profile_must_complete_form,,text,"Client Phone number  (AC+ 7 digits)",,,,,,,,y,,,,,
 email,client_profile_must_complete_form,,text,"Client Email",,,,,,,,,,,,,
 dob,client_profile_must_complete_form,,text,"Date of birth",,,date_ymd,,,,,y,,,,,
-age,client_profile_must_complete_form,,calc,"Age","rounddown(datediff([dob],'today','y'))",,,,,,,,,,,,
-gender,client_profile_must_complete_form,,dropdown,"Gender","1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,y,,,,,
+age,client_profile_must_complete_form,,calc,Age,"rounddown(datediff([dob],'today','y'))",,,,,,,,,,,,
+gender,client_profile_must_complete_form,,dropdown,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,y,,,,,
 household_comp,client_profile_must_complete_form,,radio,"Household Composition","1, One person living alone | 2, Two persons in home, one able | 3, Two persons, both with problems | 4, Client living with family or friends | 5, Other (Please describe in text box, below)",,,,,,,y,,,,,
 household_comp_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,"[household_comp] = '5'",,,,,,
 health_insurance,client_profile_must_complete_form,,radio,"Health Insurance ","1, Medicare | 2, Supplementary Medicare | 3, Medicaid | 4, Commercial/Private | 5, No insurance | 6, Other (Please describe in text box, below)",,,,,,,,,,,,
@@ -51,7 +51,6 @@ provider3_affiliation,contact_information_must_complete_form,,dropdown,"Provider
 other_provider_info,contact_information_must_complete_form,,notes,"6) Contact info for other providers/coordinators
   - VNA
   -Private care giving agency ",,,,,,,,,,,,,
-encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,,,,,,
 date_sc,social_context,,text,"REQUIRED FIELD- TODAY'S DATE",,,date_ymd,,,,,y,,,,,
 show_first_name,social_context,,descriptive,"Client name",,,,,,,,,,,,,
 address_v2,social_context,,radio,"1) Household Composition","1, One person living alone | 2, Two persons in the same home | 3, One or two persons living with family member | 4, Independent/Assisted/Extended Care living, nursing home | 5, Other (Please describe in text box, below)",,,,,,,y,,,,,
