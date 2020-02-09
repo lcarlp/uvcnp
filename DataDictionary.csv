@@ -53,7 +53,7 @@ other_provider_info,contact_information_must_complete_form,,notes,"6) Contact in
   - VNA
   -Private care giving agency ",,,,,,,,,,,,,
 encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,,,,,,
-client_redcap_status_date,status_update,,text,,,,date_ymd,,,,,y,,,,,
+client_redcap_status_date,status_update,,text,"Date",,,date_ymd,,,,,y,,,,,
 client_redcap_status,status_update,,radio,Status,"1, Active | 2, Inactive | 3, Discharged",,,,,,,y,,,,," @DEFAULT='1'"
 date_sc,social_context,,text,"REQUIRED FIELD- TODAY'S DATE",,,date_ymd,,,,,y,,,,,
 show_first_name,social_context,,descriptive,"Client name",,,,,,,,,,,,,
