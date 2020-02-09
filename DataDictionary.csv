@@ -1,7 +1,8 @@
 "Variable / Field Name","Form Name","Section Header","Field Type","Field Label","Choices, Calculations, OR Slider Labels","Field Note","Text Validation Type OR Show Slider Number","Text Validation Min","Text Validation Max",Identifier?,"Branching Logic (Show field only if...)","Required Field?","Custom Alignment","Question Number (surveys only)","Matrix Group Name","Matrix Ranking?","Field Annotation"
 record_id,client_profile_must_complete_form,,text,"Record ID",,,,,,y,,,,,,,
 status_profile,client_profile_must_complete_form,,radio,Status,"1, Active | 2, Inactive | 3, Discharged",,,,,,,y,,,,,
-display_active,client_profile_must_complete_form,,descriptive,"Client status: [status_profile]",,,,,,,,,,,,,
+client_redcap_status_show,client_profile_must_complete_form,,descriptive,"Client status: [client_redcap_status][last-instance]",,,,,,,"[client_redcap_status][last-instance] <> """"",,,,,,
+client_redcap_status_none,client_profile_must_complete_form,,descriptive,"Client Status: Active",,,,,,,"[client_redcap_status][last-instance] = """"",,,,,,
 date_1st_contact,client_profile_must_complete_form,,text,"Date of first contact",,,date_ymd,,,,,y,,,,,
 first_name,client_profile_must_complete_form,,text,"First Name MI",,,,,,y,,y,,,,,
 last_name,client_profile_must_complete_form,,text,"Last Name",,,,,,y,,y,,,,,
@@ -52,6 +53,8 @@ other_provider_info,contact_information_must_complete_form,,notes,"6) Contact in
   - VNA
   -Private care giving agency ",,,,,,,,,,,,,
 encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,,,,,,
+client_redcap_status_date,status_update,,text,,,,date_ymd,,,,,y,,,,,
+client_redcap_status,status_update,,radio,Status,"1, Active | 2, Inactive | 3, Discharged",,,,,,,y,,,,," @DEFAULT='1'"
 date_sc,social_context,,text,"REQUIRED FIELD- TODAY'S DATE",,,date_ymd,,,,,y,,,,,
 show_first_name,social_context,,descriptive,"Client name",,,,,,,,,,,,,
 address_v2,social_context,,radio,"1) Household Composition","1, One person living alone | 2, Two persons in the same home | 3, One or two persons living with family member | 4, Independent/Assisted/Extended Care living, nursing home | 5, Other (Please describe in text box, below)",,,,,,,y,,,,,
