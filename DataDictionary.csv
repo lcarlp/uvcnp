@@ -1,8 +1,7 @@
 "Variable / Field Name","Form Name","Section Header","Field Type","Field Label","Choices, Calculations, OR Slider Labels","Field Note","Text Validation Type OR Show Slider Number","Text Validation Min","Text Validation Max",Identifier?,"Branching Logic (Show field only if...)","Required Field?","Custom Alignment","Question Number (surveys only)","Matrix Group Name","Matrix Ranking?","Field Annotation"
 record_id,client_profile_must_complete_form,,text,"Record ID",,,,,,y,,,,,,,
-status_profile,client_profile_must_complete_form,,radio,Status,"1, Active | 2, Inactive | 3, Discharged",,,,,,,y,,,,,
-client_redcap_status_show,client_profile_must_complete_form,,descriptive,"Client status: [client_redcap_status][last-instance]",,,,,,,"[client_redcap_status][last-instance] <> """"",,,,,,
-client_redcap_status_none,client_profile_must_complete_form,,descriptive,"Client Status: Active",,,,,,,"[client_redcap_status][last-instance] = """"",,,,,,
+client_redcap_status_show,client_profile_must_complete_form,,descriptive,"Client Status: [client_redcap_status][last-instance]",,,,,,,"[client_redcap_status][last-instance] <> ''",,,,,,
+client_redcap_status_none,client_profile_must_complete_form,,descriptive,"Client Status: Active",,,,,,,"[client_redcap_status][last-instance] = ''",,,,,,
 date_1st_contact,client_profile_must_complete_form,,text,"Date of first contact",,,date_ymd,,,,,y,,,,,
 first_name,client_profile_must_complete_form,,text,"First Name MI",,,,,,y,,y,,,,,
 last_name,client_profile_must_complete_form,,text,"Last Name",,,,,,y,,y,,,,,
@@ -341,6 +340,7 @@ cg_out2_dis,discharge_report,,dropdown,"5b) Do you think ______ is safe and her/
 cg_out3_dis,discharge_report,,dropdown,"5c) Are you feeling confident in caring for ________?","1, Definitely yes | 2, Somewhat | 3, No, not really",,,,,,"[cg_status_2] = '1'",,,,,,
 cg_outc4_dis,discharge_report,,dropdown,"5d) Do your caregiving responsibilities cause you to feel fatigued, depressed, or burdened?","1, Yes | 2, Sometimes | 3, No",,,,,,"[cg_status_2] = '1'",,,,,,
 cg_con_most,discharge_report,,notes,"5e) As a caregiver, what problems/issues (matter) concern you the most?",,,,,,,"[cg_status_2] = '1'",,,,,,
+status_profile,profile_2019,,radio,Status,"1, Active | 2, Inactive | 3, Discharged",,,,,,,y,,,,,
 old_records_lyme,profile_2019,,file,"Old Records",,,,,,,,,,,,,
 today,profile_2019,,text,"REQUIRED FIELD- ADMISSION DATE",,required,date_ymd,,,,,y,,,,,
 consent_date,profile_2019,,text,"4a) Date client signed consent",,,date_ymd,,,,,,,,,,
