@@ -2,6 +2,7 @@
 record_id,client_profile_must_complete_form,,text,"Record ID",,,,,,y,,,,,,,
 client_redcap_status_show,client_profile_must_complete_form,,descriptive,"Client Status: [client_redcap_status][last-instance]",,,,,,,"[client_redcap_status][last-instance] <> ''",,,,,,
 client_redcap_status_none,client_profile_must_complete_form,,descriptive,"Client Status: Active",,,,,,,"[client_redcap_status][last-instance] = ''",,,,,,
+client_redcap_status_value,client_profile_must_complete_form,,calc,"Client REDCap Status Value","if ([client_redcap_status][last-instance]='',1,[client_redcap_status][last-instance])",,,,,,,,,,,," @HIDDEN"
 date_1st_contact,client_profile_must_complete_form,,text,"Date of first contact",,,date_ymd,,,,,y,,,,,
 first_name,client_profile_must_complete_form,,text,"First Name MI",,,,,,y,,y,,,,,
 last_name,client_profile_must_complete_form,,text,"Last Name",,,,,,y,,y,,,,,
