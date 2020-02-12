@@ -55,12 +55,17 @@ other_provider_info,contact_information_must_complete_form,,notes,"6) Contact in
 encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,,,,,,
 encounter_type,encounters,,checkbox,"Encounter type","1, Home visit | 2, Phone client | 3, email client | 4, Office hours | 5, In-patient meeting | 6, Phone family | 7, Email family | 8, Family meeting | 9, Famiy in Office | 10, Other",,,,,,,,,,,,
 encounter_nurse,encounters,,descriptive,"Nurse Initials or Username??",,,,,,,,,,,,,
-encounter_note,encounters,,notes,Notes???,,,,,,,,,,,,,
-
-encounter_phys_cond,encounter,"IMPRESSION SINCE LAST ENCOUNTER",radio,"Physical condition ","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
-encounter_emot_stat,encounter,,radio,"Emotional status ","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
-encounter_cog_stat,encounter,,radio,"Cognitive status","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
-
+encounter_type_note,encounters,,notes,Notes???,,,,,,,,,,,,,
+encounter_stat_phys,encounters,"IMPRESSION SINCE LAST ENCOUNTER",radio,"Physical condition ","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
+encounter_stat_emot,encounters,,radio,"Emotional status ","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
+encounter_stat_cog,encounters,,radio,"Cognitive status","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
+encounter_stat_note,encounters,,notes,Notes???,,,,,,,,,,,,,
+encounter_problems,encounters,,descriptive,"Problems??",,,,,,,,,,,,,
+encounter_problems_notes,encounters,,notes,Notes???,,,,,,,,,,,,,
+encounter_interventions,encounters,,checkbox,"Interventions","1, Care Coordination/Referrals | 2, Reassurance/emotional support | 3, Medication-related | 4, Symptom management | 5, ADL & Mobility | 6, Family & Caregiver | 7, Social risk factors & IADL | 8, Referred or Helped with End-of-life documents | 9, Other",,,,,,,y,,,,,
+encounter_todo_notes,encounters,,notes,"FOLLOW UP / TO DO?",,,,,,,,,,,,,
+encounter_med_notes,encounters,,notes,"Change in medication or medical plan of care",,,,,,,,,,,,,
+encounter_other_notes,encounters,,notes,"Other",,,,,,,,,,,,,
 client_redcap_status_date,status_update,,text,"Date",,,date_ymd,,,,,y,,,,,
 client_redcap_status,status_update,,radio,Status,"1, Active | 2, Inactive | 3, Discharged",,,,,,,y,,,,," @DEFAULT='1'"
 date_sc,social_context,,text,"REQUIRED FIELD- TODAY'S DATE",,,date_ymd,,,,,y,,,,,
