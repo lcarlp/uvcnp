@@ -151,6 +151,7 @@ social_other_note,social_context,,notes,Notes???,,,,,,,"[social_other]='1' or [s
 social_future_plan,social_context,,notes,"Client's future plans",,,,,,,,,,,,,
 social_end_life_plan,social_context,,checkbox,"End of Life Planning (Also on Profile??)","1, Has COLST/POLST document | 2, Has Living Will/DPOAH document | 5, No interest | 7, Client is not sure",,,,,,,,,,,,
 social_end_life_note,social_context,,notes,Notes???,,,,,,,"'1'='1'",,,,,,
+func_issue,functional_health,"Functional Health",checkbox,"Issues","1, Client &/or family expressed difficulties in daily life | 2, Management of symptoms | 3, Management of medications | 4, Physical mobility, falling & fall risk, emergency plan (Fall Risk Algorithm?) | 5, Frail by Phenotype (Frailty Scale?) | 6, Cognitive Status (Mini-Cog Scoring?) | 7, Emotional & Spiritual Status | 8, Substance Abuse | 9, Hygiene and Self Care | 10, Nutrition/eating, weight (BMI calculator?) | 11, Elimination | 12, Vital signs | 13, Other",,,,,,,,,,,,
 client_redcap_status_date,status_update,,text,"Date",,,date_ymd,,,,,y,,,,,
 client_redcap_status,status_update,,radio,Status,"1, Active | 2, Inactive | 3, Discharged",,,,,,,y,,,,," @DEFAULT='1'"
 date_sc,social_context_2019,,text,"REQUIRED FIELD- TODAY'S DATE",,,date_ymd,,,,,y,,,,,
