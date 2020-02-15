@@ -129,6 +129,7 @@ problem_other3,problem_list,,text,"Date resolved",,,date_ymd,,,,"[problem_other(
 problem_other_note,problem_list,,notes,"Other problem",,,,,,,"[problem_other(1)] = '1'",,,,,,
 problem_allergies,problem_list,,notes,"Allergies",,,,,,,,,,,,,
 problem_diagnose,problem_list,,notes,"Medical Diagnoses/Concerns",,,,,,,,,,,,,
+social_context_note1,social_context,,notes,"Client's social support and personal assistance",,,,,,,,,,,,,
 client_redcap_status_date,status_update,,text,"Date",,,date_ymd,,,,,y,,,,,
 client_redcap_status,status_update,,radio,Status,"1, Active | 2, Inactive | 3, Discharged",,,,,,,y,,,,," @DEFAULT='1'"
 date_sc,social_context_2019,,text,"REQUIRED FIELD- TODAY'S DATE",,,date_ymd,,,,,y,,,,,
