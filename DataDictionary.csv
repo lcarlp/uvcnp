@@ -153,7 +153,12 @@ social_end_life_plan,social_context,,checkbox,"End of Life Planning (Also on Pro
 social_end_life_note,social_context,,notes,Notes???,,,,,,,"'1'='1'",,,,,,
 func_issue,functional_health,"Functional Health",checkbox,"Issues","1, Client &/or family expressed difficulties in daily life | 2, Management of symptoms | 3, Management of medications | 4, Physical mobility, falling & fall risk, emergency plan (Fall Risk Algorithm?) | 5, Frail by Phenotype (Frailty Scale?) | 6, Cognitive Status (Mini-Cog Scoring?) | 7, Emotional & Spiritual Status | 8, Substance Abuse | 9, Hygiene and Self Care | 10, Nutrition/eating, weight (BMI calculator?) | 11, Elimination | 12, Vital signs | 13, Other",,,,,,,,,,,,
 client_redcap_status_date,status_update,,text,"Date",,,date_ymd,,,,,y,,,,,
+status_update_nurse,status_update,,descriptive,"Nurse Initials or Username??",,,,,,,,,,,,,
 client_redcap_status,status_update,,radio,Status,"1, Active | 2, Inactive | 3, Discharged",,,,,,,y,,,,," @DEFAULT='1'"
+status_update_reason,status_update,,radio,"Reason for change in status","1, Situation or illness improved | 8, Limited Concern addressed | 4, Died | 3, Moved | 2, Transferred to assisted living or long term care | 5, Declined further service | 6, Other",,,,,,,,,,,,
+status_update_reason_note,status_update,,notes,Notes?,,,,,,,,,,,,,
+status_update_outcome,status_update,,checkbox,"Nurse-influenced Outcomes: Check all that apply","1, Less client anxiety or worry | 2, Reduced caregiver stress  | 3, Better family understanding, communication and/or dynamics | 4, Improved functioning in daily life | 5, Improved management of illness symptoms  | 6, Improved medication taking | 7, Reduced fall risk or falls | 8, Prevented hospitalization or ED visit | 9, Fewer EMT emergency calls  | 10, Able to live at home longer | 11, Smooth Transition (to home or from home) | 12, Better management of end-of-life | 13, Other",,,,,,,,,,,,
+status_update_outcome_note,status_update,,notes,Notes?,,,,,,,,,,,,,
 date_sc,social_context_2019,,text,"REQUIRED FIELD- TODAY'S DATE",,,date_ymd,,,,,y,,,,,
 show_first_name,social_context_2019,,descriptive,"Client name",,,,,,,,,,,,,
 address_v2,social_context_2019,,radio,"1) Household Composition","1, One person living alone | 2, Two persons in the same home | 3, One or two persons living with family member | 4, Independent/Assisted/Extended Care living, nursing home | 5, Other (Please describe in text box, below)",,,,,,,y,,,,,
