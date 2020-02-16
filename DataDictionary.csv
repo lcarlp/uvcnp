@@ -159,6 +159,7 @@ status_update_reason,status_update,,radio,"Reason for change in status","1, Situ
 status_update_reason_note,status_update,,notes,Notes?,,,,,,,,,,,,,
 status_update_outcome,status_update,,checkbox,"Nurse-influenced Outcomes: Check all that apply","1, Less client anxiety or worry | 2, Reduced caregiver stress  | 3, Better family understanding, communication and/or dynamics | 4, Improved functioning in daily life | 5, Improved management of illness symptoms  | 6, Improved medication taking | 7, Reduced fall risk or falls | 8, Prevented hospitalization or ED visit | 9, Fewer EMT emergency calls  | 10, Able to live at home longer | 11, Smooth Transition (to home or from home) | 12, Better management of end-of-life | 13, Other",,,,,,,,,,,,
 status_update_outcome_note,status_update,,notes,Notes?,,,,,,,,,,,,,
+six_month_date,six_month_report,,text,Date,,,date_ymd,,,,,y,,,,,
 date_sc,social_context_2019,,text,"REQUIRED FIELD- TODAY'S DATE",,,date_ymd,,,,,y,,,,,
 show_first_name,social_context_2019,,descriptive,"Client name",,,,,,,,,,,,,
 address_v2,social_context_2019,,radio,"1) Household Composition","1, One person living alone | 2, Two persons in the same home | 3, One or two persons living with family member | 4, Independent/Assisted/Extended Care living, nursing home | 5, Other (Please describe in text box, below)",,,,,,,y,,,,,
