@@ -19,7 +19,6 @@ health_insurance,client_profile_must_complete_form,,radio,"Health Insurance ","1
 health_insurance_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,"[health_insurance] = '6'",,,,,,
 end_life_docs,client_profile_must_complete_form,,yesno,"End-of-Life Documents?",,,,,,,,,,,,,
 end_life_docs_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,,,,,,,
-concern_level,client_profile_must_complete_form,,radio,"Initial Assessment ","7, Comprehensive | 0, Limited Concern",,,,,,,,,,,,
 concern_level_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,,,,,,,
 primary_referrer,client_profile_must_complete_form,,radio,"Primary Referral Source","1, Self | 2, Family | 3, Neighbor/Friend | 4, Primary Care Provider | 5, Community Agency | 6, Clergy | 7, Hospital/ SNF discharge coordinator | 8, FAST Squad OR Ambulance Service | 9, Other",,,,,,,y,,,,,
 provider1_affiliation,client_profile_must_complete_form,,dropdown,"Affiliation of PCP","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
@@ -53,6 +52,7 @@ other_provider_info,contact_information_must_complete_form,,notes,"6) Contact in
   - VNA
   -Private care giving agency ",,,,,,,,,,,,,
 encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,,,,,,
+limited_concern,encounters,,yesno,"Limited Concern?",,,,,,,,,,,,,
 encounter_type,encounters,,checkbox,"Encounter type","1, Home visit | 2, Phone client | 3, email client | 4, Office hours | 5, In-patient meeting | 6, Phone family | 7, Email family | 8, Family meeting | 9, Famiy in Office | 10, Other",,,,,,,,,,,,
 encounter_nurse,encounters,,descriptive,"Nurse Initials or Username??",,,,,,,,,,,,,
 encounter_type_note,encounters,,notes,Notes???,,,,,,,,,,,,,
