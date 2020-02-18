@@ -28,7 +28,7 @@ caregiver_info,contact_information,,notes,"Name & contact Info for involved rela
    - Address
    - Phone
    - Email",,,,,,,,,,,,,
-number_providers,contact_information,"Care Provider(s) Information",radio,"5a) Number of Care Providers/Specialists? ","1, 1 | 2, more than 1",,,,,,,y,,,,,
+number_providers,contact_information,"Care Provider(s) Information",radio,"Number of Care Providers/Specialists? ","1, 1 | 2, more than 1",,,,,,,,,,,,
 provider_1,contact_information,,notes,"Name of Care Provider #1
 
    - Practice location
