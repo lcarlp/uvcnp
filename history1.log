@@ -1,3 +1,327 @@
+commit 9933107c88aa9baf465e84b0f67a662feba53973
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Feb 16 12:08:19 2020 -0500
+
+    Moved limited concern to Encounters form
+
+commit 540449d66308dda54725b70b390a06420d347442
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Feb 16 11:32:50 2020 -0500
+
+    Moved Medication List form to proper location.
+
+commit e37901fc519942731f1330d722549331921ab2f8
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Feb 16 11:26:37 2020 -0500
+
+    Added "2019" to old form names....
+    
+    ... to keep them separate from current forms.
+
+commit 7759aa0753fce0fd5d34f036a6a4df43915619d4
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Feb 16 10:46:14 2020 -0500
+
+    Reload from REDCap designer to make quotes consistent.
+    
+    Downloads of the Data Dictionary from REDCap have had slightly different quoting.  This makes no functional difference, but it is easier to track chages when the quoting matches.
+
+commit cd85a02dd39e573e6af24298e801dd5d12e1c041
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Feb 16 10:40:45 2020 -0500
+
+    Added remaining six month report fields.
+
+commit 792bfd6d1aa2e1a1b04c208d134a5a635f79a6ff
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Feb 16 10:30:27 2020 -0500
+
+    Started new 6 month report form
+    
+    Name of form is Six Month Report since leading numbers seem to get lost.
+
+commit 82d1a64d668de75868a4cafeab0d69eb86ce83df
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Feb 16 10:28:18 2020 -0500
+
+    Renamed old 6 month report.
+
+commit 7a7956c986a520236941f0e0b983292fd94f5020
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Feb 16 10:15:55 2020 -0500
+
+    Added remaining fields to status update form
+    
+    Doubts about notes and compatibility with older forms.
+
+commit de77ded4148a2163105cfda2e5c02065488cf367
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Feb 15 13:31:49 2020 -0500
+
+    Added functional health fields...
+    
+    ... but how close is this to what Sarah Jo wanted?  Did she was extra fields in between each choice as on th Problem List and Social Context.
+
+commit 12c10b07bcb769403f21cfd5bd80f3a3d63d1dd7
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Feb 15 13:05:37 2020 -0500
+
+    Added last two fields to Socail Context
+
+commit 5b079170be026a5a8be8b58eda621ae71ffb2523
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Feb 15 12:45:01 2020 -0500
+
+    Added social risk factors to health.
+
+commit 6a8c52023d73cc29d6df0d7db1bbb66f7910909e
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Feb 15 12:24:35 2020 -0500
+
+    Added new social context form (using Designer)
+
+commit 773686578288b02ddf5315cf697e21893b22f7a3
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Feb 14 20:30:03 2020 -0500
+
+    Renamed old Social Context & Functional Health forms.
+
+commit 7d096d4b4eb1fb08f5a9334bd5d55358f426588a
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Feb 14 19:49:05 2020 -0500
+
+    Added 3 dates for all problems
+
+commit 6a3040c347c7a94ca9e348b58ea5027f0b2ca421
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Feb 13 16:56:14 2020 -0500
+
+    Continue work on Problem List
+    
+    All problems added.  Still need dates etc.
+
+commit 97d229ca1bfe811f3a1596a16509eec65fa753ed
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Feb 13 11:20:00 2020 -0500
+
+    Added rest of problems to Problem List
+    
+    Thus is ugly and hence, tentative.
+
+commit 19b185943ce4bd44b1f41a3eb24297b73ba55591
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Feb 13 10:59:05 2020 -0500
+
+    Start working on Problem List
+    
+    Somewhat tentative.  Changed name to simply "Problem List"
+
+commit 9c99fd4202267f3ad7bcfe5678e072b1edb969a5
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Feb 13 10:56:27 2020 -0500
+
+    Ignore downloaded data dictionary files...
+    
+    We download a new one of these pretty often for testing and comparison.  We don't want them in the repository.
+
+commit afffa85f327b700b8b31452a6d9fb3cdea3e5478
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Feb 12 12:01:42 2020 -0500
+
+    Added and tested most remaining Encounters fields.
+    
+    Some of these are tentative place-holders that will need adjustment after review with Sarah.
+
+commit d4bf4f4de3c1a9e3b0419cb67cdca42062ffa552
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 11 20:12:49 2020 -0500
+
+    NOT USABLE:  Work in Progress, Encounter, including Matrix.
+    
+    NOT USABLE:  Work in Progress, Encounter, including Matrix.
+
+commit 3629ec6435d7964fed53d005a8f1d7cdad3bbcca
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Feb 10 21:42:29 2020 -0500
+
+    Removed files I never meant to add to the repo.
+
+commit f0f9543da94ebd8719616fab90fed8009f39b0f0
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Feb 10 21:35:48 2020 -0500
+
+    Added hidden field for numeric status
+    
+    This uses a calcuated (calc) field in a way that is not entirely consistent with the REDCap documntation, but it seems to work.  The idea is to provide a convenient field for reporting the shows the current status.
+
+commit 275af17123fd9cb071f20aca46fd1623e4e65999
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Feb 10 20:53:14 2020 -0500
+
+    Use single quotes in branching logic.  Move old status_profile field.
+    
+    Use single quotes in branching logic so that quoted fields will be easier to read.
+    
+    Move old status_profile field to profile_2019, but will need to update value for anyone not active.
+
+commit 6f82c56c604ad0114ff69fad6346d31c9adf916b
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Feb 10 20:50:56 2020 -0500
+
+    Ignore temporary dictionary file.
+
+commit b06d80480bde635133976d82da182a8c40ec3b54
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Feb 9 11:11:41 2020 -0500
+
+    Added missin label for status_update Date
+
+commit 94d615571240f72b71a056d90e38e031466148e7
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Feb 9 10:37:43 2020 -0500
+
+    Update .gitignore
+
+commit cdaba12d805135473f45aa1cd1e7ee405d02faf8
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Feb 9 10:37:13 2020 -0500
+
+    Added status_update form using Designer and display status
+    
+    Added the repeating status_update form using the Designer.  Added two fields to profile to display current status using the new status_update form.  Status is displayed as active if there are no instances of the status_update form.
+
+commit fa0db0b46f92cf4a785e6c83a01aa026d48763bb
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Feb 8 19:29:06 2020 -0500
+
+    Added Encounters Form using RECap Designer
+    
+    Added Encounters form.  Used REDCap designer to add this form, partly because any new form should probably be added using the Designer, but more importantly because this is a repeating form.
+
+commit a4acd7476e137171a17181b45a56b3310696bd4b
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Feb 7 21:55:17 2020 -0500
+
+    Changes for V3: Work in Progress
+    
+    I think we now have all the profile fields, at least in rough form.  Some of them will need adjustment etc.
+
+commit 42469f351b926ca0f60f544a3907df4dfd77c45b
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Feb 7 17:34:21 2020 -0500
+
+    Changes for V3 - Work in progress
+    
+    First commit of V3 changes.  These changes are just to the client profile, so far.  Seems to be uploading smoothly.
+
+commit ba50a92889f0cd8426dabacf24ce1e9bef92033c
+Merge: ebbd916 1a07252
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Feb 5 20:39:41 2020 -0500
+
+    Merge branch 'SarahJoAAG'
+
+commit ebbd916b657725339d2863cb8a17e7e018972982
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Feb 5 20:39:26 2020 -0500
+
+    Data Dictionary from V2 as starting point for V3
+
+commit 3aa0f561500a934afbb5ebd69e65fe34dbfe222c
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Feb 5 19:29:40 2020 -0500
+
+    Added various files useful for tracking hours
+
+commit 1a0725255dda08193c91c9707f108526613b1ed0
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Dec 13 16:32:05 2019 -0500
+
+    Percentages based on number with some answer.
+    
+    Merge means percentages are higher than if based on total clients.
+    
+    Also adjusted views to control order of hospitals if percentages are tied.
+
+commit 88bf60466abce6b125c824a201941c1cee87c6d3
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Dec 13 11:15:52 2019 -0500
+
+    Update glance_views.sql
+
+commit 06403d324e60d3bff2d061f8a4f57aa0340c84f0
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Dec 12 17:55:32 2019 -0500
+
+    Changed provider affiliation and hospital used to use a stack of "rank" views....
+    
+    ... also changed % to be based on total clients, which might have been a bad idea....
+
+commit 986a593679fea148904aaa1b74feccd81a547c7f
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Dec 12 17:41:06 2019 -0500
+
+    Added view and query for hospital most used...
+    
+    ... But I think I need to do something fancier for both of these new queries,
+
+commit df9ce4497cff530f9cca50ec961fb71717cf190a
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Dec 12 17:28:55 2019 -0500
+
+    Added view and improved query for Provider Affiliation
+    
+    ... not really tested yet.
+
+commit b78af93f0d09b3ca7f429e1fb12b473e6f2b23e4
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Dec 12 11:52:14 2019 -0500
+
+    Added Financially stressed percentage to first section...
+    
+    This was the last change before I ran the reports and sent them to Sarah Jo.
+
+commit 81db33f565278814ab2057224ccb343d28921071
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Dec 11 23:47:14 2019 -0500
+
+    Mostly done with changes requested by Sarah Jo...
+    
+    ... still need to fill in "Financially Stressed" and maybe change to use median in a few places as Sarah Jo requested.
+
+commit 274f1b9c1f8183b62da65ea8b05243a583b52e98
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Dec 11 13:30:55 2019 -0500
+
+    Work in progress on the "Sarah Jo" version of the report
+    
+    Changes to base all counts on clients actually served during period, along with following her new format.  Nowhere near done, but I thibk the basics are in place to make good progress.
+    Waiting to hear back from her on a couple of things.
+
+commit 89ee2cdbfa2d8803eaca217f761fa0a117715678
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Dec 10 15:49:16 2019 -0500
+
+    Clean up comments.  Remove extra colums from aag1_social_context.
+
+commit 02049a7613e0a91fc35a02a89de6ed3a7ba6ffa0
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Dec 8 19:22:28 2019 -0500
+
+    Update glance_views.sql
+    
+    Changed all cast( x as int) to cast(x as integer).
+    
+    Added cast to the encounter_all view.
+
+commit 23d40b7f682b5771080960d92740d00300c5bff1
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Dec 5 16:15:59 2019 -0500
+
+    Create hours.numbers
+    
+    Tracking my hours.
+
 commit 630dd3094de34c9f2ef08c43cd7402972d5b32b4
 Author: lcarl <lcarlp@users.noreply.github.com>
 Date:   Wed Nov 20 10:27:28 2019 -0500
