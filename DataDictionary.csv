@@ -23,31 +23,30 @@ primary_referrer,client_profile_must_complete_form,,radio,"Primary Referral Sour
 provider1_affiliation,client_profile_must_complete_form,,dropdown,"Affiliation of PCP","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
 hospital_used,client_profile_must_complete_form,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
 admitting_nurse,client_profile_must_complete_form,,descriptive,"Admitting Nurse Initials or Username??",,,,,,,,,,,,,
-date_contact,contact_information_must_complete_form,,text,"REQUIRED FIELD- PLEASE ENTER DATE",,,date_ymd,,,,,y,,,,,
-caregiver_info,contact_information_must_complete_form,,notes,"4) Name & contact Info for involved relative(s)/caregiver(s) 
+caregiver_info,contact_information,,notes,"Name & contact Info for involved relative(s)/caregiver(s) 
 
    - Address
    - Phone
    - Email",,,,,,,,,,,,,
-number_providers,contact_information_must_complete_form,"5) Care Provider(s) Information",radio,"5a) Number of Care Providers/Specialists? ","1, 1 | 2, more than 1",,,,,,,y,,,,,
-provider_1,contact_information_must_complete_form,,notes,"5b) Name of Care Provider #1
+number_providers,contact_information,"Care Provider(s) Information",radio,"5a) Number of Care Providers/Specialists? ","1, 1 | 2, more than 1",,,,,,,y,,,,,
+provider_1,contact_information,,notes,"Name of Care Provider #1
 
    - Practice location
    - Phone
    - Email",,,,,,,"[number_providers] = '1' or [number_providers] = '2'",,,,,,
-provider_2,contact_information_must_complete_form,,notes,"5c) Name of Care Provider #2
+provider_2,contact_information,,notes,"Name of Care Provider #2
 
    - Practice location
    - Phone
    - Email",,,,,,,"[number_providers] = '2'",,,,,,
-provider2_affiliation,contact_information_must_complete_form,,dropdown,"Provider #2 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,"[number_providers] = '2'",,,,,,
-provider_3,contact_information_must_complete_form,,notes,"5d) Name of Care Provider #3
+provider2_affiliation,contact_information,,dropdown,"Provider #2 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,"[number_providers] = '2'",,,,,,
+provider_3,contact_information,,notes,"Name of Care Provider #3
 
    - Practice location
    - Phone
    - Email",,,,,,,"[number_providers] = '2'",,,,,,
-provider3_affiliation,contact_information_must_complete_form,,dropdown,"Provider #3 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,"[number_providers] = '2'",,,,,,
-other_provider_info,contact_information_must_complete_form,,notes,"6) Contact info for other providers/coordinators
+provider3_affiliation,contact_information,,dropdown,"Provider #3 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,"[number_providers] = '2'",,,,,,
+other_provider_info,contact_information,,notes,"Contact info for other providers/coordinators
   - VNA
   -Private care giving agency ",,,,,,,,,,,,,
 encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,,,,,,
@@ -481,3 +480,4 @@ cg_basicneeds_before,profile_2019,,radio,"14c) Do you think ______ is safe and h
 cg_conf_before,profile_2019,,radio,"14d) Are you feeling confident in caring for ________?","1, Definitely yes | 2, Somewhat | 3, No, not really",,,,,,"[care_giver] = '1'",,,,,,
 cg_fatig_before,profile_2019,,radio,"14e) Do your caregiving responsibilities cause you to feel fatigued, depressed, or burdened?","1, Yes | 2, Sometimes | 3, No",,,,,,"[care_giver] = '1'",,,,,,
 cg_what_matters,profile_2019,,notes,"14f) As a caregiver, what matters most to you?",,,,,,,"[care_giver] = '1'",,,,,,
+date_contact,contact_information_2019,,text,"REQUIRED FIELD- PLEASE ENTER DATE",,,date_ymd,,,,,y,,,,,
