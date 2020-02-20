@@ -1,3 +1,104 @@
+commit 60e0cdc2de9f3facd97d5a3a4c3a860d02cdb459
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 18 19:59:58 2020 -0500
+
+    Several more changes from meeting with SJ
+    
+    Removed extraneous field.
+    Made wording on Social Conext more neutral.
+    Show note for status update reason only if "Other".
+
+commit 528675490ac3eae93f16926c0129653389e7e59e
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 18 19:48:31 2020 -0500
+
+    Fill in nurse username automatically on encounters and status update
+    
+    Discussed in meeting with SJ.
+
+commit cf33b4adc401e955973b7aac7cd73e595e94e106
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 18 19:40:41 2020 -0500
+
+    Added admitting nurse username to profile and normalized quotes
+    
+    Used new download to make things consistent.
+
+commit ec193c8c7fe5824209e8b127376628513227002e
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 18 19:28:47 2020 -0500
+
+    More encounter form changes from SJ meeting
+    
+    Question about new problems.  Can we link to Problem List?
+    
+    Remoed extraneous "Other" field at end of form.
+
+commit a2c5b606b3bea860824c36cf9da0a9aa5cc46e04
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 18 19:18:22 2020 -0500
+
+    Some encounter form changes from meeting with SJ
+    
+    Adjusted encounter type list.
+    limited_concern_notes
+    Flag to show impression notes.
+
+commit 616d7ef2ce6dbaca0f1d2cf76aafac4efad007c3
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 18 18:50:06 2020 -0500
+
+    Adjust number of providers
+    
+    From SJ meeting.
+
+commit 456d79965f755a0180b4672c6663e90f0eebdf43
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 18 18:44:48 2020 -0500
+
+    Rename contact_information and contact date.
+    
+    Part of list from meeting with SJ.
+
+commit a654e253ca0ad93b8f763c36a518d0201fc09dde
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 18 18:33:00 2020 -0500
+
+    Minor changes from meeting with SJ
+    
+    "Supplemented Medicare"
+    Removed concern_level notes field from profile, accidentally left behind.
+    Adjusted "End of Life Planning"
+    More to come from the meeting.
+
+commit 190b551e62c9880f4f2fb27c8bb695586cd52575
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 18 18:06:18 2020 -0500
+
+    Create history.log
+    
+    Used for tracking hours.
+
+commit 4e564ffc73d3884b9d4426965c36e125e8987bde
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 18 18:05:58 2020 -0500
+
+    Update .gitignore
+    
+    Stop ignoring history.log
+
+commit 5e105918499e5db1448ecc87b00ebbc664ca5576
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 18 18:04:36 2020 -0500
+
+    Delete history1.log
+
+commit c3174212e799256aa93ac1903343fec22b6ee1a9
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Feb 18 18:02:53 2020 -0500
+
+    Update history1.log
+
 commit 9933107c88aa9baf465e84b0f67a662feba53973
 Author: lcarl <lcarlp@users.noreply.github.com>
 Date:   Sun Feb 16 12:08:19 2020 -0500
