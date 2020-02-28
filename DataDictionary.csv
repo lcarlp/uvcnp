@@ -12,7 +12,7 @@ phone,client_profile_must_complete_form,,text,"Client Phone number  (AC+ 7 digit
 email,client_profile_must_complete_form,,text,"Client Email",,,,,,,,,,,,,
 dob,client_profile_must_complete_form,,text,"Date of birth",,,date_ymd,,,,,y,,,,,
 age,client_profile_must_complete_form,,calc,Age,"rounddown(datediff([dob],'today','y'))",,,,,,,,,,,,
-gender,client_profile_must_complete_form,,dropdown,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,y,,,,,
+gender,client_profile_must_complete_form,,radio,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,y,,,,,
 household_comp,client_profile_must_complete_form,,radio,"Household Composition","1, One person living alone | 2, Two persons in home, one able | 3, Two persons, both with problems | 4, Client living with family or friends | 5, Other (Please describe in text box, below)",,,,,,,y,,,,,
 household_comp_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,"[household_comp] = '5'",,,,,,
 health_insurance,client_profile_must_complete_form,,radio,"Health Insurance ","1, Medicare | 2, Supplemented Medicare | 3, Medicaid | 4, Commercial/Private | 5, No insurance | 6, Other (Please describe in text box, below)",,,,,,,,,,,,
@@ -20,7 +20,7 @@ health_insurance_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,"[he
 end_life_docs,client_profile_must_complete_form,,yesno,"End-of-Life Documents?",,,,,,,,,,,,,
 end_life_docs_notes,client_profile_must_complete_form,,notes,"Notes for above",,,,,,,,,,,,,
 primary_referrer,client_profile_must_complete_form,,radio,"Primary Referral Source","1, Self | 2, Family | 3, Neighbor/Friend | 4, Primary Care Provider | 5, Community Agency | 6, Clergy | 7, Hospital/ SNF discharge coordinator | 8, FAST Squad OR Ambulance Service | 9, Other",,,,,,,y,,,,,
-provider1_affiliation,client_profile_must_complete_form,,dropdown,"Affiliation of PCP","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
+provider1_affiliation,client_profile_must_complete_form,,radio,"Affiliation of PCP","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
 hospital_used,client_profile_must_complete_form,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
 admitting_nurse,client_profile_must_complete_form,,text,"Admitting Nurse",,,,,,,,,,,,," @READONLY @USERNAME"
 caregiver_info,contact_information,,notes,"Name & contact Info for involved relative(s)/caregiver(s) 
@@ -50,23 +50,23 @@ other_provider_info,contact_information,,notes,"Contact info for other providers
   - VNA
   -Private care giving agency ",,,,,,,,,,,,,
 encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,,,,,,
-encounter_nurse,encounters,,text,Nurse,,,,,,,,,,,,," @READONLY @USERNAME"
+encounter_link_back,encounters,,descriptive,"<a href=""[redcap-version-url]DataEntry/index.php?pid=[project-id]&page=encounters&id=[record-name]&instance=[previous-instance]"" target=""_blank"">Link to previous encounter ([encounter_date][previous-instance])</a>",,,,,,,"[previous-instance] > 0",,,,,,
 limited_concern,encounters,,checkbox,"Limited Concern?","1, Yes",,,,,,,,,,,,
 limited_concern_notes,encounters,,notes,"Limited concern notes",,,,,,,[limited_concern(1)]='1',,,,,,
 encounter_type,encounters,,checkbox,"Encounter type","1, Home visit | 2, Phone client | 3, email client | 5, Office hours | 11, Phone family | 12, Email family | 4, Family meeting | 13, Famiy in Office | 6, In-patient meeting | 10, Other",,,,,,,,,,,,
 encounter_type_note,encounters,,notes,"Encounter type notes",,,,,,,,,,,,,
+encounter_nurse,encounters,,text,Nurse,,,,,,,,,,,,," @READONLY @USERNAME"
+encounter_progress_notes,encounters,"S-O NOTE",notes,"Subjective, objective notes for this encounter",,,,,,,,,,,,,
+encounter_assess_title,encounters,ASSESSMENT,descriptive,,,,,,,,,,,,,,
 encounter_stat_phys,encounters,"IMPRESSION SINCE LAST ENCOUNTER",radio,"Physical condition ","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
 encounter_stat_emot,encounters,,radio,"Emotional status ","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
 encounter_stat_cog,encounters,,radio,"Cognitive status","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
 encounter_stat_note_flag,encounters,,checkbox,,"1, Show impression notes",,,,,,,,,,,,"No field label because the label on the single checkbox seems sufficient."
 encounter_stat_note,encounters,,notes,"Impression notes",,,,,,,[encounter_stat_note_flag(1)]='1',,,,,,
 encounter_link_to_problems,encounters,"Any new problems?",descriptive,"If new problems, (or to check) [form-link:problem_list:jump to Problem List].",,,,,,,,,,,,,
-encounter_link_back,encounters,"PROGRESS NOTES",descriptive,"<a href=""[redcap-version-url]DataEntry/index.php?pid=[project-id]&page=encounters&id=[record-name]&instance=[previous-instance]"" target=""_blank"">Link to previous encounter</a>",,,,,,,"[previous-instance] > 0",,,,,,
-encounter_progress_notes2,encounters,,descriptive,"<div class=""rich-text-field-label""><p>Note from [encounter_date][previous-instance]:<br /><span style=""font-weight: normal;"">""[encounter_progress_notes][previous-instance]""</span></p></div>",,,,,,,[encounter_progress_notes][previous-instance]<>'',,,,,,
-encounter_progress_notes,encounters,,notes,"Progress notes for this encounter",,,,,,,,,,,,,
-encounter_interventions,encounters,,checkbox,Interventions,"1, Care Coordination/Referrals | 2, Reassurance/emotional support | 3, Medication-related | 4, Symptom management | 5, ADL & Mobility | 6, Family & Caregiver | 7, Social risk factors & IADL | 8, Referred or Helped with End-of-life documents | 9, Other",,,,,,,y,,,,,
-encounter_todo_notes,encounters,,notes,"FOLLOW UP / TO DO?",,,,,,,,,,,,,
-encounter_med_notes,encounters,,notes,"Change in medication or medical plan of care",,,,,,,,,,,,,
+encounter_intervention,encounters,,checkbox,Interventions,"1, Care Coordination/Referrals | 2, Reassurance/emotional support | 3, Medication-related | 4, Symptom management | 5, ADL & Mobility | 6, Family & Caregiver | 7, Social risk factors/drivers | 8, IADL (Instrumental Activities of Daily Living) | 9, Referred or Helped with End-of-life documents | 10, Other",,,,,,,,,,,,
+encounter_intervene_notes,encounters,,notes,"Intervention notes",,,,,,,"sum([encounter_intervention(1)],[encounter_intervention(2)],[encounter_intervention(3)],[encounter_intervention(4)],[encounter_intervention(5)],[encounter_intervention(6)],[encounter_intervention(7)],[encounter_intervention(8)],[encounter_intervention(9)],[encounter_intervention(10)]) > 0",,,,,,
+encounter_todo_notes,encounters,,notes,"Plan/Follow-up",,,,,,,,,,,,,
 problem_impair_mobil,problem_list,,checkbox,"Impaired Mobility","1, Impaired Mobility",,,,,,,,,,,,
 problem_impair_mobil1,problem_list,,text,"Date added",,,date_ymd,,,,"[problem_impair_mobil(1)] = '1'",,,,,,
 problem_impair_mobil2,problem_list,,text,"Date being managed long term",,,date_ymd,,,,"[problem_impair_mobil(1)] = '1'",,,,,,
