@@ -71,7 +71,7 @@ problem_type,problem_list,,checkbox,Problem,"1, Impaired Mobility | 2, Fall Risk
 problem_other_note,problem_list,,notes,"Other problem",,,,,,,"[problem_type(20)] = '1'",,,,,,
 problem_allergies,problem_list,,notes,Allergies,,,,,,,,,,,,,
 problem_diagnose,problem_list,,notes,"Medical Diagnoses/Concerns",,,,,,,,,,,,,
-social_finan,social_context,"Social Risk Factors to Health (Box appears only???)",radio,Finances,"1, In crisis | 2, Struggling | 3, Indeterminate | 4, Not an issue",,,,,,,,,,,,
+social_finan,social_context,"Social Risk Factors to/ Drivers of Health",radio,Finances,"1, In crisis | 2, Struggling | 3, Indeterminate | 4, Not an issue",,,,,,,,,,,,
 social_finan_note,social_context,,notes,Notes,,,,,,,"[social_finan]='1' or [social_finan]='2' or [social_finan]='3'",,,,,,
 social_isol,social_context,,checkbox,"Social isolation","1, Is a concern",,,,,,,,,,,,
 social_isol_note,social_context,,notes,Notes,,,,,,,[social_isol(1)]='1',,,,,,
