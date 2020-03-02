@@ -1,3 +1,159 @@
+commit 9d68b1e13f927f9f686b485a8a0e997cfd325401
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 1 13:38:29 2020 -0500
+
+    Fixes for End of Life & Future Plans in Social Context
+
+commit a2d93cadc89ee14e6b1fe1cc7d3edfc5a51ababe
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 1 13:23:38 2020 -0500
+
+    Fixed Social Context to be consistent with Functional Health
+    
+    Much better layout and alignment.
+
+commit caeb3c7e5358150808baf78a64e19f12ebfbd65a
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 1 13:03:38 2020 -0500
+
+    Left align Functional Health Notes
+
+commit 635eb803fe5c8a38aead72ca905bd6758675f449
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 1 12:57:52 2020 -0500
+
+    Improved structure of sections in Encounters.
+    
+    SOAP.  We now have S-O, Assessment, and Plan/Followup with yellow section headers, and no other yellow headers.
+
+commit fb344d17ab99ea625bcb941f41fcbfb57583f7d2
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 1 12:42:16 2020 -0500
+
+    Improve(?) titles starting Assessment section of Encounters
+
+commit 1ff4d6c01595b5915ba47f0addccb8f137309c57
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 1 12:30:33 2020 -0500
+
+    Adjusted encounter_type and header on encounter_progress_notes
+    
+    Fixed spelling error.   Added branching logic for encounter_type_notes.  Extended header on encounter_progress_notes.
+
+commit 50d0532a5389fcdac8fbb30b72d9844ce3bc0105
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 1 12:02:35 2020 -0500
+
+    Show encounter_type_notes only if something checked.
+    
+    Show encounter_type_notes only if something checked.  Minor other clean-up on Encounters.
+
+commit 13e1dcc5d28615350a9eaa4c82e17200dc321389
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 1 08:54:55 2020 -0500
+
+    Add notes to Functional Health items
+    
+    Note LV alignment.
+
+commit 57100ac24875c0ba47170e165627ff88193ef7d5
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Feb 29 23:18:06 2020 -0500
+
+    Divide Functional Health Items into separate fields.
+    
+    Note tht we are using LV alignment now.  Maybe do this in Social Context?
+
+commit 17388feb48d1f088702f4b6ceb6b4e2d92a192d2
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Feb 29 20:28:23 2020 -0500
+
+    Adjusted title for Social Context
+
+commit 121eb4436b5603601136ab21b9beec79d40b9c37
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sat Feb 29 17:18:56 2020 -0500
+
+    Changed label on encounter_todo_notes, made quotes consistent.
+    
+    Changed label on encounter_todo_notes, made quotes consistent with RECap designer which does not seem to use quotes in any places where I am inclined to use them.
+
+commit 23de57105110783c512b310d614f0db21e37739a
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Feb 28 17:38:45 2020 -0500
+
+    Adjusted status_update form as requested by SJ 2/27
+    
+    No longer defaults to Active.  Added "Reactivated" and made reason required.
+
+commit 2854f86dd64fa1ce4047729264a03807daccee9d
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Feb 28 17:18:17 2020 -0500
+
+    Simplified Problem List - Step 2
+    
+    Collapsed all the different problems into one checkbox list.
+
+commit be63b63c0e64d5c45db0c09263dd6b1d516a47e5
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Feb 28 17:01:46 2020 -0500
+
+    Simplified Problem List - Step 1
+    
+    Got rid of all the secondary fields.
+
+commit f0271746101c9e9ddac710052b6854a31c906972
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Feb 28 16:55:57 2020 -0500
+
+    Changes requested by SJ on 2/27
+    
+    Change two profile fields to dropdowns.
+    Move some fields around on Encounters.
+    Other relatively small changes on Encounters.
+
+commit 15d7e383ebccf72996ad3e1e91777551f41357b0
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Feb 26 16:18:05 2020 -0500
+
+    Simplified Social Context as discussed with SJ
+
+commit d56293287a3bc0542ae4446b5821d8cfafa8184b
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Feb 26 15:57:14 2020 -0500
+
+    Mainly add link to previous encounter.
+    
+    Also added a comment on the encounter_stat_note_flag about the lack of a field label, and did some fancy formatting on the previous progress note.  But we might be removing the latter soon.
+
+commit 072453423827b090fb2da7a15d52b601fa1fb86c
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Feb 21 19:16:16 2020 -0500
+
+    Remove question about new problems from Encounters
+    
+    Seemed  unnecessary.
+
+commit 0bc6079b4a4d040afcafd9554a3d58657947149d
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Feb 20 17:46:39 2020 -0500
+
+    Added link from Encounters to Problem List
+    
+    Shows only if "Yes" to "New problems".
+
+commit ca2df1fe4c7caa653dd61af0486a38c15e1e83a7
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Feb 20 17:34:12 2020 -0500
+
+    Made quoting consistent with REDCap dictionary download
+
+commit 3996c76c4744cc7f85825fa59b6837b3707edfa3
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Feb 20 17:31:42 2020 -0500
+
+    Added recent history
+
 commit 60e0cdc2de9f3facd97d5a3a4c3a860d02cdb459
 Author: lcarl <lcarlp@users.noreply.github.com>
 Date:   Tue Feb 18 19:59:58 2020 -0500
