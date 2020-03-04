@@ -103,7 +103,8 @@ func_issue4,functional_health,,checkbox,,"1, Physical mobility, falling & fall r
 tug_pdf,functional_health,,descriptive,"*TUG score reference*",,,,,,,[func_issue4(1)]='1',,LH,,,,
 falls_algor,functional_health,,descriptive,"*CDC-Fall Risk Reference*",,,,,,,[func_issue4(1)]='1',,LH,,,,
 func_issue4_note,functional_health,,notes,Notes,,,,,,,[func_issue4(1)]='1',,LH,,,,
-func_issue5,functional_health,,checkbox,,"1, Frail by Phenotype (Frailty Scale?)",,,,,,,,LV,,,,
+func_issue5,functional_health,,checkbox,,"1, Frail by Phenotype",,,,,,,,LV,,,,
+frail_refer,functional_health,,descriptive,"* Frailty Phenotype Reference*",,,,,,,[func_issue5(1)]='1',,LH,,,,
 func_issue5_note,functional_health,,notes,Notes,,,,,,,[func_issue5(1)]='1',,LH,,,,
 func_issue6,functional_health,,checkbox,,"1, Cognitive Status",,,,,,,,LV,,,,
 minicog_refer,functional_health,,descriptive,"* MiniCog Score Reference*",,,,,,,[func_issue6(1)]='1',,LH,,,,
@@ -189,7 +190,6 @@ med_mng_1,functional_health_2019,,checkbox,"4b) Medication management ","1, Taki
 notes_12,functional_health_2019,,notes,Notes,,,,,,,,,,,,,
 frail_1_v3,functional_health_2019,,checkbox,"5a) Frailty Traits ","1, Robust/Vital for Age | 2, 1) Weakness | 3, 2) Slowness | 4, 3) Low level of physical activity | 5, 4) exhaustion/poor endurance | 6, 5) Unintentional weight loss | 7, None of the above | 9, Other Other (Please describe in text box, below)",,,,,,,,,,,,
 notes_13,functional_health_2019,,notes,Notes,,,,,,,,,,,,,
-frail_refer,functional_health_2019,,descriptive,"* Frailty Phenotype Reference*",,,,,,,,,,,,,
 frai_phe_3,functional_health_2019,,yesno,"5b) Frail by Phenotype (i.e., 3 of the 5 present)
 ",,,,,,,"[frail_1_v3(2)] = '1' or [frail_1_v3(3)] = '1' or [frail_1_v3(4)] = '1' or [frail_1_v3(5)] = '1' or [frail_1_v3(6)] = '1'",,,,,,
 cog_stat_1,functional_health_2019,,checkbox,"6a) Cognitive Status","1, No obvious problem | 2, Considerable memory problems | 3, Making poor executive decisions (financial, gifts, pets, driving, activity) | 4, Drowsiness or excessive daytime sleep | 5, Disoriented to person, place, or time | 6, Other (Please describe in text box, below)",,,,,,,y,,,,,
