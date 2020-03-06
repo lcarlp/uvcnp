@@ -23,6 +23,7 @@ primary_referrer,client_profile_must_complete_form,,radio,"Primary Referral Sour
 provider1_affiliation,client_profile_must_complete_form,,radio,"Affiliation of PCP","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
 hospital_used,client_profile_must_complete_form,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
 admitting_nurse,client_profile_must_complete_form,,text,"Admitting Nurse",,,,,,,,,,,,," @READONLY @USERNAME"
+profile_created_on,client_profile_must_complete_form,,text,"Profile Creation Date",,,,,,,,,,,,," @READONLY @NOW"
 caregiver_info,contact_information,,notes,"Name & contact Info for involved relative(s)/caregiver(s) 
 
    - Address
