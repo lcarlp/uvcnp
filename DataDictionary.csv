@@ -12,7 +12,7 @@ phone,client_profile_must_complete_form,,text,"Client Phone number  (AC+ 7 digit
 email,client_profile_must_complete_form,,text,"Client Email",,,,,,,,,,,,,
 dob,client_profile_must_complete_form,,text,"Date of birth",,,date_ymd,,,,,y,,,,,
 age,client_profile_must_complete_form,,calc,Age,"rounddown(datediff([dob],'today','y'))",,,,,,,,,,,,
-dob_uncertain,client_profile_must_complete_form,,checkbox,,"1, Date of birth is uncertain",,,,,,,,LV,,,,
+dob_uncertain,client_profile_must_complete_form,,checkbox,"Is the date of birth uncertain?","1, Yes",,,,,,,,RV,,,,
 gender,client_profile_must_complete_form,,radio,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,y,,,,,
 household_comp,client_profile_must_complete_form,,radio,"Household Composition","1, One person living alone | 2, Two persons in home, one able | 3, Two persons, both with problems | 4, Client living with family or friends | 5, Other (Please describe in text box, below)",,,,,,,y,,,,,
 household_comp_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,"[household_comp] = '5'",,,,,,
