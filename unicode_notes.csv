@@ -1,0 +1,12 @@
+Multi-byte Unicode example:
+
+Below 18.5 Underweight   18.5 – 24.9 Normal or Healthy Weight >25.0 – 29.9 Overweight      > 30.0 Obese
+                      ^ ^     ^                                     ^                ^ ^ ^
+The 5 marked characters that look like spaces are non-breaking spaces, two bytes:  c2 a0
+The 2 marked characters that look like dashes are en dashes: three bytes: e2 80 93
+
+A tentative theory is that REDCap replaced the en dashes with normal single-byte dashes,
+but at the time of this writing, that needs to be confirmed.  
+
+Also, it looks like maybe the Byte Order Mark (BOM) was added when we added the en dash,
+but that also needs to be confirmed.
