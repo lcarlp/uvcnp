@@ -3,3 +3,4 @@ UVCNPTESTPROJECTREVISIONS_DataDictionary_2020*.csv
 UVCNPDocumentationProject_DataDictionary_2020*.csv
 original_DataDictionary.csv
 temp.csv
+*_gitignore.*
