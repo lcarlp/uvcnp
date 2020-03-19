@@ -25,7 +25,7 @@ provider1_affiliation,client_profile_must_complete_form,,radio,"Affiliation of P
 hospital_used,client_profile_must_complete_form,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
 admitting_nurse,client_profile_must_complete_form,,text,"Admitting Nurse",,,,,,,,,,,,," @READONLY @USERNAME"
 profile_created_on,client_profile_must_complete_form,,text,"Profile Creation Date",,,,,,,,,,,,," @READONLY @NOW"
-emergency_contact,contact_information,,notes,"<div class=""rich-text-field-label""><p><span style=""font-weight: normal;"">Person to notify in case of </span><span style=""color: #e03e2d;"">emergency</span></p></div>",,,,,,,,,LH,,,,
+emergency_contact,contact_information,,notes,"<p><span style=""font-weight: bold;"">Person to notify in case of <span style=""color: #e03e2d;"">emergency</span></span></p>",,,,,,,,,LH,,,,
 caregiver_info,contact_information,,notes,"Name & contact Info for involved relative(s)/caregiver(s) 
 
    - Address
@@ -75,8 +75,8 @@ problem_other_note,problem_list,,notes,"Other problem",,,,,,,"[problem_type(20)]
 problem_allergies,problem_list,,notes,Allergies,,,,,,,,,,,,,
 problem_diagnose,problem_list,,notes,"Medical Diagnoses/Concerns",,,,,,,,,,,,,
 social_finan,social_context,"Social Risk Factors to/ Drivers of Health",radio,Finances,"1, In crisis | 2, Struggling | 3, Indeterminate | 4, Not an issue",,,,,,,,LH,,,,
-social_finan_note,social_context,,notes,Notes,,,,,,,"[social_finan]='1' or [social_finan]='2' or [social_finan]='3'",,LH,,,,
-social_isol,social_context,,checkbox,,"1, Social isolation",,,,,,,,LV,,,,
+social_finan_note,social_context,,notes,"<p><span style=""font-weight: normal;"">Notes</span></p>",,,,,,,"[social_finan]='1' or [social_finan]='2' or [social_finan]='3'",,LH,,,,
+social_isol,social_context,,checkbox,,"1, <span style=""font-weight: bold;"">Social isolation</span>",,,,,,,,LV,,,,
 social_isol_note,social_context,,notes,Notes,,,,,,,[social_isol(1)]='1',,LH,,,,
 social_trans,social_context,,checkbox,,"1, Transportation",,,,,,,,LV,,,,
 social_trans_note,social_context,,notes,Notes,,,,,,,[social_trans(1)]='1',,LH,,,,
