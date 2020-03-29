@@ -109,7 +109,7 @@ func_issue4,functional_health,,checkbox,,"1, <span style=""font-weight: bold;"">
 tug_pdf,functional_health,,descriptive,"*TUG score reference*",,,,,,,[func_issue4(1)]='1',,LH,,,,
 falls_algor,functional_health,,descriptive,"*CDC-Fall Risk Reference*",,,,,,,[func_issue4(1)]='1',,LH,,,,
 func_issue4_note,functional_health,,notes,"<p><span style=""font-weight: normal;"">Notes</span></p>",,,,,,,[func_issue4(1)]='1',,LH,,,,
-func_issue5,functional_health,,checkbox,,"1, <span style=""font-weight: bold;"">Frail by Phenotype</span>",,,,,,,,LV,,,,
+func_issue5,functional_health,,checkbox,,"1, <span style=""font-weight: bold;"">Frailty</span>",,,,,,,,LV,,,,
 frail_refer,functional_health,,descriptive,"* Frailty Phenotype Reference*",,,,,,,[func_issue5(1)]='1',,LH,,,,
 func_issue5_note,functional_health,,notes,"<p><span style=""font-weight: normal;"">Notes</span></p>",,,,,,,[func_issue5(1)]='1',,LH,,,,
 func_issue6,functional_health,,checkbox,,"1, <span style=""font-weight: bold;"">Cognitive Status</span>",,,,,,,,LV,,,,
