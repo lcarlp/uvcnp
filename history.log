@@ -1,3 +1,217 @@
+commit 89d358d6a0342a573b7d03f3db7d478b0b93962c
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 29 17:53:37 2020 -0400
+
+    Changed "Frail by Phenotype" to "Frailty" in "Functional Health" form.
+
+commit 502b5dd035a9e7720309818d535d9d150b8583f9
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Mar 19 19:36:49 2020 -0400
+
+    Added creation dates and nurses in a few places.   Minor format changes.
+
+commit 29decfd11983d2966e40d5f247064712a35add16
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Mar 19 19:10:12 2020 -0400
+
+    Changed outcomes on both sttuys_update and six month report
+    
+    Changed to "Nurse-reported".  Added "No significant change" as a NONEOFTHE ABOVE option.  Also adjusted format to be more consistent with REDCap designer.
+
+commit 49a4c98afdb4570ab1c891b780c66eeb940e9679
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Mar 19 18:47:59 2020 -0400
+
+    Remove question marks from six_month_stat_note label
+
+commit 6dc88e2e488a4d353806ed5cd43010be131e7e48
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Mar 18 22:03:36 2020 -0400
+
+    Made font normal (not bold) for Notes labels in Social Context and Functional Health
+
+commit 1038d686de7d85b8a243d04700f00fb61e952b67
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Mar 18 21:55:23 2020 -0400
+
+    Changed font to Bold for checkboxes in Social Context and Functional Health
+
+commit fe92c1915a20ded017cfa541589cbba09702aaf7
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Mar 18 21:46:14 2020 -0400
+
+    Adjust font for a couple of things.
+
+commit 941701aa5053a60d3e1061555b745e99661f356e
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Mar 16 15:38:39 2020 -0400
+
+    Added emergency_contact field
+
+commit 936d3ee825f46128ab79980039208c4bb8b861e8
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Mon Mar 9 10:03:05 2020 -0400
+
+    Snapshot of Version 2 Data Dictionary
+    
+    Used for testing etc.
+
+commit cb972e66131c2a1264c545d04c033abfe91c55f2
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 8 13:50:04 2020 -0400
+
+    Removed multi-byte characters and Byte Order Mark
+    
+    REDCap apparently added the BOM when we added the multi-byte characters by copying and pasting from a Word document.  Now that those characters have been removed, it appears that we can upload without the BOM and when we download it is still not there.  I think it's better to keep it this way for simplicity.  I (or some successor) might have a different opinion in the future.
+
+commit b922b5779f93aececac753bfb42ff28803365478
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 8 13:43:32 2020 -0400
+
+    Move @HIDDEN action tag to correct column for limited_concern_notes
+    
+    I messed this up due to miscounting commas.  This would be less of a problem if I used a spreadsheet program, but I feel the advantages of using Visual Studio Code outweigh the disadvantages.
+
+commit e8eeca2d3542bdf5e62f8278661769243fdd645a
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 8 13:06:18 2020 -0400
+
+    Added notes related to Unicode multi-byte characters and Byte Order Marks
+
+commit f484f801435558bbad12061957c221b7b8499a8a
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 8 12:31:43 2020 -0400
+
+    Ignore any file matching *_gitignore.*
+    
+    Makes it easier to manage temporary files for testing.
+
+commit 484bfe1d9dc28027b1456472cf3ab8d70f1d3e44
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Mar 6 19:25:05 2020 -0500
+
+    Changed format of checkbox for uncertain date of birth
+    
+    I think it looks better this way, at least as it goes with the dob and the age.
+
+commit 6884857d6bed59c38f3695ecacbe0a0905feed4b
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Mar 6 18:38:19 2020 -0500
+
+    Improve label for date_1st_contact, Add dob_uncertain checkbox, hide limited concern fields, Change Culture/Language to Communication
+    
+    Recent changes requested or at least promted by Sarah Jo:
+    
+    Improve label for date_1st_contact, Add dob_uncertain checkbox, hide limited concern fields, Change Culture/Language to Communication
+
+commit b2718bbe40aa65911e16c40e7f2d9a10b72f46d8
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Fri Mar 6 18:35:57 2020 -0500
+
+    Update .gitignore
+    
+    Ignore temp.csv, may want to undo this at some point,
+
+commit a99e3310b4b5e3c4cc22aa3de3d34d3f5567eb87
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Mar 5 20:48:58 2020 -0500
+
+    Added profile creation date.
+
+commit 947fc83b4892539673296cab665d3688b990f63e
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Thu Mar 5 20:46:42 2020 -0500
+
+    Ignore some more files that do not need to be tracked.
+
+commit 3394f366220767d18e99275fc53bc6a178920289
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Mar 4 21:13:48 2020 -0500
+
+    Intervention change, Moved Elder Abuse reference.
+    
+    Requested by Sarah Jo
+
+commit aa27c69729e299f9d498a57c040e8aa7939dcf53
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Wed Mar 4 00:20:27 2020 -0500
+
+    Added medication reference and made a small repair.
+    
+    Also replaced multi-byte characters with simple dashes.
+
+commit 390039e74112d7a36d13a2da5554d042a1df4bfd
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Mar 3 23:50:24 2020 -0500
+
+    Moved frailty reference to new form
+    
+    Functional Health
+
+commit 77641f9569a8a854fe3f72e50414ef9918ccc439
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Mar 3 21:09:15 2020 -0500
+
+    Added references for Mobility & Fall risk
+    
+    Moved from old Functional Health form.
+
+commit 288d8737928b6fa77ee28123029b70e9f335d976
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Mar 3 20:57:52 2020 -0500
+
+    Moved note for Cognitive Status on Functional Health
+
+commit 9254b046a81e5e2432bc38a763ae148c8089f103
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Mar 3 20:28:13 2020 -0500
+
+    Moved mini cog reference to new Form.
+
+commit 78c67547c7f9cf563f7d87646e7b9ccd1eec6169
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Mar 3 20:07:46 2020 -0500
+
+    Moved note for func_issue10 to after BMI fields.
+    
+    Moved note for func_issue10, Nutrition/eating, weight" to after BMI fields.  Seems more sensible that way.
+
+commit 088fa402ece1a21b8b72a4d4777a92907507df4b
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Mar 3 19:20:48 2020 -0500
+
+    Add Byte Order Mark (BOM)
+    
+    BOM is now included in Dictionary Exports as of REDCap 9.7.7., apparently.
+
+commit 445c4d9ccc82a3e2f5a3fc91d652408aa12129b1
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Tue Mar 3 12:36:51 2020 -0500
+
+    Add BMI interpretation text & link to Functional Health
+    
+    Asked SJ if it is OK, but no answer yet.
+
+commit 7cd9fb8d0bcb36a8cbba16aa82113d40b7047371
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 1 21:15:53 2020 -0500
+
+    Validate height and weight
+
+commit 8a27ab2930e79bf70f1779b1e723bce4e6a1e479
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 1 20:53:22 2020 -0500
+
+    Add BMI fields to new Functional Health form
+
+commit 95870a9f05810ad68078d4e5b68f90520fded01d
+Author: lcarl <lcarlp@users.noreply.github.com>
+Date:   Sun Mar 1 20:35:40 2020 -0500
+
+    Update history.log
+    
+    For tracking hours
+
 commit 9d68b1e13f927f9f686b485a8a0e997cfd325401
 Author: lcarl <lcarlp@users.noreply.github.com>
 Date:   Sun Mar 1 13:38:29 2020 -0500
