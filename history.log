@@ -1,3 +1,15 @@
+commit ecc4fdde0ae48b28b16aba6f9b2a38397d481abb
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Apr 15 12:04:51 2020 -0400
+
+    Remove comment from output.  I can no longer recall why I put it there.
+
+commit cfcd53fae95642c0169062edfe0c265b1a62ba90
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Apr 15 11:59:39 2020 -0400
+
+    Checkpoint of Git history, just used to check March hours.
+
 commit 89d358d6a0342a573b7d03f3db7d478b0b93962c
 Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
 Date:   Sun Mar 29 17:53:37 2020 -0400
