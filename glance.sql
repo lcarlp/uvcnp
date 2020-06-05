@@ -226,7 +226,7 @@ select '   Avg. number of problems per client: '||
   from aag1_problem;
 
 select '';
-select 'Top 5 Nurse interventions:   (% of client visits in which nursing interventions were performed and documented.)';
+select 'Top 5 Nurse Intervention Categories:   (% of client visits in which nursing interventions were performed and documented.)';
 select '   '||rank||'. '||label||'  '||percentage||'%' as text
   from aag1_intervene5
  where rank <= 5
