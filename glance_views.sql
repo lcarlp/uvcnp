@@ -986,6 +986,7 @@ select 'Helped improve client''s management of illness symptoms'
              , sum(case when outcome_5 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
+-- The label for this next item is used elsewhere, so be careful.
 select 'Prevented Emergency Call, ED Visit, or Re-hospitalization'
      ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total

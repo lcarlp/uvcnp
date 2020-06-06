@@ -245,6 +245,10 @@ select '  '||rank||'.  '||label||'  '||percentage||'%'
   from aag1_outcome
  where rank <= 5
  order by rank;
+select char(10)||'Also:'||char(10)||'  '||rank||'.  '||label||'  '||percentage||'%'
+  from aag1_outcome
+ where rank > 5
+   and label = 'Prevented Emergency Call, ED Visit, or Re-hospitalization';
 
 select '';
 select 'Reason for Discharge  (R='||count(*)||')'
