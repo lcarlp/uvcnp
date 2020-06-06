@@ -20,7 +20,7 @@ health_insurance,client_profile_must_complete_form,,radio,"Health Insurance ","1
 health_insurance_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,"[health_insurance] = '6'",,,,,,
 end_life_docs,client_profile_must_complete_form,,yesno,"End-of-Life Documents?",,,,,,,,,,,,,
 end_life_docs_notes,client_profile_must_complete_form,,notes,"Notes for above",,,,,,,,,,,,,
-primary_referrer,client_profile_must_complete_form,,radio,"Primary Referral Source","1, Self | 2, Family | 3, Neighbor/Friend | 4, Primary Care Provider | 5, Community Agency | 6, Clergy | 7, Hospital/ SNF discharge coordinator | 8, FAST Squad OR Ambulance Service | 9, Other",,,,,,,y,,,,,
+primary_referrer,client_profile_must_complete_form,,radio,"Primary Referral Source","1, Self | 2, Family | 3, Neighbor/Friend | 4, Primary Care Provider Office | 5, Specialty Provider Office/Clinic | 6, Emergency Department | 7, DH Geriatric E.D. | 8, Community Agency/P.T. Service | 9, Clergy | 10, Hospital/SNF discharge coordinator | 11, First Responder/Ambulance Service | 12, Other",,,,,,,y,,,,,
 provider1_affiliation,client_profile_must_complete_form,,radio,"Affiliation of PCP","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
 hospital_used,client_profile_must_complete_form,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
 admitting_nurse,client_profile_must_complete_form,,text,"Admitting Nurse",,,,,,,,,,,,," @READONLY @USERNAME"
