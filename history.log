@@ -1,3 +1,97 @@
+commit 8c4953f7f50543d612b4fed715c5fe01bca60989
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sat Jun 6 19:15:38 2020 -0400
+
+    In the AAG report, always show the outcome: 'Prevented Emergency Call, ED Visit, or Re-hospitalization', even if it is not in the Top 5 Nurse Reported Outcomes.  This was requested by SJ.  Note that the way I coded this it is sensitive to even minor changes in the label.  I put a comment in the view to the effect, so hopefully that will be noticed.
+
+commit 773f45c4aa8358a3e9f0af7054b3bff7012e5908
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sat Jun 6 17:47:53 2020 -0400
+
+    Added some entries to the primary_referrer list, and revised descriptions some of the existing ones.  Note that the numbering on these is quite different from the numbering for referred_by in V2.  That seems OK since, for one thing, the old items were checkboxes and these are radio buttons, and also the list has changed so much that it would be hard to compare V2 to V3 anyway.
+
+commit 8c0c4762bf8d4e55e1146db42410a3e4f69fe905
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sat Jun 6 16:46:21 2020 -0400
+
+    Add "Facilitate/Participate in telehealth visit" as a possible intervention in the Encounters form, as requested by SJ.
+
+commit 1196cd905043357b621dc4dbc88f3ce9382f18f3
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Fri Jun 5 17:57:54 2020 -0400
+
+    Moved Social Context and Functional Health to the right of the Six-Month report, because they are lesser used.  This was a fairly bug change which was made using the REDCap designer, but the length of the file was the same before and after the change, which is reassuring.
+
+commit 82482447df742605435ef0d893d5281e31dba5dd
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Fri Jun 5 17:46:42 2020 -0400
+
+    Changed encounter_intervention label to be larger and all caps as requested by SJ.
+
+commit c2f2d5b0760932cc95437ff7cc8a127d43d0b964
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Fri Jun 5 16:56:56 2020 -0400
+
+    Changed section title in AAG as requested by Sarah Jo.
+
+commit 905325b80ab65ef3040567f3a29c5b08fa0c6d91
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Mon May 11 18:40:05 2020 -0400
+
+    Change name of form month_report_2019 to month_report_v2.  Note that this is called "6 Month Report" in the REDCap Designer.
+    
+    I am doing a similar change for all of the 2019 forms, in preparation for making the same change in the live project.  This will facilitate the move from V2 to V3.
+
+commit 3ae9c43afcce8b5fca5c0919a9200ed51193d3e7
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Mon May 11 18:35:22 2020 -0400
+
+    Change name of form interval_contacts_2019 to interval_contacts_v2.
+    
+    I am doing a similar change for all of the 2019 forms, in preparation for making the same change in the live project.  This will facilitate the move from V2 to V3.
+
+commit 086ac3e3417bae76d658124a186320c15b54a95f
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Mon May 11 18:32:16 2020 -0400
+
+    Change name of form plan_of_care_initial_interventions_2019 to plan_of_care_initial_interventions_v2.
+    
+    I am doing a similar change for all of the 2019 forms, in preparation for making the same change in the live project.  This will facilitate the move from V2 to V3.
+
+commit ebdf936f355ef78f57e8c1bb7a5970a0107fb868
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Mon May 11 18:28:12 2020 -0400
+
+    Change name of form problem_list_2019 to plan_of_care_problem_list_v2.
+    
+    I am doing a similar change for all of the 2019 forms, in preparation for making the same change in the live project.  This will facilitate the move from V2 to V3.
+
+commit 1dbd0c95d7343349f3f89c00b6cf50eead600fd6
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Mon May 11 18:23:44 2020 -0400
+
+    Change name of form functional_health_2019 to functional_health_v2.
+    
+    I am doing a similar change for all of the 2019 forms, in preparation for making the same change in the live project.  This will facilitate the move from V2 to V3.
+
+commit c413840adaa0b0f0d5839487e58558b7103c30f5
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Mon May 11 18:18:38 2020 -0400
+
+    Change name of form social_context_2019 to social_context_v2.
+    
+    I will be doing a similar change for all of the 2019 forms, in preparation for making the same change in the live project.  This will facilitate the move from V2 to V3.
+
+commit 37fd2fbe6a71f5f3e3fb67e18f7d0f8b5ca69d9f
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Mon May 11 16:28:25 2020 -0400
+
+    Checkpoint of git history, used to check April 2020 hours (almost nothing shown here in this case).
+    
+    The git command to write the history is simple.  It's just:
+    
+        git log>history.log
+
 commit ecc4fdde0ae48b28b16aba6f9b2a38397d481abb
 Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
 Date:   Wed Apr 15 12:04:51 2020 -0400
