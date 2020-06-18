@@ -1,3 +1,51 @@
+commit 4dc239d78eb2d715539c9b7df9d063a86a01f518
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Thu Jun 18 17:34:40 2020 -0400
+
+    Change name of form contact_information_2019 to contact_information_v2.
+    
+    I did a similar changes for all of the 2019 forms, in preparation for making the same change in the live project.  This will facilitate the move from V2 to V3.
+    
+    This is the last of this series of changes.
+
+commit 8af6cd5956ddffff54386b24a8379314e6e32e8f
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Thu Jun 18 17:29:16 2020 -0400
+
+    Change name of form profile_2019 to profile_v2.
+    
+    I am doing a similar change for all of the 2019 forms, in preparation for making the same change in the live project.  This will facilitate the move from V2 to V3.
+
+commit 465a06b5b639005b80b057aa240a78078bec4de7
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sat Jun 13 10:19:51 2020 -0400
+
+    Change name of form discharge_report_2019 to discharge_report_v2.
+    
+    I am doing a similar change for all of the 2019 forms, in preparation for making the same change in the live project.  This will facilitate the move from V2 to V3.
+
+commit c6873476e51b7ecfa37d7942699c5322eefad020
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Mon Jun 8 11:03:41 2020 -0400
+
+    Changed encounter_intervention label to be a section header, removed field label and left aligned checkboxes.
+    
+    A previous commit note said they were radio buttons.  That was wrong.
+    
+    Ammended this commit to reset author attempting to avoid GH007 error.
+
+commit bd90360af7dcf8dc5b38320bdd6d57956b160fbb
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sat Jun 6 20:48:19 2020 -0400
+
+    Checkpoint of git history, used to check May and early June 2020 hours (on or before June 6)
+    
+    The git command to write the history is simple.  It's just:
+    
+        git log>history.log
+    
+    For some reason, copy and paste from the Sourcetree commit message shown in the log into some other application does not seem to pick up everything in the message.  I'm going to check for Sourcetree updates after this commit.
+
 commit 8c4953f7f50543d612b4fed715c5fe01bca60989
 Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
 Date:   Sat Jun 6 19:15:38 2020 -0400
