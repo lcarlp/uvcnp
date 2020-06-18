@@ -458,4 +458,4 @@ cg_basicneeds_before,profile_v2,,radio,"14c) Do you think ______ is safe and her
 cg_conf_before,profile_v2,,radio,"14d) Are you feeling confident in caring for ________?","1, Definitely yes | 2, Somewhat | 3, No, not really",,,,,,"[care_giver] = '1'",,,,,,
 cg_fatig_before,profile_v2,,radio,"14e) Do your caregiving responsibilities cause you to feel fatigued, depressed, or burdened?","1, Yes | 2, Sometimes | 3, No",,,,,,"[care_giver] = '1'",,,,,,
 cg_what_matters,profile_v2,,notes,"14f) As a caregiver, what matters most to you?",,,,,,,"[care_giver] = '1'",,,,,,
-date_contact,contact_information_2019,,text,"REQUIRED FIELD- PLEASE ENTER DATE",,,date_ymd,,,,,y,,,,,
+date_contact,contact_information_v2,,text,"REQUIRED FIELD- PLEASE ENTER DATE",,,date_ymd,,,,,y,,,,,
