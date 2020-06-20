@@ -1,33 +1,39 @@
-select 'encounter_date,'||
-         'encounter_type___1,'||
-         'encounter_type___2,'||
-         'encounter_type___3,'||
-         'encounter_type___5,'||
-         'encounter_type___11,'||
-         'encounter_type___12,'||
-         'encounter_type___4,'||
-         'encounter_type___13,'||
-         'encounter_type___6,'||
-         'encounter_type___10,'||
-         'encounter_type_note,'||
-         'encounter_nurse,'||
-         'encounter_progress_notes,'||
-         'encounter_stat_phys,'||
-         'encounter_stat_emot,'||
-         'encounter_stat_cog,'||
-         'encounter_stat_note_flag___1,'||
-         'encounter_stat_note,'||
-         'encounter_intervention___1,'||
-         'encounter_intervention___2,'||
-         'encounter_intervention___3,'||
-         'encounter_intervention___4,'||
-         'encounter_intervention___5,'||
-         'encounter_intervention___6,'||
-         'encounter_intervention___7,'||
-         'encounter_intervention___8,'||
-         'encounter_intervention___9,'||
-         'encounter_intervention___10,'||
-         'encounter_intervene_notes,'||
-         'encounter_todo_notes,'||
-         'encounters_complete,'||
-         '
+select record_id" TEXT
+     , redcap_repeat_instrument
+     , redcap_repeat_instance
+     , redcap_data_access_group
+     , encounter_date
+     , encounter_type___1
+     , encounter_type___2
+     , encounter_type___3
+     , encounter_type___5
+     , encounter_type___11
+     , encounter_type___12
+     , encounter_type___4
+     , encounter_type___13
+     , encounter_type___6
+     , encounter_type___10
+     , encounter_type_note
+     , limited_concern
+     , limited_concern_notes
+     , encounter_nurse
+     , encounter_progress_notes
+     , encounter_stat_phys
+     , encounter_stat_emot
+     , encounter_stat_cog
+     , encounter_stat_note_flag___1
+     , encounter_stat_note
+     , encounter_intervention___1
+     , encounter_intervention___2
+     , encounter_intervention___3
+     , encounter_intervention___4
+     , encounter_intervention___5
+     , encounter_intervention___6
+     , encounter_intervention___7
+     , encounter_intervention___8
+     , encounter_intervention___9
+     , encounter_intervention___10
+     , encounter_intervene_notes
+     , encounter_todo_notes
+     , encounters_complete
+     
