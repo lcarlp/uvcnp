@@ -44,7 +44,7 @@ select record_id
    and ( date_1st_contact != '' or 
    exists(select null 
             from redcap_export 
-           where redcap_repeat_instrument = 'interval_contacts'
+           where redcap_repeat_instrument like 'interval_contacts%'
              and record_id = a.record_id) )
 union all
 select record_id
@@ -87,6 +87,6 @@ select record_id
      , datetime('now','localtime') encounter_created_on
      , 2 encounters_complete --2 means record completed.
   from redcap_export
- where redcap_repeat_instrument = 'interval_contacts'
+ where redcap_repeat_instrument like 'interval_contacts%'
  order by 1,3;
      
