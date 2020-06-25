@@ -1,6 +1,6 @@
 drop view if exists v3_encounters;
 create view v3_encounters as
-select record_id
+select a.record_id
      , 'encounters' redcap_repeat_instrument
      , 1 redcap_repeat_instance
      , redcap_data_access_group
@@ -83,10 +83,50 @@ select record_id
      , 0 encounter_intervention___9
      , 0 encounter_intervention___10
      , '' encounter_intervene_notes
-     , '[record #1 imported from V2]' encounter_todo_notes
+     , '[record #'||redcap_repeat_instance+1||' imported from V2]' encounter_todo_notes
      , datetime('now','localtime') encounter_created_on
      , 2 encounters_complete --2 means record completed.
   from redcap_export
  where redcap_repeat_instrument like 'interval_contacts%'
  order by 1,3;
-     
+
+drop view if exists v3_status_update;
+create view v3_status_update as
+select a.record_id
+     , 'status_update' redcap_repeat_instrument
+     , 1 redcap_repeat_instance
+     , a.redcap_data_access_group
+     , coalesce(b.date_today_dis,date('now')) client_redcap_status_date
+     , '' status_update_nurse
+     , 3 client_redcap_status
+     , case b.reason_disch when 1 then 1 when 2 then 5 when 3 then 4 when 4 then 3 when 5 then 6 end status_update_reason
+     , b.notes_45 status_update_reason_note
+     , 0 status_update_outcome___1
+     , 0 status_update_outcome___2
+     , 0 status_update_outcome___3
+     , 0 status_update_outcome___4
+     , 0 status_update_outcome___5
+     , 0 status_update_outcome___6
+     , 0 status_update_outcome___7
+     , 0 status_update_outcome___8
+     , 0 status_update_outcome___9
+     , 0 status_update_outcome___10
+     , 0 status_update_outcome___11
+     , 0 status_update_outcome___12
+     , 0 status_update_outcome___13
+     , 0 status_update_outcome___20
+     , '[record #1 imported from V2]' status_update_outcome_note
+     , datetime('now','localtime') status_updated_on
+     , 2 status_update_complete
+  from redcap_export a
+  left join redcap_export b
+    on b.redcap_repeat_instrument like '%discharge%'
+   and b.record_id = a.record_id
+   and b.redcap_repeat_instance = (
+         select max(redcap_repeat_instance) 
+           from redcap_export c
+          where c.redcap_repeat_instrument like '%discharge%'
+            and c.record_id = a.record_id )
+ where a.redcap_repeat_instrument = ''
+   and a.status_profile = 3 --Discharged
+;
