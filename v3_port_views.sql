@@ -115,7 +115,7 @@ select a.record_id
      , 0 status_update_outcome___12
      , 0 status_update_outcome___13
      , 0 status_update_outcome___20
-     , '[record #1 imported from V2]' status_update_outcome_note
+     , '[Discharged record #1 imported from V2]' status_update_outcome_note
      , datetime('now','localtime') status_updated_on
      , 2 status_update_complete
   from redcap_export a
@@ -129,4 +129,34 @@ select a.record_id
             and c.record_id = a.record_id )
  where a.redcap_repeat_instrument = ''
    and a.status_profile = 3 --Discharged
+union all
+select record_id
+     , 'status_update' redcap_repeat_instrument
+     , 1 redcap_repeat_instance
+     , redcap_data_access_group
+     , date('now') client_redcap_status_date
+     , '' status_update_nurse
+     , 2 client_redcap_status
+     , 6 status_update_reason --Other.
+     , '[Deactivated record #1 imported from V2]' status_update_reason_note
+     , 0 status_update_outcome___1
+     , 0 status_update_outcome___2
+     , 0 status_update_outcome___3
+     , 0 status_update_outcome___4
+     , 0 status_update_outcome___5
+     , 0 status_update_outcome___6
+     , 0 status_update_outcome___7
+     , 0 status_update_outcome___8
+     , 0 status_update_outcome___9
+     , 0 status_update_outcome___10
+     , 0 status_update_outcome___11
+     , 0 status_update_outcome___12
+     , 0 status_update_outcome___13
+     , 0 status_update_outcome___20
+     , '[Deactivated record #1 imported from V2]'  status_update_outcome_note
+     , datetime('now','localtime') status_updated_on
+     , 2 status_update_complete
+  from redcap_export
+ where redcap_repeat_instrument = ''
+   and status_profile = 2 --Inactive
 ;
