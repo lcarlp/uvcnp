@@ -39,11 +39,11 @@ select a.record_id
      , '[record #1 imported from V2]' encounter_todo_notes
      , datetime('now','localtime') encounter_created_on
      , 2 encounters_complete --2 means record completed.
-  from redcap_export a
+  from redcap_export_v2_v3 a
  where redcap_repeat_instrument = ''
    and ( date_1st_contact != '' or 
    exists(select null 
-            from redcap_export 
+            from redcap_export_v2_v3 
            where redcap_repeat_instrument like 'interval_contacts%'
              and record_id = a.record_id) )
 union all
@@ -86,7 +86,7 @@ select record_id
      , '[record #'||redcap_repeat_instance+1||' imported from V2]' encounter_todo_notes
      , datetime('now','localtime') encounter_created_on
      , 2 encounters_complete --2 means record completed.
-  from redcap_export
+  from redcap_export_v2_v3
  where redcap_repeat_instrument like 'interval_contacts%'
  order by 1,3;
 
@@ -118,13 +118,13 @@ select a.record_id
      , '[Discharged record #1 imported from V2]' status_update_outcome_note
      , datetime('now','localtime') status_updated_on
      , 2 status_update_complete
-  from redcap_export a
-  left join redcap_export b
+  from redcap_export_v2_v3 a
+  left join redcap_export_v2_v3 b
     on b.redcap_repeat_instrument like '%discharge%'
    and b.record_id = a.record_id
    and b.redcap_repeat_instance = (
          select max(redcap_repeat_instance) 
-           from redcap_export c
+           from redcap_export_v2_v3 c
           where c.redcap_repeat_instrument like '%discharge%'
             and c.record_id = a.record_id )
  where a.redcap_repeat_instrument = ''
@@ -156,7 +156,7 @@ select record_id
      , '[Deactivated record #1 imported from V2]'  status_update_outcome_note
      , datetime('now','localtime') status_updated_on
      , 2 status_update_complete
-  from redcap_export
+  from redcap_export_v2_v3
  where redcap_repeat_instrument = ''
    and status_profile = 2 --Inactive
 ;
