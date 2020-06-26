@@ -159,4 +159,38 @@ select record_id
   from redcap_export_v2_v3
  where redcap_repeat_instrument = ''
    and status_profile = 2 --Inactive
-;
+ order by 1,3;
+
+drop view if exists v3_problem_list;
+create view v3_problem_list as
+select max(imp_phys_mob___1,imp_phys_mob___2) problem_type___1 --Mobility
+     , max(fall___1,fall___2) problem_type___2 --Fall Risk
+     , max(sdoh_iso___1,sdoh_iso___2) problem_type___3 --Social isolation/weak social support
+     , max(sympt_manag___1,sympt_manag___2) problem_type___4 --symptom management
+     , max(frailty___1,frailty___2) problem_type___5 --Frailty
+     , max(self_care_prob_list___1,self_care_prob_list___2) problem_type___6 --Self-care deficit
+     , max(incorrect_meds___1,incorrect_meds___2) problem_type___7 --medication management
+     , max(ment_heal___1,ment_heal___2) problem_type___8 --Mental health
+     , max(impair_cog___1,impair_cog___2) problem_type___9 --cognitive
+     , max(nutr_poor___1,nutr_poor___2) problem_type___10 --nutrition
+     , max(sdoh_finance___1,sdoh_finance___2) problem_type___11 --Financial
+     , max(sdoh_transp___1,sdoh_transp___2) problem_type___12 --Transportation
+     , max(stay_home___1,stay_home___2) problem_type___13 --Struggling to remain at home
+     , 0 problem_type___14 --caregiver burnout, nothing like this in V2
+     , max(ed_visits___1,ed_visits___2,
+           ineff_ther___1,ineff_ther___2,
+           prob_bills___1,prob_bills___2,
+           stress_trans___1,stress_trans___2,
+           incom_acp___1,incom_acp___2,
+           hous_def___1,hous_def___2,
+           other_prob_list___1,other_prob_list___2,
+           sdoh_other_2___1,sdoh_other_2___2) problem_type___20 --Other
+     , case when max(ed_visits___1,ed_visits___2) then 'Frequent ED visits or EMS calls; ' end ||
+         case when max(ineff_ther___1,ineff_ther___2) then 'Ineffective enactment of therapeutic recommendations; ' end ||
+         case when max(prob_bills___1,prob_bills___2) then 'Problems with bills, insurance paperwork, enrollments; ' end ||
+         case when max(hous_def___1,hous_def___2) then 'Housing; ' end problem_other_note --
+     , notes_56 problem_allergies
+     , med_diag_list_v2_v2_v2 problem_diagnose
+     , 2 problem_list_complete
+  from redcap_export_v2_v3
+ where redcap_repeat_instrument = '';
