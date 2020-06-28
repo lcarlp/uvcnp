@@ -161,9 +161,40 @@ select record_id
    and status_profile = 2 --Inactive
  order by 1,3;
 
+drop view if exists v3_problem_list_clear;
+create view v3_problem_list_clear as
+select record_id
+     , redcap_data_access_group
+     , '' problem_type___1 --Mobility
+     , '' problem_type___2 --Fall Risk
+     , '' problem_type___3 --Social isolation/weak social support
+     , '' problem_type___4 --symptom management
+     , '' problem_type___5 --Frailty
+     , '' problem_type___6 --Self-care deficit
+     , '' problem_type___7 --medication management
+     , '' problem_type___8 --Mental health
+     , '' problem_type___9 --cognitive
+     , '' problem_type___10 --nutrition
+     , '' problem_type___11 --Financial
+     , '' problem_type___12 --Transportation
+     , '' problem_type___13 --Struggling to remain at home
+     , '' problem_type___14 --caregiver burnout, nothing like this in V2
+     , '' problem_type___20 --Other
+     , '' problem_other_note --
+     , '' problem_allergies
+     , '' problem_diagnose
+     , '' problem_list_complete
+  from redcap_export_v2_v3
+ where redcap_repeat_instrument = ''
+-- Requires setting "blank values to overwrite existing saved values"
+-- during import.
+;
+
 drop view if exists v3_problem_list;
 create view v3_problem_list as
-select max(imp_phys_mob___1,imp_phys_mob___2) problem_type___1 --Mobility
+select record_id
+     , redcap_data_access_group
+     , max(imp_phys_mob___1,imp_phys_mob___2) problem_type___1 --Mobility
      , max(fall___1,fall___2) problem_type___2 --Fall Risk
      , max(sdoh_iso___1,sdoh_iso___2) problem_type___3 --Social isolation/weak social support
      , max(sympt_manag___1,sympt_manag___2) problem_type___4 --symptom management
@@ -193,4 +224,27 @@ select max(imp_phys_mob___1,imp_phys_mob___2) problem_type___1 --Mobility
      , med_diag_list_v2_v2_v2 problem_diagnose
      , 2 problem_list_complete
   from redcap_export_v2_v3
- where redcap_repeat_instrument = '';
+ where redcap_repeat_instrument = ''
+   and ( max(ed_visits___1,ed_visits___2,
+        incorrect_meds___1,incorrect_meds___2,
+        ineff_ther___1,ineff_ther___2,
+        sympt_manag___1,sympt_manag___2,
+        frailty___1,frailty___2,
+        impair_cog___1,impair_cog___2,
+        ment_heal___1,ment_heal___2,
+        self_care_prob_list___1,self_care_prob_list___2,
+        imp_phys_mob___1,imp_phys_mob___2,
+        fall___1,fall___2,
+        stay_home___1,stay_home___2,
+        prob_bills___1,prob_bills___2,
+        stress_trans___1,stress_trans___2,
+        incom_acp___1,incom_acp___2,
+        other_prob_list___1,other_prob_list___2,
+        sdoh_iso___1,sdoh_iso___2,
+        nutr_poor___1,nutr_poor___2,
+        hous_def___1,hous_def___2,
+        sdoh_transp___1,sdoh_transp___2,
+        sdoh_finance___1,sdoh_finance___2,
+        sdoh_other_2___1,sdoh_other_2___2) > '0'
+    or length(allerg||notes_56||med_diag_list_v2_v2_v2) > 0 );
+
