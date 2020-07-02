@@ -248,3 +248,32 @@ select record_id
         sdoh_other_2___1,sdoh_other_2___2) > '0'
     or length(allerg||notes_56||med_diag_list_v2_v2_v2) > 0 );
 
+drop view if exists v3_primary_referrer;
+create view v3_primary_referrer as
+select record_id
+     , redcap_data_access_group
+     , case 
+          when referred_by___1 = 1 then 1 --Self
+          when referred_by___2 = 1 then 2 --Family
+          when referred_by___3 = 1 then 3 --Neighbord/Friend
+          when referred_by___4 = 1 then 4 --PCP
+          when referred_by___5 = 1 then 8 --Community Agency
+          when referred_by___6 = 1 then 9 --Clergy
+          when referred_by___7 = 1 then 10 --Hospital/SNF discharge coordinator
+          when referred_by___8 = 1 then 11 --First Responder/Ambulance Service
+          when referred_by___9 = 1 then 12 --Other
+       end as primary_referrer
+  from redcap_export_v2_v3
+ where redcap_repeat_instrument = ''
+   and referred_by___1+referred_by___2+referred_by___3+
+       referred_by___4+referred_by___5+referred_by___6+
+       referred_by___7+referred_by___8+referred_by___9 = 1
+union all
+select record_id
+     , redcap_data_access_group
+     , 12 primary_referred --Other
+  from redcap_export_v2_v3
+ where redcap_repeat_instrument = ''
+   and referred_by___1+referred_by___2+referred_by___3+
+       referred_by___4+referred_by___5+referred_by___6+
+       referred_by___7+referred_by___8+referred_by___9 > 1;
