@@ -1,3 +1,173 @@
+commit f885c15ddeda1f26a7210b57a1036abccd3ea639
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jul 8 12:05:52 2020 -0400
+
+    Removed files used for tracking my hours.  I see some value of having these tracked, but I think it is not worth the trouble.
+
+commit b15183b870494da3a20407451865a93bde495bfa
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jul 8 12:04:30 2020 -0400
+
+    old_records_lyme is a poorly named field that contains a file with old "Version 1" data for clients who existed at the time (late 2018?), one file for each client.
+    
+    I moved that field to the new version 3 profile mainly at the request of Cindy Grigel, the Thetford Community Nurse.  It's at the very end, labeled "Old Version 1 Records", so that it will still be available when we switch to Version 3 (scheduled for July 12, 2020).
+    
+    I wonder how hard it was to create/upload those files.  Perhaps I could do the same thing for some of the Version 2 data?
+
+commit d867f3bc00d190b27d59501da7137cc1eb8c5586
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Thu Jul 2 09:12:26 2020 -0400
+
+    Add primary referred import.
+
+commit 6ef9ddd11a937f22eabadf46b990695b8704d8d8
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jul 1 18:30:27 2020 -0400
+
+    Script to compare where fields are between V2 and V3.
+
+commit 49d0e6487453e30bc7a1acc7e7aa0ba2a8795d73
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jul 1 13:54:14 2020 -0400
+
+    Show medication checklist on Medication form.  It's also on the Functional Health form.
+
+commit d0557adc90a242ed70a705401c980f5f48cf740c
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sun Jun 28 13:58:54 2020 -0400
+
+    Made labels for various reference documents consistent.  Cleaned up to be consistent with REDCap designer.
+
+commit fb7e8f34480411ade19a173196d10cc669c21d0c
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sun Jun 28 11:05:11 2020 -0400
+
+    Add a view to clear the problem list... which we messed up.
+    
+    Also, fix the problem list view to emit rows only for clients who have at least one problem.
+
+commit 60a75bfde2b3fb288f680ee3fe4acba4aa5d482e
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sat Jun 27 13:08:55 2020 -0400
+
+    Removed client_redcap_status_value field since it is not reliable.  Reports etc. will need to query status_update to get current status.
+
+commit 99e3db9a55ba603695cf75025059a738568d42d9
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sat Jun 27 13:02:56 2020 -0400
+
+    Script to generate files to be imported into V3 to bring in V2 data.
+
+commit 7792c13d961ca7701cf140f172a3362897d206f4
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Fri Jun 26 19:29:36 2020 -0400
+
+    Add view for porting problem list items to V3.
+
+commit 80bd7ee131ac1733503df58ce55f4ab645fa0251
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Fri Jun 26 19:28:26 2020 -0400
+
+    Remove extraneous space in problem_type item.
+
+commit b3011fdca69a3b51559878662e0a31cb89cac25a
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Fri Jun 26 00:05:16 2020 -0400
+
+    Change source table to be redcap_export_v2_v3, which we will use as the standard name for the table containing the export.
+
+commit 5f86e45d5da5fd85eda38f9c5ae211d23d5fea99
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Thu Jun 25 17:09:58 2020 -0400
+
+    Add code to port inactive statuses from V2 to V3.
+    
+    That should be all that is needed for the v3_status_update view.
+    
+    On to testing.
+
+commit 2eae1a5528e2af8f95dddda7a52365d6070475c9
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Thu Jun 25 16:56:36 2020 -0400
+
+    Add code to port discharges from V2 to V3.  Still need to do Inactive clients.
+
+commit 16d9ed60ac92615aa5358eebd83a03c5a0507feb
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jun 24 18:00:27 2020 -0400
+
+    Rename v3_encounters.sql to v3_port_views.sql
+
+commit a9cfc8bd8fd0355730ac27de397181e5e4c5c7ce
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jun 24 17:54:24 2020 -0400
+
+    Changed to use LIKE to compare to interval_contacts so that at least that part will work regardless of which version of the database we reference.  Still need to worry about the FROM clause.
+
+commit 617e1e952ff709b9aef3692adce181ba2da45ab8
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jun 24 17:51:30 2020 -0400
+
+    Decided not to try to handle encounter_interventions at this time.
+    
+    Fixed a few minor problems.
+    
+    Note that the view is currently using 'interval_contacts',
+
+commit 1b28c58e91fb06ccea073ad48ea65f2bede96ce8
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jun 24 00:55:59 2020 -0400
+
+    Added query for encounters rows 2 thru N.  Not complete.  Have not looked at encounter_intervention values yet.
+
+commit bc689dda8cad29023c919258a2276c21bde7ee22
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jun 24 00:38:55 2020 -0400
+
+    Decided to change this to a view.  And now the view returns the first row for the V3 encounters form, except it has not been carefully tested.
+    
+    Need to add rows 2 thru N from interval_contacts and test carefully.
+
+commit 4fa3237ee0d0d9cc217223afd1a153ea7152de0c
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Tue Jun 23 20:33:03 2020 -0400
+
+    Corrected error made weeks ago, where I effectively got rid of the "date_1st_contact" field in V3 by creating a new field with the same name.  Luckily, simply adding the field back with its original definition, but in the profile_v2 form, caused the associated data to reappear in the database.
+    
+    I wonder if I made any other mistakes like this.  If so, I hope they are as easy to correct.
+
+commit 03dab6e9d8637424e139f7f96dee8dfff63f90b6
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sat Jun 20 00:28:40 2020 -0400
+
+    This now contains all the fields for the encounter record, but I don't think we will be using all of them.
+
+commit c16e464e3aad403d9e4080727fd673ca08cf0984
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Fri Jun 19 20:00:09 2020 -0400
+
+    Moved limited_concern checkbox and also changed so it is no longer hidden as requested by SJ.
+
+commit e44edbf24e36ed84261f16c423af1c4b8cf16892
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Fri Jun 19 14:38:41 2020 -0400
+
+    Starting work on on encounters export from V2 to V3.  This has most but not all of the fields.  Just a start.  Work in progress.  Maybe do headers using sqlite3 headers.
+
+commit 584abac8ad09c0139c81f34027b7adcab8f77612
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Thu Jun 18 19:30:47 2020 -0400
+
+    Checkpoint of git history, used to hours up to today (June 18) for early invoice.
+    
+    The git command to write the history is simple.  It's just:
+    
+        git log>history.log
+    
+    For some reason, copy and paste from the Sourcetree commit message shown in the log into some other application does not seem to pick up everything in the message.
+    
+    This is a reported known bug in Sourcetree, but you can copy selected text in the commit message using right-click and copy.
+
 commit 4dc239d78eb2d715539c9b7df9d063a86a01f518
 Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
 Date:   Thu Jun 18 17:34:40 2020 -0400
