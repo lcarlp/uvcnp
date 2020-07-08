@@ -114,7 +114,9 @@ select a.record_id
      , 0 status_update_outcome___11
      , 0 status_update_outcome___12
      , 0 status_update_outcome___13
-     , 0 status_update_outcome___20
+     , 0 status_update_outcome___14
+     , 0 status_update_outcome___30
+     , 0 status_update_outcome___50
      , '[Discharged record #1 imported from V2]' status_update_outcome_note
      , datetime('now','localtime') status_updated_on
      , 2 status_update_complete
