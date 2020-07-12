@@ -1,3 +1,32 @@
+commit 0f5b0220864501e584b64c17bd71a91c607b6cf9
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Thu Jul 9 13:33:01 2020 -0400
+
+    Changed field label from "Problem" to "Problems"
+
+commit fee805b6719a65f76b8e89099eba9f4b20ea53d4
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jul 8 16:48:26 2020 -0400
+
+    Rearrange choices for status_update_outcome and six_month_outcome (which should always match exactly) adding 'Reduced social isolation' and 'Reduced food insecurity'.
+    
+    These changes were discussed during the nurses meeting on V3 on July 2, 2020.
+
+commit b63c7c04c183ecc0578991418c46b4c717f43b2b
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jul 8 12:23:24 2020 -0400
+
+    Checkpoint of git history, used to hours up to today (July 8) while recording hours for early July 2020.
+    There will likely be more hours today (July 8), but I wanted to make sure I had July 1-2 recorded.
+    
+    The git command to write the history is simple. It's just:
+    
+    git log>history.log
+    
+    For some reason, copy and paste from the Sourcetree commit message shown in the log into some other application does not seem to pick up everything in the message.
+    
+    This is a reported known bug in Sourcetree, but you can copy selected text in the commit message using right-click and copy.
+
 commit f885c15ddeda1f26a7210b57a1036abccd3ea639
 Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
 Date:   Wed Jul 8 12:05:52 2020 -0400
