@@ -154,7 +154,9 @@ select record_id
      , 0 status_update_outcome___11
      , 0 status_update_outcome___12
      , 0 status_update_outcome___13
-     , 0 status_update_outcome___20
+     , 0 status_update_outcome___14
+     , 0 status_update_outcome___30
+     , 0 status_update_outcome___50
      , '[Deactivated record #1 imported from V2]'  status_update_outcome_note
      , datetime('now','localtime') status_updated_on
      , 2 status_update_complete
@@ -273,7 +275,7 @@ select record_id
 union all
 select record_id
      , redcap_data_access_group
-     , 12 primary_referred --Other
+     , 12 primary_referrer --Other
   from redcap_export_v2_v3
  where redcap_repeat_instrument = ''
    and referred_by___1+referred_by___2+referred_by___3+
