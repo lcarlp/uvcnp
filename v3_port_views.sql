@@ -14,7 +14,7 @@ select a.record_id
      , case meth_1st_contact when 4 then 1 else 0 end encounter_type___4 --Family meeting
      , 0 encounter_type___13 --Family in office
      , case meth_1st_contact when 6 then 1 else 0 end encounter_type___6 --In-patient meeting.
-     , case meth_1st_contact when 7 then 1 when 8 then 1 when 9 then 1 when 10 then 1 else 0 end encounter_type___10
+     , case meth_1st_contact when 7 then 1 when 8 then 1 when 9 then 1 when 10 then 1 when notes > '' then 1 else 0 end encounter_type___10
      , notes encounter_type_note
      , 0 limited_concern___1
      , '' limited_concern_notes
@@ -61,12 +61,14 @@ select record_id
      , case meth_1st_contact when 4 then 1 else 0 end encounter_type___4 --Family meeting
      , 0 encounter_type___13 --Family in office
      , cont_meth_v2___6 encounter_type___6 --In-patient meeting.
-     , case when 1 in(cont_meth_v2___7,cont_meth_v2___8,cont_meth_v2___9,cont_meth_v2___10) then 1 else 0 end encounter_type___10
+     , case when 1 in(cont_meth_v2___7,cont_meth_v2___8,cont_meth_v2___9,cont_meth_v2___10) then 1 when notes_57>'' then 1 else 0 end encounter_type___10
      , notes_57 encounter_type_note
      , 0 limited_concern___1
      , '' limited_concern_notes
      , '' encounter_nurse
-     , '[record #'||redcap_repeat_instance+1||' imported from V2]' encounter_progress_notes
+     , '[record #'||(redcap_repeat_instance+1)||' imported from V2]'||
+         case when notes_35>'' then '  Other v2 concerns: '||notes_35 else '' end||
+         case when list_issues>'' then '  v2 issues: '||list_issues else '' end encounter_progress_notes
      , phys_cond_nursescale encounter_stat_phys
      , emot_stat_nursescale encounter_stat_emot
      , cog_stat_nursescale encounter_stat_cog
@@ -83,7 +85,7 @@ select record_id
      , 0 encounter_intervention___9
      , 0 encounter_intervention___10
      , '' encounter_intervene_notes
-     , '[record #'||redcap_repeat_instance+1||' imported from V2]' encounter_todo_notes
+     , '[record #'||(redcap_repeat_instance+1)||' imported from V2]' encounter_todo_notes
      , datetime('now','localtime') encounter_created_on
      , 2 encounters_complete --2 means record completed.
   from redcap_export_v2_v3
@@ -220,10 +222,10 @@ select record_id
            hous_def___1,hous_def___2,
            other_prob_list___1,other_prob_list___2,
            sdoh_other_2___1,sdoh_other_2___2) problem_type___20 --Other
-     , case when max(ed_visits___1,ed_visits___2) then 'Frequent ED visits or EMS calls; ' end ||
-         case when max(ineff_ther___1,ineff_ther___2) then 'Ineffective enactment of therapeutic recommendations; ' end ||
-         case when max(prob_bills___1,prob_bills___2) then 'Problems with bills, insurance paperwork, enrollments; ' end ||
-         case when max(hous_def___1,hous_def___2) then 'Housing; ' end problem_other_note --
+     , case when max(ed_visits___1,ed_visits___2) then 'Frequent ED visits or EMS calls; ' else '' end ||
+         case when max(ineff_ther___1,ineff_ther___2) then 'Ineffective enactment of therapeutic recommendations; ' else '' end ||
+         case when max(prob_bills___1,prob_bills___2) then 'Problems with bills, insurance paperwork, enrollments; ' else '' end ||
+         case when max(hous_def___1,hous_def___2) then 'Housing; ' else '' end problem_other_note --
      , notes_56 problem_allergies
      , med_diag_list_v2_v2_v2 problem_diagnose
      , 2 problem_list_complete
