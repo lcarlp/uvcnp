@@ -283,3 +283,41 @@ select record_id
    and referred_by___1+referred_by___2+referred_by___3+
        referred_by___4+referred_by___5+referred_by___6+
        referred_by___7+referred_by___8+referred_by___9 > 1;
+
+-- The views below were added well after the go-live when I realized it would be good to fill
+-- in a few of the @READONLY fields that I missed during the go-live.
+-- We only update records that existed at the end of the go-live.
+
+drop view if exists v3_profile_nurse_and_date;
+create view v3_profile_nurse_and_date as
+select record_id
+     , redcap_data_access_group
+     , 'cpedersen' admitting_nurse
+     , '2020-07-12 17:15:57' profile_created_on
+  from redcap_export_go_v3_7
+ where redcap_repeat_instrument = ''
+ order by 1;
+
+drop view if exists v3_encounter_nurse;
+create view v3_encounter_nurse as
+select record_id
+     , 'encounters' redcap_repeat_instrument
+     , redcap_repeat_instance
+     , redcap_data_access_group
+     , 'cpedersen' encounter_nurse
+  from redcap_export_go_v3_7
+ where redcap_repeat_instrument = 'encounters'
+ order by 1,3;
+
+drop view if exists v3_status_update_nurse;
+create view v3_status_update_nurse as
+select record_id
+     , 'status_update' redcap_repeat_instrument
+     , redcap_repeat_instance
+     , redcap_data_access_group
+     , 'cpedersen' status_update_nurse
+  from redcap_export_go_v3_7
+ where redcap_repeat_instrument = 'status_update'
+ order by 1,3;
+
+
