@@ -1,3 +1,97 @@
+commit d37e97b12fcd944d210fb206f1594522620c5245
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Tue Aug 25 12:44:05 2020 -0400
+
+    Script to change nurse fields from 'cpedersen' to 'smorgan'.
+    -- There are four new fields in V3 that are filled in automatically
+    -- with the nurse's username using REDCap feature: @READONLY @USERNAME
+    -- On July 12-15, I filled them all in with 'cpedersen', not knowing for
+    -- sure who the actual nurse was and not willing to hunt through the log
+    -- to determine it.
+    -- We had a legal case in Lyme where Sharon Morgan needed her name to
+    -- appear in the extracted PDF, so I wrote this script to make that happen
+    -- for one client.
+    
+    This script could be used as a starting point for similar or more extensive work.
+
+commit 5015b7dbfda59c0dfeecd9136ad4d70a3f5afe24
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Mon Aug 24 20:06:38 2020 -0400
+
+    Added new intervention to encounter_intervention: "Advised or provided information about Covid-19" as requested by Sarah Jo.
+
+commit 9caf5c91db274f8c87a1a5f57f51238fdc1726db
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Thu Aug 6 19:30:49 2020 -0400
+
+    Script to list Lyme clients in alphabetical order, easily modified for other towns etc.
+
+commit e2df37aa71f5b6dfc405548b6d78bdd9f3229074
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jul 29 19:30:14 2020 -0400
+
+    Fill in several @READONLY nurse and date fields that I missed during the go-live on July 12.  These were causing bogus "Save your changes?" warnings.  Details below:
+    
+    ---------- Forwarded message ---------
+    From: L Carl Pedersen <lcarlp@gmail.com>
+    Date: Wed, Jul 29, 2020 at 10:48 AM
+    Subject: REDCap Technical Note: Save your changes?
+    To: Sarah Jo Brown <sjbrownvt@gmail.com>, Laurie Harding <lharding0625@gmail.com>, Janet Hunt <janet@uvcnp.org>
+    
+    This note is a little less technical than most of the ones I've sent.  Poking around in V3, I noticed that even if I just look at a record, I often get this message:
+    
+    [Omitted screenshot of "Save your changes?" warning dialog.]
+    
+    Why do I get this message if I did not make changes?  The main reason is related to a small mistake I made during the V3 upgrade, which I have now corrected.
+    I added new creation-date fields in several places, and I added fields that record which nurse created the record.  These values cannot be manually entered.  They are filled in automatically when the record is created.  Alas, they are also filled in automatically in existing records if they are empty, and I failed to fill all of them in on July 12.  
+    So, the nurse looks at an existing record, the blank field gets filled in and not the record is (technically) modified.... leading to the annoying warning message.
+    So, I just filled in all the missing values.  The creation date for records created before the V3 go-live is hard to determine, so it is filled in as July 12, 2020, and I filled in 'cpedersen' as the identity of the creator.   Since some towns have had nurse changes and some currently have more than one nurse, it can be hard to tell who really created the record.  
+    But, we'll have correct data for all new records going forward.  There have already been a number of new records created.
+
+commit 3e754f1e723e42bab7bbb9fcd5ae4db922824e28
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jul 15 17:44:05 2020 -0400
+
+    Several bug corrections, some done during the upgrade and some not until today.
+    
+    1) Apparently || is higher priority in expressions than +, so I needed to use parentheses when concatenating sums.  Fixed during upgrade.
+    
+    2) Make sure encounter_type__10, "Other" is selected if there are any notes, so they show. Fixed during upgrade.
+    
+    3) Add in some old V2 notes fields to the encounter_progress_notes.  Requested by Cindy.  Done today.
+    
+    4) Added else clauses to some of the case statements, since otherwise if they return null, concatenating the null will cause the entire expression to be null.  This is different from what I was used to with Oracle, which would treat a null like an empty string, but that was non-standard behavior.  Also done today.
+    
+    As a result of the last two changes, I re-imported the encounters and the problem list files into REDCap.
+
+commit 0b186d4ff17f93eb275cea97336b9edfabbd8f25
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Wed Jul 15 17:13:56 2020 -0400
+
+    Do not generate the file to clear the problem list.  Needed only to correct errors.
+
+commit 575898e883b034bed60e4b003a77e8e6a934c487
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sun Jul 12 16:38:55 2020 -0400
+
+    Oops.  Forgot to update field in 2nd prong of UNION ALL for v3_status_update.
+    
+    Also had incorrect column name for primary_referrer in 2nd prong of union, but that had no effect on function.
+
+commit aef50207c5b38f633c29fe6a076ca4144864332c
+Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
+Date:   Sun Jul 12 11:46:41 2020 -0400
+
+    Checkpoint of git history while recording hours for early July 2020.   Just prior to the major go-live work for V3.
+    
+    The git command to write the history is simple. It's just:
+    
+    git log>history.log
+    
+    For some reason, copy and paste from the Sourcetree commit message shown in the log into some other application does not seem to pick up everything in the message.
+    
+    This is a reported known bug in Sourcetree, but you can copy selected text in the commit message using right-click and copy.
+
 commit 0f5b0220864501e584b64c17bd71a91c607b6cf9
 Author: L Carl Pedersen <lcarlp@users.noreply.github.com>
 Date:   Thu Jul 9 13:33:01 2020 -0400
