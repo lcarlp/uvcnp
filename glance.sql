@@ -1,5 +1,5 @@
 -- SQL Script to generate the "At A Glance" (AAG) report.
--- Table   from redcap_export is assumed to have been imported from a CSV export of the REDCap database.
+-- Table redcap_export is assumed to have been imported from a CSV export of the REDCap database.
 -- Table aag_town is manually populated to contain a list of towns included in the report.
 -- Table aag_date_range is manually populated to contain an inclusive range of dates for the report.
 

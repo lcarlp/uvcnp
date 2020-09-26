@@ -70,7 +70,7 @@ select record_id
      , today_date_v2 as encounter_date
      , 0 as initial
   from aag1
- where redcap_repeat_instrument = 'interval_contacts';
+ where redcap_repeat_instrument = 'interval_contacts_v2';
 
 drop view if exists aag1_encountered;
 create view aag1_encountered as
@@ -128,7 +128,7 @@ select record_id
      , 0 as initial
      , 1 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts'
+ where redcap_repeat_instrument = 'interval_contacts_v2'
    and cont_meth_v2___1 = 1
 union all
 select record_id
@@ -137,7 +137,7 @@ select record_id
      , 0 as initial
      , 2 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts'
+ where redcap_repeat_instrument = 'interval_contacts_v2'
    and cont_meth_v2___2 = 1
 union all
 select record_id
@@ -146,7 +146,7 @@ select record_id
      , 0 as initial
      , 3 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts'
+ where redcap_repeat_instrument = 'interval_contacts_v2'
    and cont_meth_v2___3 = 1
 union all
 select record_id
@@ -155,7 +155,7 @@ select record_id
      , 0 as initial
      , 4 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts'
+ where redcap_repeat_instrument = 'interval_contacts_v2'
    and cont_meth_v2___4 = 1
 union all
 select record_id
@@ -164,7 +164,7 @@ select record_id
      , 0 as initial
      , 5 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts'
+ where redcap_repeat_instrument = 'interval_contacts_v2'
    and cont_meth_v2___5 = 1
 union all
 select record_id
@@ -173,7 +173,7 @@ select record_id
      , 0 as initial
      , 6 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts'
+ where redcap_repeat_instrument = 'interval_contacts_v2'
    and cont_meth_v2___6 = 1
 union all
 select record_id
@@ -182,7 +182,7 @@ select record_id
      , 0 as initial
      , 7 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts'
+ where redcap_repeat_instrument = 'interval_contacts_v2'
    and cont_meth_v2___7 = 1
 union all
 select record_id
@@ -191,7 +191,7 @@ select record_id
      , 0 as initial
      , 8 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts'
+ where redcap_repeat_instrument = 'interval_contacts_v2'
    and cont_meth_v2___8 = 1
 union all
 select record_id
@@ -200,7 +200,7 @@ select record_id
      , 0 as initial
      , 9 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts'
+ where redcap_repeat_instrument = 'interval_contacts_v2'
    and cont_meth_v2___9 = 1
 union all
 select record_id
@@ -209,7 +209,7 @@ select record_id
      , 0 as initial
      , 10 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts'
+ where redcap_repeat_instrument = 'interval_contacts_v2'
    and cont_meth_v2___1
         + cont_meth_v2___2
         + cont_meth_v2___3
@@ -668,9 +668,9 @@ select *
   from aag1
   join aag_date_range d
     on today_date_v2 between d.first and d.last
- where redcap_repeat_instrument = 'interval_contacts'
+ where redcap_repeat_instrument = 'interval_contacts_v2'
  -- This version of encounters is one-to-one with
- -- interval_contacts, unlike the other one that adds 
+ -- interval_contacts_v2, unlike the other one that adds 
  -- additional encounters if there is more than one type
  -- in one encounter
  ;
@@ -847,7 +847,7 @@ select record_id
   join aag_date_range d
     on date_sc <= d.last
     or date_sc = ''
- where redcap_repeat_instrument = 'social_context'
+ where redcap_repeat_instrument = 'social_context_v2'
    and record_id in(select record_id from aag1_encountered)
  group by record_id
  -- The date should be required, but it is not.
@@ -863,7 +863,7 @@ select *
   join aag_date_range d
     on coalesce(date_today_dis,d.last) between d.first and d.last
     or date_today_dis = ''
- where redcap_repeat_instrument = 'discharge_report'
+ where redcap_repeat_instrument = 'discharge_report_v2'
    and record_id in(select record_id from aag1_encountered)
  -- The date should be required, but it is not.
  ;
@@ -918,7 +918,7 @@ select *
   join aag_date_range d
     on coalesce(date_sixmonth,d.last) between d.first and d.last
     or date_sixmonth = ''
- where redcap_repeat_instrument = 'month_report'
+ where redcap_repeat_instrument = 'month_report_v2'
    and record_id in(select record_id from aag1_encountered);
 
 drop view if exists aag1_outcome1;
