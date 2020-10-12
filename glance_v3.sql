@@ -45,7 +45,7 @@ select 'WARNING:  MANY LOW AGES IGNORED.  ONLY CONSIDERED '||
   from (select count(*) as all_clients from aag1_client)
   join (select count(*) as age_count from aag1_client_age)
  where (100.*age_count/all_clients) < 90
--- Generate a warning if nore than 10% of clients are excluded.
+-- Generate a warning if more than 10% of clients are excluded.
 ;
 select '   Lives Alone:'||
           (select '    Yes: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_social_context where address_v2=1)||

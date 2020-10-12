@@ -46,31 +46,17 @@ select record_id
  where redcap_repeat_instrument = ''
  ;
 
-drop view if exists aag1_encountered1;
-create view aag1_encountered1 as
-select record_id
-     , redcap_data_access_group town
-     , date_1st_contact as encounter_date
-  from aag1
- where redcap_repeat_instrument = ''
-union all
-select record_id
-     , redcap_data_access_group town
-     , today_date_v2 as encounter_date
-  from aag1
- where redcap_repeat_instrument = 'interval_contacts_v2';
-
 drop view if exists aag1_encountered;
 create view aag1_encountered as
 select record_id
-     , town
-     , encounter_date
-  from aag1_encountered1 e
+     , redcap_data_access_group town
+     , e.encounter_date
+  from aag1 e
   join aag_date_range d
- where e.encounter_date between d.first and d.last
+ where e.redcap_repeat_instrument = 'encounters'
+   and e.encounter_date between d.first and d.last
  -- Picks up anyone with an encounter in the range.
- ;
-
+;
 
 drop view if exists aag1_client;
 create view aag1_client as
