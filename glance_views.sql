@@ -16,8 +16,6 @@ select record_id
      , redcap_data_access_group town
      , status_profile
      , cast(age as real) as age
-     , gender
-     , today as admit_date
      , date_1st_contact
      , referred_by___1
      , referred_by___2
@@ -40,14 +38,6 @@ select record_id
                 referred_by___9 > 0 then 1
         else 0
         end as referred_by_any
-     , end_life_plan___2 -- Living will DPOAH
-     , case 
-          when end_life_plan___1 + end_life_plan___2 + end_life_plan___3 + 
-               end_life_plan___4 + end_life_plan___5 + end_life_plan___6 > 0 then 1 
-          else 0
-       end as end_life_plan_any
-     , client_anx_before
-     , care_giver
      , provider1_affiliation
      , case when provider1_affiliation = '' then 0 else 1 end as provider1_affiliation_any
      , hospital_used
@@ -61,14 +51,12 @@ create view aag1_encountered1 as
 select record_id
      , redcap_data_access_group town
      , date_1st_contact as encounter_date
-     , 1 as initial
   from aag1
  where redcap_repeat_instrument = ''
 union all
 select record_id
      , redcap_data_access_group town
      , today_date_v2 as encounter_date
-     , 0 as initial
   from aag1
  where redcap_repeat_instrument = 'interval_contacts_v2';
 
@@ -77,7 +65,6 @@ create view aag1_encountered as
 select record_id
      , town
      , encounter_date
-     , initial
   from aag1_encountered1 e
   join aag_date_range d
  where e.encounter_date between d.first and d.last
@@ -117,7 +104,6 @@ create view aag1_encounter_all as
 select record_id
      , redcap_data_access_group town
      , date_1st_contact as encounter_date
-     , 1 as initial
      , cast(meth_1st_contact as integer) as type
   from aag1
  where redcap_repeat_instrument = ''
@@ -125,7 +111,6 @@ union all
 select record_id
      , redcap_data_access_group town
      , today_date_v2 as encounter_date
-     , 0 as initial
      , 1 as type
   from aag1
  where redcap_repeat_instrument = 'interval_contacts_v2'
@@ -134,7 +119,6 @@ union all
 select record_id
      , redcap_data_access_group town
      , today_date_v2 as encounter_date
-     , 0 as initial
      , 2 as type
   from aag1
  where redcap_repeat_instrument = 'interval_contacts_v2'
@@ -143,7 +127,6 @@ union all
 select record_id
      , redcap_data_access_group town
      , today_date_v2 as encounter_date
-     , 0 as initial
      , 3 as type
   from aag1
  where redcap_repeat_instrument = 'interval_contacts_v2'
@@ -152,7 +135,6 @@ union all
 select record_id
      , redcap_data_access_group town
      , today_date_v2 as encounter_date
-     , 0 as initial
      , 4 as type
   from aag1
  where redcap_repeat_instrument = 'interval_contacts_v2'
@@ -161,7 +143,6 @@ union all
 select record_id
      , redcap_data_access_group town
      , today_date_v2 as encounter_date
-     , 0 as initial
      , 5 as type
   from aag1
  where redcap_repeat_instrument = 'interval_contacts_v2'
@@ -170,7 +151,6 @@ union all
 select record_id
      , redcap_data_access_group town
      , today_date_v2 as encounter_date
-     , 0 as initial
      , 6 as type
   from aag1
  where redcap_repeat_instrument = 'interval_contacts_v2'
@@ -179,7 +159,6 @@ union all
 select record_id
      , redcap_data_access_group town
      , today_date_v2 as encounter_date
-     , 0 as initial
      , 7 as type
   from aag1
  where redcap_repeat_instrument = 'interval_contacts_v2'
@@ -188,7 +167,6 @@ union all
 select record_id
      , redcap_data_access_group town
      , today_date_v2 as encounter_date
-     , 0 as initial
      , 8 as type
   from aag1
  where redcap_repeat_instrument = 'interval_contacts_v2'
@@ -197,7 +175,6 @@ union all
 select record_id
      , redcap_data_access_group town
      , today_date_v2 as encounter_date
-     , 0 as initial
      , 9 as type
   from aag1
  where redcap_repeat_instrument = 'interval_contacts_v2'
@@ -206,7 +183,6 @@ union all
 select record_id
      , redcap_data_access_group town
      , today_date_v2 as encounter_date
-     , 0 as initial
      , 10 as type
   from aag1
  where redcap_repeat_instrument = 'interval_contacts_v2'
@@ -225,7 +201,6 @@ create view aag1_encounter as
 select record_id
      , town
      , encounter_date
-     , initial
      , type
   from aag1_encounter_all e
   join aag_date_range d
