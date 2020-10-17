@@ -55,11 +55,14 @@ select record_id
   join aag_date_range d
  where e.redcap_repeat_instrument = 'encounters'
    and e.encounter_date between d.first and d.last
- -- Picks up anyone with an encounter in the range.
+-- Picks up anyone with an encounter in the range.
+-- This view is one-to-one with aag1_encounter1, but has only 3 of the same
+-- columns as that one does.  Can we just use the other view?
+-- (The town column in this view is redcap_data_access_group in aag1_encounter1.)
 ;
 
-drop view if exists aag1_client;
-create view aag1_client as
+drop view if exists aag1_client_served;
+create view aag1_client_served as
 select *
   from aag1_client_all
  where record_id in(
@@ -72,7 +75,7 @@ select *
 drop view if exists aag1_client_age;
 create view aag1_client_age as
 select record_id, age
-  from aag1_client
+  from aag1_client_served
  where age >= 1
 -- Ignore low ages that likely resulted from the nurse entering today's
 -- date into the birthday field.
@@ -89,89 +92,82 @@ drop view if exists aag1_encounter_all;
 create view aag1_encounter_all as
 select record_id
      , redcap_data_access_group town
-     , date_1st_contact as encounter_date
-     , cast(meth_1st_contact as integer) as type
-  from aag1
- where redcap_repeat_instrument = ''
-union all
-select record_id
-     , redcap_data_access_group town
-     , today_date_v2 as encounter_date
+     , encounter_date
      , 1 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts_v2'
+ where redcap_repeat_instrument = 'encounters'
    and cont_meth_v2___1 = 1
 union all
 select record_id
      , redcap_data_access_group town
-     , today_date_v2 as encounter_date
+     , encounter_date
      , 2 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts_v2'
+ where redcap_repeat_instrument = 'encounters'
    and cont_meth_v2___2 = 1
 union all
 select record_id
      , redcap_data_access_group town
-     , today_date_v2 as encounter_date
+     , encounter_date
      , 3 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts_v2'
+ where redcap_repeat_instrument = 'encounters'
    and cont_meth_v2___3 = 1
 union all
 select record_id
      , redcap_data_access_group town
-     , today_date_v2 as encounter_date
+     , encounter_date
      , 4 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts_v2'
+ where redcap_repeat_instrument = 'encounters'
    and cont_meth_v2___4 = 1
 union all
 select record_id
      , redcap_data_access_group town
-     , today_date_v2 as encounter_date
+     , encounter_date
      , 5 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts_v2'
+ where redcap_repeat_instrument = 'encounters'
    and cont_meth_v2___5 = 1
 union all
 select record_id
      , redcap_data_access_group town
-     , today_date_v2 as encounter_date
+     , encounter_date
      , 6 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts_v2'
+ where redcap_repeat_instrument = 'encounters'
    and cont_meth_v2___6 = 1
 union all
 select record_id
      , redcap_data_access_group town
-     , today_date_v2 as encounter_date
+     , encounter_date
      , 7 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts_v2'
+ where redcap_repeat_instrument = 'encounters'
    and cont_meth_v2___7 = 1
 union all
 select record_id
      , redcap_data_access_group town
-     , today_date_v2 as encounter_date
+     , encounter_date
      , 8 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts_v2'
+ where redcap_repeat_instrument = 'encounters'
    and cont_meth_v2___8 = 1
 union all
 select record_id
      , redcap_data_access_group town
-     , today_date_v2 as encounter_date
+     , encounter_date
      , 9 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts_v2'
+ where redcap_repeat_instrument = 'encounters'
    and cont_meth_v2___9 = 1
 union all
 select record_id
      , redcap_data_access_group town
-     , today_date_v2 as encounter_date
+     , encounter_date
      , 10 as type
   from aag1
- where redcap_repeat_instrument = 'interval_contacts_v2'
+ where redcap_repeat_instrument = 'encounters'
    and cont_meth_v2___1
         + cont_meth_v2___2
         + cont_meth_v2___3
@@ -265,7 +261,7 @@ select 'DHMC' as label
      , cast(round(portion*100./total) as integer) as percentage
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 1 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'APD'
@@ -273,7 +269,7 @@ select 'APD'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 2 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'Mt. Ascutney'
@@ -281,7 +277,7 @@ select 'Mt. Ascutney'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 3 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'Gifford Medical Center'
@@ -289,7 +285,7 @@ select 'Gifford Medical Center'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 4 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'Valley Regional'
@@ -297,7 +293,7 @@ select 'Valley Regional'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 5 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'Cottage'
@@ -305,7 +301,7 @@ select 'Cottage'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 6 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'New London'
@@ -313,7 +309,7 @@ select 'New London'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 7 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'Private or Community-based Practice'
@@ -321,7 +317,7 @@ select 'Private or Community-based Practice'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 8 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'VA'
@@ -329,7 +325,7 @@ select 'VA'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 9 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'Other'
@@ -337,7 +333,7 @@ select 'Other'
      , cast(round(portion*100./total) as integer)
   from (select sum(provider1_affiliation_any) as total
              , sum(case when provider1_affiliation = 10 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0;
 
 drop view if exists aag1_affiliation2;
@@ -366,7 +362,7 @@ select 'DHMC' as label
      , cast(round(portion*100./total) as integer) as percentage
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 1 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all          
 select 'APD'
@@ -374,7 +370,7 @@ select 'APD'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 2 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'Mt. Ascutney'
@@ -382,7 +378,7 @@ select 'Mt. Ascutney'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 3 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'Gifford Medical Center'
@@ -390,7 +386,7 @@ select 'Gifford Medical Center'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 4 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'Valley Regional'
@@ -398,7 +394,7 @@ select 'Valley Regional'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 5 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'Cottage'
@@ -406,7 +402,7 @@ select 'Cottage'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 6 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'New London'
@@ -414,7 +410,7 @@ select 'New London'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 7 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0
 union all
 select 'Other'
@@ -422,7 +418,7 @@ select 'Other'
      , cast(round(portion*100./total) as integer)
   from (select sum(hospital_used_any) as total
              , sum(case when hospital_used = 8 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion > 0;
 
 drop view if exists aag1_hospital_used2;
@@ -628,12 +624,16 @@ create view aag1_encounter1 as
 select *
   from aag1
   join aag_date_range d
-    on today_date_v2 between d.first and d.last
- where redcap_repeat_instrument = 'interval_contacts_v2'
+    on encounter_date between d.first and d.last
+ where redcap_repeat_instrument = 'encounters'
  -- This version of encounters is one-to-one with
- -- interval_contacts_v2, unlike the other one that adds 
+ -- encounters, unlike the other one that adds 
  -- additional encounters if there is more than one type
- -- in one encounter
+ -- in one encounter.
+ -- This view is one-to-one with aag1_encountered, but has only 3 of the same
+-- columns as that one does.  Can we just use the other view?
+-- (The redcap_data_access_group column in this view is town in aag1_encountered.)
+
  ;
 
 drop view if exists aag1_intervene1;
