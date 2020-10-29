@@ -42,7 +42,7 @@ select '   Half of Clients are older than (median age): '||cast(avg(age) as int)
          offset (select (count(*) - 1) / 2 from aag1_client_age) );
 select 'WARNING:  MANY LOW AGES IGNORED.  ONLY CONSIDERED '||
        age_count||' OUT OF '||all_clients||'.'
-  from (select count(*) as all_clients from aag1_client)
+  from (select count(*) as all_clients from aag1_client_served)
   join (select count(*) as age_count from aag1_client_age)
  where (100.*age_count/all_clients) < 90
 -- Generate a warning if more than 10% of clients are excluded.
@@ -51,11 +51,11 @@ select '   Lives Alone:'||
           (select '    Yes: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_social_context where address_v2=1)||
           (select '    No: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_social_context where cast(address_v2 as int) in(2,3,4,5))||
           '    Not recorded: '||no_social||' ('||cast(round(no_social*100./total) as int)||'%)' 
-  from (select cast(count(*) as real) as total from aag1_client)
+  from (select cast(count(*) as real) as total from aag1_client_served)
   join (select cast(count(*) as real) as total_social from aag1_social_context
          where cast(address_v2 as int) in(1,2,3,4,5))
   join (select count(*) as no_social 
-          from (select record_id from aag1_client 
+          from (select record_id from aag1_client_served 
                 except 
                 select record_id from aag1_social_context 
                  where cast(address_v2 as int) in(1,2,3,4,5)));
@@ -67,16 +67,19 @@ select 'Program Services';
 select '   Clients served, total: '||count(*)||
         '   (New: '||sum(case when date_1st_contact >= d.first then 1 end)||
         '    Carried over: '||sum(case when date_1st_contact >= d.first then 0 else 1 end)||')'
-  from aag1_client
+  from aag1_client_served
   join aag_date_range as d;
 select '';
 select '      As of '||last_month||' '||last_day||', '||last_year||'    '||
-          (select 'Active: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_client where status_profile=1)||
-          (select '    Inactive: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_client where status_profile=2)||
-          (select '    Discharged: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_client where status_profile=3)||
-          (select '    Not recorded: '||count(*) from aag1_client where status_profile not in(1,2,3))
+          (select 'Active: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
+             from aag1_client_served_with_status where client_redcap_status=1)||
+          (select '    Inactive: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
+             from aag1_client_served_with_status where client_redcap_status=2)||
+          (select '    Discharged: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
+             from aag1_client_served_with_status where client_redcap_status=3)
 from aag1_dates
-join (select cast(count(*) as real) as total from aag1_client where status_profile in(1,2,3));
+join (select cast(count(*) as real) as total 
+        from aag1_client_served_with_status;
 select '';
 select '   Total number of client contacts:  '||count(*)
   from aag1_encounter;
@@ -129,69 +132,69 @@ select '   Primary Care Provider: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
              , sum(case when referred_by___4 = 1 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion >0;
 -- Family:   26%
 select '   Family: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
              , sum(case when referred_by___2 = 1 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion >0;
 -- Self:   13%
 select '   Self: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
              , sum(case when referred_by___1 = 1 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion >0;
 -- Neighbor/Friend:   13%
 select '   Neighbor/Friend: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
              , sum(case when referred_by___3 = 1 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion >0;
 -- Fast Squad/Ambulance Service:   5%
 select '   Fast Squad/Ambulance Service: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
              , sum(case when referred_by___8 = 1 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion >0;
 -- Community Agency:  0%
 select '   Community Agency: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
              , sum(case when referred_by___5 = 1 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion >0;
 -- Clergy:   0%
 select '   Clergy: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
              , sum(case when referred_by___6 = 1 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion >0;
 -- Hosp./SNF Discharge Coord.:   0%
 select '   Hosp./SNF Discharge Coord.: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
              , sum(case when referred_by___7 = 1 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion >0;
 -- Other:   18%
 select '   Other: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
              , sum(case when referred_by___9 = 1 then 1 else 0 end) as portion
-          from aag1_client)
+          from aag1_client_served)
  where portion >0 and 1=2;
 select '   Not recorded: '||
           cast(round(portion*100./total) as int)||'%  ('||portion||')'
   from (select count(*) as total
              , sum(1-referred_by_any) as portion
-          from aag1_client )
+          from aag1_client_served )
  where portion >0 and 1=2;
 
 select '';

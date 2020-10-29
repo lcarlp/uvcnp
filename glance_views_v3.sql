@@ -71,6 +71,21 @@ select *
  -- within the range.
  ;
 
+drop view if exists aag1_client_served_with_status
+create view aag1_client_served_with_status as
+select client.record_id
+     , coalesce(status_update.client_redcap_status,1) client_redcap_status
+  from aag1_client_served client
+  left join aag1 status_update
+    on status_update.redcap_repeat_instrument = 'status_update'
+   and status_update.record_id = client.record_id
+   and not exists(
+        select null from aag1 status_update2
+         where status_update2.redcap_repeat_instrument = 'status_update'
+           and status_update2.record_id = client.record_id
+           and status_update2.redcap_repeat_instance > status_update.redcap_repeat_instance )
+;
+
 
 drop view if exists aag1_client_age;
 create view aag1_client_age as
