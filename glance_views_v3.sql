@@ -245,38 +245,6 @@ select first
   join month as last_month
     on last_month.number = cast(strftime('%m',d.last) as integer);
 
-drop view if exists aag1_problem1;
-create view aag1_problem1 as
-select record_id
-     , redcap_data_access_group town
-     , cast(max(ed_visits___1,ed_visits___2) as integer) ed_visits
-     , cast(max(incorrect_meds___1,incorrect_meds___2) as integer) incorrect_meds
-     , cast(max(ineff_ther___1,ineff_ther___2) as integer) ineff_ther
-     , cast(max(sympt_manag___1,sympt_manag___2) as integer) sympt_manag
-     , cast(max(frailty___1,frailty___2) as integer) frailty
-     , cast(max(impair_cog___1,impair_cog___2) as integer) impair_cog
-     , cast(max(ment_heal___1,ment_heal___2) as integer) ment_heal
-     , cast(max(self_care_prob_list___1,self_care_prob_list___2) as integer) self_care_prob_list
-     , cast(max(imp_phys_mob___1,imp_phys_mob___2) as integer) imp_phys_mob
-     , cast(max(fall___1,fall___2) as integer) fall
-     , cast(max(stay_home___1,stay_home___2) as integer) stay_home
-     , cast(max(prob_bills___1,prob_bills___2) as integer) prob_bills
-     , cast(max(stress_trans___1,stress_trans___2) as integer) stress_trans
-     , cast(max(incom_acp___1,incom_acp___2) as integer) incom_acp
-     , cast(max(other_prob_list___1,other_prob_list___2) as integer) other_prob_list
-     , cast(max(sdoh_iso___1,sdoh_iso___2) as integer) sdoh_iso
-     , cast(max(nutr_poor___1,nutr_poor___2) as integer) nutr_poor
-     , cast(max(hous_def___1,hous_def___2) as integer) hous_def
-     , cast(max(sdoh_transp___1,sdoh_transp___2) as integer) sdoh_transp
-     , cast(max(sdoh_finance___1,sdoh_finance___2) as integer) sdoh_finance
-     , cast(max(sdoh_other_2___1,sdoh_other_2___2) as integer) sdoh_other_2
-  from aag1
- where redcap_repeat_instrument = ''
-   and record_id in(
-         select record_id from aag1_encounter1 )
- -- For clients served, only show them if they had an encounter
- -- within the range.
- ;
 
 drop view if exists aag1_affiliation1;
 create view aag1_affiliation1 as
@@ -464,30 +432,51 @@ select ( select count(*) from aag1_hospital_used2 where sort_key >= this.sort_ke
 ;
 
 
+drop view if exists aag1_problem1;
+create view aag1_problem1 as
+select record_id
+     , redcap_data_access_group town
+     , problem_type___1  -- Impaired Mobility
+     , problem_type___2  -- Fall Risk
+     , problem_type___3  -- Social isolation/weak social support
+     , problem_type___4  -- Ineffective symptom management
+     , problem_type___5  -- Frailty
+     , problem_type___6  -- Self-care deficit
+     , problem_type___7  -- Ineffective medication management
+     , problem_type___8  -- Mental health issue
+     , problem_type___9  -- Impaired cognitive function
+     , problem_type___10 -- Poor nutrition/food insecurity
+     , problem_type___11 -- Financial stress
+     , problem_type___12 -- Transportation
+     , problem_type___13 -- Struggling to remain at home; options being considered
+     , problem_type___14 -- Potential for caregiver burnout
+     , problem_type___20 -- Other
+  from aag1
+ where redcap_repeat_instrument = ''
+   and record_id in(
+         select record_id from aag1_encounter1 )
+ -- For clients served, only show them if they had an encounter
+ -- within the range.
+ ;
+
 drop view if exists aag1_problem;
 create view aag1_problem as
 select aag1_problem1.*
-     , ed_visits
-     +   incorrect_meds
-     +   ineff_ther
-     +   sympt_manag
-     +   frailty
-     +   impair_cog
-     +   ment_heal
-     +   self_care_prob_list
-     +   imp_phys_mob
-     +   fall
-     +   stay_home
-     +   prob_bills
-     +   stress_trans
-     +   incom_acp
-     +   other_prob_list
-     +   sdoh_iso
-     +   nutr_poor
-     +   hous_def
-     +   sdoh_transp
-     +   sdoh_finance
-     +   sdoh_other_2 problems
+     , problem_type___1 +
+        problem_type___2 +
+        problem_type___3 +
+        problem_type___4 +
+        problem_type___5 +
+        problem_type___6 +
+        problem_type___7 +
+        problem_type___8 +
+        problem_type___9 +
+        problem_type___10 +
+        problem_type___11 +
+        problem_type___12 +
+        problem_type___13 +
+        problem_type___14 +
+        problem_type___20 problems
   from aag1_problem1;
 
 drop view if exists aag1_has_problems;
@@ -501,130 +490,94 @@ select cast(count(*) as real) as it
 drop view if exists aag1_problem_percent1;
 create view aag1_problem_percent1 as
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Frequent ED visits/EMS calls' label
+     , 'Impaired Mobility' label
   from aag1_problem
   join aag1_has_problems
- where ed_visits > 0
+ where problem_type___1 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Not taking medications correctly' label
+     , 'Fall Risk' label
   from aag1_problem
   join aag1_has_problems
- where incorrect_meds > 0
+ where problem_type___2 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Ineffective enactment of therapeutic recommendations' label
+     , 'Social isolation/weak social support' label
   from aag1_problem
   join aag1_has_problems
- where ineff_ther > 0
+ where problem_type___3 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Symptom(s) not well controlled' label
+     , 'Ineffective symptom management' label
   from aag1_problem
   join aag1_has_problems
- where sympt_manag > 0
+ where problem_type___4 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Frailty' label
   from aag1_problem
   join aag1_has_problems
- where frailty > 0
+ where problem_type___5 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Impaired cognitive functioning' label
+     , 'Self-care deficit' label
   from aag1_problem
   join aag1_has_problems
- where impair_cog > 0
+ where problem_type___6 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Mental Health or Substance Abuse Issue' label
+     , 'Ineffective medication management' label
   from aag1_problem
   join aag1_has_problems
- where ment_heal > 0
+ where problem_type___7 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Self-care deficit in performing ADLs' label
+     , 'Mental health issue' label
   from aag1_problem
   join aag1_has_problems
- where self_care_prob_list > 0
+ where problem_type___8 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Impaired Mobility' label
+     , 'Impaired cognitive function' label
   from aag1_problem
   join aag1_has_problems
- where imp_phys_mob > 0
+ where problem_type___9 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'High Fall Risk' label
+     , 'Poor nutrition/food insecurity' label
   from aag1_problem
   join aag1_has_problems
- where fall > 0
+ where problem_type___10 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Difficulty living at home' label
+     , 'Financial stress' label
   from aag1_problem
   join aag1_has_problems
- where stay_home > 0
+ where problem_type___11 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Problems with bills, insurance etc.' label
+     , 'Transportation' label
   from aag1_problem
   join aag1_has_problems
- where prob_bills > 0
+ where problem_type___12 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Anticipated stressful transition to another level of care' label
+     , 'Struggling to remain at home; options being considered' label
   from aag1_problem
   join aag1_has_problems
- where stress_trans > 0
+ where problem_type___13 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Incomplete end of life planning' label
+     , 'Potential for caregiver burnout' label
   from aag1_problem
   join aag1_has_problems
- where incom_acp > 0
+ where problem_type___14 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
      , 'Other problems' label
   from aag1_problem
   join aag1_has_problems
- where other_prob_list > 0
-union all
-select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Social isolation' label
-  from aag1_problem
-  join aag1_has_problems
- where sdoh_iso > 0
-union all
-select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Poor Nutrition' label
-  from aag1_problem
-  join aag1_has_problems
- where nutr_poor > 0
-union all
-select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Deficient Housing' label
-  from aag1_problem
-  join aag1_has_problems
- where hous_def > 0
-union all
-select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Lack of Transportation' label
-  from aag1_problem
-  join aag1_has_problems
- where sdoh_transp > 0
-union all
-select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Financial struggles' label
-  from aag1_problem
-  join aag1_has_problems
- where sdoh_finance > 0
-union all
-select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Other social' label
-  from aag1_problem
-  join aag1_has_problems
- where sdoh_other_2 > 0;
+ where problem_type___20 > 0;
 
 drop view if exists aag1_problem_percent2;
 create view aag1_problem_percent2 as
