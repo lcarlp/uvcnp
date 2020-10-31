@@ -44,29 +44,29 @@ select record_id
      , case when hospital_used = '' then 0 else 1 end as hospital_used_any
   from aag1
  where redcap_repeat_instrument = ''
- ;
-
-drop view if exists aag1_encountered;
-create view aag1_encountered as
-select record_id
-     , redcap_data_access_group town
-     , e.encounter_date
-  from aag1 e
-  join aag_date_range d
- where e.redcap_repeat_instrument = 'encounters'
-   and e.encounter_date between d.first and d.last
--- Picks up anyone with an encounter in the range.
--- This view is one-to-one with aag1_encounter1, but has only 3 of the same
--- columns as that one does.  Can we just use the other view?
--- (The town column in this view is redcap_data_access_group in aag1_encounter1.)
 ;
+
+
+drop view if exists aag1_encounter1;
+create view aag1_encounter1 as
+select *
+  from aag1
+  join aag_date_range d
+    on encounter_date between d.first and d.last
+ where redcap_repeat_instrument = 'encounters'
+ -- This version of encounters is one-to-one with
+ -- encounters, unlike the other one that adds 
+ -- additional encounters if there is more than one type
+ -- in one encounter.
+;
+
 
 drop view if exists aag1_client_served;
 create view aag1_client_served as
 select *
   from aag1_client_all
  where record_id in(
-         select record_id from aag1_encountered )
+         select record_id from aag1_encounter1 )
  -- For clients served, only show them if they had an encounter
  -- within the range.
  ;
@@ -204,7 +204,11 @@ select record_id
      , type
   from aag1_encounter_all e
   join aag_date_range d
- where e.encounter_date between d.first and d.last;
+ where e.encounter_date between d.first and d.last
+ -- This view may expand the number of encounters for one
+ -- client if they had more than one encounter type code for the
+ -- same encounter record.
+ ;
 
 
 drop view if exists month;
@@ -267,7 +271,7 @@ select record_id
   from aag1
  where redcap_repeat_instrument = ''
    and record_id in(
-         select record_id from aag1_encountered )
+         select record_id from aag1_encounter1 )
  -- For clients served, only show them if they had an encounter
  -- within the range.
  ;
@@ -488,7 +492,9 @@ drop view if exists aag1_has_problems;
 create view aag1_has_problems as
 select cast(count(*) as real) as it
   from aag1_problem
- where problems > 0;
+ where problems > 0
+-- Number of clients (served) who have any problems at all
+;
 
 drop view if exists aag1_problem_percent1;
 create view aag1_problem_percent1 as
@@ -636,23 +642,6 @@ select ( select count(*) from aag1_problem_percent2 where sort_key >= this.sort_
 -- it would probably help to use a temporary table for the output from 
 -- aag1_problem_percent2.
 ;
-
-drop view if exists aag1_encounter1;
-create view aag1_encounter1 as
-select *
-  from aag1
-  join aag_date_range d
-    on encounter_date between d.first and d.last
- where redcap_repeat_instrument = 'encounters'
- -- This version of encounters is one-to-one with
- -- encounters, unlike the other one that adds 
- -- additional encounters if there is more than one type
- -- in one encounter.
- -- This view is one-to-one with aag1_encountered, but has only 3 of the same
--- columns as that one does.  Can we just use the other view?
--- (The redcap_data_access_group column in this view is town in aag1_encountered.)
-
- ;
 
 drop view if exists aag1_intervene1;
 create view aag1_intervene1 as
@@ -827,7 +816,7 @@ select record_id
     on date_sc <= d.last
     or date_sc = ''
  where redcap_repeat_instrument = 'social_context_v2'
-   and record_id in(select record_id from aag1_encountered)
+   and record_id in(select record_id from aag1_encounter1)
  group by record_id
  -- The date should be required, but it is not.
  -- We attempt to exclude recently entered records, and
@@ -843,7 +832,7 @@ select *
     on coalesce(date_today_dis,d.last) between d.first and d.last
     or date_today_dis = ''
  where redcap_repeat_instrument = 'discharge_report_v2'
-   and record_id in(select record_id from aag1_encountered)
+   and record_id in(select record_id from aag1_encounter1)
  -- The date should be required, but it is not.
  ;
 
@@ -898,7 +887,7 @@ select *
     on coalesce(date_sixmonth,d.last) between d.first and d.last
     or date_sixmonth = ''
  where redcap_repeat_instrument = 'month_report_v2'
-   and record_id in(select record_id from aag1_encountered);
+   and record_id in(select record_id from aag1_encounter1);
 
 drop view if exists aag1_outcome1;
 create view aag1_outcome1 as 
