@@ -55,8 +55,7 @@ select '   Lives Alone:'||
           (select '    Not recorded: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
              from aag1_client_served where household_comp ='')
   from (select cast(count(*) as real) as total from aag1_client_served);
-select '   Financially stressed: '||percentage||'%' from aag1_problem_percent1 where label='Financial struggles';
-ABOVE NEEDS WORK.
+select '   Financially stressed: '||percentage||'%' from aag1_problem_percent1 where label='Financial stress';
 select '';
 select '';
 select 'Program Services';
