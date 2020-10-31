@@ -71,7 +71,7 @@ select *
  -- within the range.
  ;
 
-drop view if exists aag1_client_served_with_status
+drop view if exists aag1_client_served_with_status;
 create view aag1_client_served_with_status as
 select client.record_id
      , coalesce(status_update.client_redcap_status,1) client_redcap_status
@@ -98,7 +98,7 @@ select record_id, age
 
 
 -- The following superfically complicated view takes into account that the
--- user might select more than one method for a contact.  For methods 1-9,
+-- user might select more than one type for an encounter.  For types 1-9,
 -- if more than one is selected, we count that as multiple encounters.  We 
 -- do not add to the count if "Other" is also selected, but we do count as
 -- "Other" any encounter where none of the other 9 methods are selected.
