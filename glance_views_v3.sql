@@ -71,24 +71,6 @@ select *
  -- within the range.
  ;
 
-drop view if exists aag1_client_served_with_status;
-create view aag1_client_served_with_status as
-select client.record_id
-     , coalesce(status_update.client_redcap_status,1) client_redcap_status
-  from aag1_client_served client
-  join aag_date_range d
-  left join aag1 status_update
-    on status_update.redcap_repeat_instrument = 'status_update'
-   and status_update.record_id = client.record_id
-   and status_update.client_redcap_status_date <= d.last
-   and not exists(
-        select null from aag1 status_update2
-         where status_update2.redcap_repeat_instrument = 'status_update'
-           and status_update2.record_id = client.record_id
-           and status_update2.client_redcap_status_date <= d.last
-           and status_update2.redcap_repeat_instance > status_update.redcap_repeat_instance )
-;
-
 
 drop view if exists aag1_client_age;
 create view aag1_client_age as
@@ -110,6 +92,28 @@ select client.record_id
      , d.first 
   from aag1_client_served client
   join aag_date_range d;
+
+
+drop view if exists aag1_client_served_with_status;
+create view aag1_client_served_with_status as
+select client.record_id
+     , case status_update.client_redcap_status
+         when '' then 1
+         else coalesce(cast(status_update.client_redcap_status as integer),1)
+       end client_redcap_status
+  from aag1_client_served client
+  join aag_date_range d
+  left join aag1 status_update
+    on status_update.redcap_repeat_instrument = 'status_update'
+   and status_update.record_id = client.record_id
+   and status_update.client_redcap_status_date <= d.last
+   and not exists(
+        select null from aag1 status_update2
+         where status_update2.redcap_repeat_instrument = 'status_update'
+           and status_update2.record_id = client.record_id
+           and status_update2.client_redcap_status_date <= d.last
+           and status_update2.redcap_repeat_instance > status_update.redcap_repeat_instance )
+;
 
 
 -- The following superfically complicated view takes into account that the
