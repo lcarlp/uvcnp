@@ -100,6 +100,18 @@ select record_id, age
 ;
 
 
+drop view if exists aag1_client_served_first_encounter;
+create view aag1_client_served_first_encounter as
+select client.record_id
+     , ( select min(encounter_date) --Allow for encounters out of date order.
+           from aag1 encounter
+          where encounter.redcap_repeat_instrument= 'encounters'
+            and encounter.record_id = client.record_id ) date_1st_encounter
+     , d.first 
+  from aag1_client_served client
+  join aag_date_range d;
+
+
 -- The following superfically complicated view takes into account that the
 -- user might select more than one type for an encounter.  For types 1-9,
 -- if more than one is selected, we count that as multiple encounters.  We 

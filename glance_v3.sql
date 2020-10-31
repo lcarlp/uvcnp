@@ -61,10 +61,9 @@ select '';
 select '';
 select 'Program Services';
 select '   Clients served, total: '||count(*)||
-        '   (New: '||sum(case when date_1st_contact >= d.first then 1 end)||
-        '    Carried over: '||sum(case when date_1st_contact >= d.first then 0 else 1 end)||')'
-  from aag1_client_served
-  join aag_date_range as d;
+        '   (New: '||sum(case when date_1st_encounter >= first then 1 end)||
+        '    Carried over: '||sum(case when date_1st_encounter >= first then 0 else 1 end)||')'
+  from aag1_client_served_first_encounter;
 select '';
 select '      As of '||last_month||' '||last_day||', '||last_year||'    '||
           (select 'Active: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
