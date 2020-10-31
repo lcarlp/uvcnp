@@ -526,7 +526,7 @@ select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
  where problem_type___6 > 0
 union all
 select cast(round(count(*)*100./aag1_has_problems.it) as integer) percentage
-     , 'Ineffective medication management' label
+     , 'Not taking medications correctly' label
   from aag1_problem
   join aag1_has_problems
  where problem_type___7 > 0
