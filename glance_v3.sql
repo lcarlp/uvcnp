@@ -48,17 +48,13 @@ select 'WARNING:  MANY LOW AGES IGNORED.  ONLY CONSIDERED '||
 -- Generate a warning if more than 10% of clients are excluded.
 ;
 select '   Lives Alone:'||
-          (select '    Yes: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_social_context where address_v2=1)||
-          (select '    No: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' from aag1_social_context where cast(address_v2 as int) in(2,3,4,5))||
-          '    Not recorded: '||no_social||' ('||cast(round(no_social*100./total) as int)||'%)' 
-  from (select cast(count(*) as real) as total from aag1_client_served)
-  join (select cast(count(*) as real) as total_social from aag1_social_context
-         where cast(address_v2 as int) in(1,2,3,4,5))
-  join (select count(*) as no_social 
-          from (select record_id from aag1_client_served 
-                except 
-                select record_id from aag1_social_context 
-                 where cast(address_v2 as int) in(1,2,3,4,5)));
+          (select '    Yes: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
+             from aag1_client_served where household_comp=1)||
+          (select '    No: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
+             from aag1_client_served where household_comp > 1)|| --Kludgy
+          (select '    Not recorded: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
+             from aag1_client_served where household_comp ='')
+  from (select cast(count(*) as real) as total from aag1_client_served);
 select '   Financially stressed: '||percentage||'%' from aag1_problem_percent1 where label='Financial struggles';
 
 select '';
@@ -79,7 +75,7 @@ select '      As of '||last_month||' '||last_day||', '||last_year||'    '||
              from aag1_client_served_with_status where client_redcap_status=3)
 from aag1_dates
 join (select cast(count(*) as real) as total 
-        from aag1_client_served_with_status;
+        from aag1_client_served);
 select '';
 select '   Total number of client contacts:  '||count(*)
   from aag1_encounter;

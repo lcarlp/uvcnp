@@ -14,8 +14,8 @@ drop view if exists aag1_client_all;
 create view aag1_client_all as
 select record_id
      , redcap_data_access_group town
-     , status_profile
      , cast(age as real) as age
+     , household_comp
      , date_1st_contact
      , referred_by___1
      , referred_by___2
@@ -76,13 +76,16 @@ create view aag1_client_served_with_status as
 select client.record_id
      , coalesce(status_update.client_redcap_status,1) client_redcap_status
   from aag1_client_served client
+  join aag_date_range d
   left join aag1 status_update
     on status_update.redcap_repeat_instrument = 'status_update'
    and status_update.record_id = client.record_id
+   and status_update.client_redcap_status_date <= d.last
    and not exists(
         select null from aag1 status_update2
          where status_update2.redcap_repeat_instrument = 'status_update'
            and status_update2.record_id = client.record_id
+           and status_update2.client_redcap_status_date <= d.last
            and status_update2.redcap_repeat_instance > status_update.redcap_repeat_instance )
 ;
 
