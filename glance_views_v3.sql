@@ -116,115 +116,118 @@ select client.record_id
 ;
 
 
--- The following superfically complicated view takes into account that the
--- user might select more than one type for an encounter.  For types 1-9,
--- if more than one is selected, we count that as multiple encounters.  We 
--- do not add to the count if "Other" is also selected, but we do count as
--- "Other" any encounter where none of the other 9 methods are selected.
--- Note that most of the selects being UNIONed together follow a pattern.
 drop view if exists aag1_encounter_all;
 create view aag1_encounter_all as
 select record_id
      , redcap_data_access_group town
      , encounter_date
-     , 1 as type
-  from aag1
- where redcap_repeat_instrument = 'encounters'
-   and cont_meth_v2___1 = 1
-union all
-select record_id
-     , redcap_data_access_group town
-     , encounter_date
-     , 2 as type
-  from aag1
- where redcap_repeat_instrument = 'encounters'
-   and cont_meth_v2___2 = 1
-union all
-select record_id
-     , redcap_data_access_group town
-     , encounter_date
-     , 3 as type
-  from aag1
- where redcap_repeat_instrument = 'encounters'
-   and cont_meth_v2___3 = 1
-union all
-select record_id
-     , redcap_data_access_group town
-     , encounter_date
-     , 4 as type
-  from aag1
- where redcap_repeat_instrument = 'encounters'
-   and cont_meth_v2___4 = 1
-union all
-select record_id
-     , redcap_data_access_group town
-     , encounter_date
-     , 5 as type
-  from aag1
- where redcap_repeat_instrument = 'encounters'
-   and cont_meth_v2___5 = 1
-union all
-select record_id
-     , redcap_data_access_group town
-     , encounter_date
-     , 6 as type
-  from aag1
- where redcap_repeat_instrument = 'encounters'
-   and cont_meth_v2___6 = 1
-union all
-select record_id
-     , redcap_data_access_group town
-     , encounter_date
-     , 7 as type
-  from aag1
- where redcap_repeat_instrument = 'encounters'
-   and cont_meth_v2___7 = 1
-union all
-select record_id
-     , redcap_data_access_group town
-     , encounter_date
-     , 8 as type
-  from aag1
- where redcap_repeat_instrument = 'encounters'
-   and cont_meth_v2___8 = 1
-union all
-select record_id
-     , redcap_data_access_group town
-     , encounter_date
-     , 9 as type
-  from aag1
- where redcap_repeat_instrument = 'encounters'
-   and cont_meth_v2___9 = 1
-union all
-select record_id
-     , redcap_data_access_group town
-     , encounter_date
-     , 10 as type
-  from aag1
- where redcap_repeat_instrument = 'encounters'
-   and cont_meth_v2___1
-        + cont_meth_v2___2
-        + cont_meth_v2___3
-        + cont_meth_v2___4
-        + cont_meth_v2___5
-        + cont_meth_v2___6
-        + cont_meth_v2___7
-        + cont_meth_v2___8
-        + cont_meth_v2___9 = 0;
+     , encounter_type___1
+     , encounter_type___2
+     , encounter_type___3
+     , encounter_type___4
+     , encounter_type___5
+     , encounter_type___6
+     , encounter_type___11
+     , encounter_type___12
+     , encounter_type___13
+     , encounter_type___10
+  from aag1 encounter
+  join aag_date_range d
+ where encounter.redcap_repeat_instrument = 'encounters'
+   and encounter.encounter_date between d.first and d.last
+ -- This view is currently only used as a building block
+ -- for aag1_encounter.
+ ;
 
 drop view if exists aag1_encounter;
-create view aag1_encounter as
+create view aag1_encounter as -- See comments at end of view.
 select record_id
      , town
      , encounter_date
-     , type
-  from aag1_encounter_all e
-  join aag_date_range d
- where e.encounter_date between d.first and d.last
- -- This view may expand the number of encounters for one
- -- client if they had more than one encounter type code for the
- -- same encounter record.
- ;
+     , 1 as type
+  from aag1_encounter_all
+ where encounter_type___1 = 1
+union all
+select record_id
+     , town
+     , encounter_date
+     , 2 as type
+  from aag1_encounter_all
+ where encounter_type___2 = 1
+union all
+select record_id
+     , town
+     , encounter_date
+     , 3 as type
+  from aag1_encounter_all
+ where encounter_type___3 = 1
+union all
+select record_id
+     , town
+     , encounter_date
+     , 4 as type
+  from aag1_encounter_all
+ where encounter_type___4 = 1
+union all
+select record_id
+     , town
+     , encounter_date
+     , 5 as type
+  from aag1_encounter_all
+ where encounter_type___5 = 1
+union all
+select record_id
+     , town
+     , encounter_date
+     , 6 as type
+  from aag1_encounter_all
+ where encounter_type___6 = 1
+union all
+select record_id
+     , town
+     , encounter_date
+     , 11 as type
+  from aag1_encounter_all
+ where encounter_type___11 = 1
+union all
+select record_id
+     , town
+     , encounter_date
+     , 12 as type
+  from aag1_encounter_all
+ where encounter_type___12 = 1
+union all
+select record_id
+     , town
+     , encounter_date
+     , 13 as type
+  from aag1_encounter_all
+ where encounter_type___13 = 1
+union all
+select record_id
+     , town
+     , encounter_date
+     , 10 as type --Other
+  from aag1_encounter_all
+ where encounter_type___10 = 1 --Other
+   and encounter_type___1 +
+        encounter_type___2 +
+        encounter_type___3 +
+        encounter_type___4 +
+        encounter_type___5 +
+        encounter_type___6 +
+        encounter_type___11 +
+        encounter_type___12 +
+        encounter_type___13 = 0
+--
+-- This superfically complicated view takes into account that the
+-- user might select more than one type for an encounter.  For any types
+-- except for type 10 (other),  if more than one is selected, we count 
+-- that as multiple encounters.  We do not add to the count if "Other" 
+-- is also selected, but we do count as "Other" encounters if none of 
+-- the other encounter types are selected.
+-- Note that most of the selects being UNIONed together follow a pattern.
+;
 
 
 drop view if exists month;

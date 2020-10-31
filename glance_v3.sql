@@ -56,7 +56,7 @@ select '   Lives Alone:'||
              from aag1_client_served where household_comp ='')
   from (select cast(count(*) as real) as total from aag1_client_served);
 select '   Financially stressed: '||percentage||'%' from aag1_problem_percent1 where label='Financial struggles';
-
+ABOVE NEEDS WORK.
 select '';
 select '';
 select 'Program Services';
@@ -103,22 +103,24 @@ select '   Phone calls/emails with clients/families/providers: '||portion||'  ('
           cast(round(portion*100./total) as int)||
           '% of all client encounters)'
   from (select count(*) as total
-             , sum(case when type=2 or type=3 then 1 else 0 end) as portion
+             , sum(case when type in(2,3,11,12) then 1 else 0 end) as portion
           from aag1_encounter);
 
 select '   Office visits: '||portion||'  ('||
           cast(round(portion*100./total) as int)||
           '% of all client encounters)'
   from (select count(*) as total
-             , sum(case when type=5 then 1 else 0 end) as portion
-          from aag1_encounter);
+             , sum(case when type=5 or type=13 then 1 else 0 end) as portion
+          from aag1_encounter)
+ where portion > 0;
 
-select '   Hosp./Rehab/ECF visits: '||portion||'  ('||
+select '   In-patient meetings: '||portion||'  ('||
           cast(round(portion*100./total) as int)||
           '% of all client encounters)'
   from (select count(*) as total
-             , sum(case when type=6 or type=7 then 1 else 0 end) as portion
-          from aag1_encounter);
+             , sum(case when type=6 then 1 else 0 end) as portion
+          from aag1_encounter)
+ where portion > 0;
 
 select '';
 select 'Client Referrals (referred by…)';
