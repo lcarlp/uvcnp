@@ -16,28 +16,11 @@ select record_id
      , redcap_data_access_group town
      , cast(age as real) as age
      , household_comp
-     , date_1st_contact
-     , referred_by___1
-     , referred_by___2
-     , referred_by___3
-     , referred_by___4
-     , referred_by___5
-     , referred_by___6
-     , referred_by___7
-     , referred_by___8
-     , referred_by___9
+     , primary_referrer
      , case
-        when referred_by___1 +
-                referred_by___2 +
-                referred_by___3 +
-                referred_by___4 +
-                referred_by___5 +
-                referred_by___6 +
-                referred_by___7 +
-                referred_by___8 +
-                referred_by___9 > 0 then 1
-        else 0
-        end as referred_by_any
+         when primary_referrer = '' then 0
+         else 1
+       end as referred_by_any
      , provider1_affiliation
      , case when provider1_affiliation = '' then 0 else 1 end as provider1_affiliation_any
      , hospital_used

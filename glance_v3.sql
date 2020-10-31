@@ -128,71 +128,71 @@ select 'Client Referrals (referred by…)';
 select '   Primary Care Provider: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
-             , sum(case when referred_by___4 = 1 then 1 else 0 end) as portion
+             , sum(case when primary_referrer = 4 then 1 else 0 end) as portion
           from aag1_client_served)
- where portion >0;
+ where portion > 0;
 -- Family:   26%
 select '   Family: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
-             , sum(case when referred_by___2 = 1 then 1 else 0 end) as portion
+             , sum(case when primary_referrer = 2 then 1 else 0 end) as portion
           from aag1_client_served)
- where portion >0;
+ where portion > 0;
 -- Self:   13%
 select '   Self: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
-             , sum(case when referred_by___1 = 1 then 1 else 0 end) as portion
+             , sum(case when primary_referrer = 1 then 1 else 0 end) as portion
           from aag1_client_served)
- where portion >0;
+ where portion > 0;
 -- Neighbor/Friend:   13%
 select '   Neighbor/Friend: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
-             , sum(case when referred_by___3 = 1 then 1 else 0 end) as portion
+             , sum(case when primary_referrer = 3 then 1 else 0 end) as portion
           from aag1_client_served)
- where portion >0;
+ where portion > 0;
 -- Fast Squad/Ambulance Service:   5%
 select '   Fast Squad/Ambulance Service: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
-             , sum(case when referred_by___8 = 1 then 1 else 0 end) as portion
+             , sum(case when primary_referrer = 11 then 1 else 0 end) as portion
           from aag1_client_served)
- where portion >0;
+ where portion > 0;
 -- Community Agency:  0%
 select '   Community Agency: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
-             , sum(case when referred_by___5 = 1 then 1 else 0 end) as portion
+             , sum(case when primary_referrer = 8 then 1 else 0 end) as portion
           from aag1_client_served)
- where portion >0;
+ where portion > 0;
 -- Clergy:   0%
 select '   Clergy: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
-             , sum(case when referred_by___6 = 1 then 1 else 0 end) as portion
+             , sum(case when primary_referrer = 9 then 1 else 0 end) as portion
           from aag1_client_served)
- where portion >0;
+ where portion > 0;
 -- Hosp./SNF Discharge Coord.:   0%
 select '   Hosp./SNF Discharge Coord.: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
-             , sum(case when referred_by___7 = 1 then 1 else 0 end) as portion
+             , sum(case when primary_referrer = 10 then 1 else 0 end) as portion
           from aag1_client_served)
- where portion >0;
+ where portion > 0;
 -- Other:   18%
 select '   Other: '||
           cast(round(portion*100./total) as int)||'%'
   from (select sum(referred_by_any) as total
-             , sum(case when referred_by___9 = 1 then 1 else 0 end) as portion
+             , sum(case when primary_referrer = 12 then 1 else 0 end) as portion
           from aag1_client_served)
- where portion >0 and 1=2;
+ where portion > 0 and 1=2;
 select '   Not recorded: '||
           cast(round(portion*100./total) as int)||'%  ('||portion||')'
   from (select count(*) as total
              , sum(1-referred_by_any) as portion
           from aag1_client_served )
- where portion >0 and 1=2;
+ where portion > 0 and 1=2;
 
 select '';
 select 'Affiliation of Primary Care Provider';
