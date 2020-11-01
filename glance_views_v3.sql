@@ -731,61 +731,6 @@ select ( select count(*) from aag1_intervene4 where sort_key >= this.sort_key ) 
   from aag1_intervene4 this;
 
 
-drop view if exists aag1_discharge;
-create view aag1_discharge as
-select *
-  from aag1
-  join aag_date_range d
-    on coalesce(date_today_dis,d.last) between d.first and d.last
-    or date_today_dis = ''
- where redcap_repeat_instrument = 'discharge_report_v2'
-   and record_id in(select record_id from aag1_encounter1)
- -- The date should be required, but it is not.
- ;
-
-
-drop view if exists aag1_discharge_reason1;
-create view aag1_discharge_reason1 as
-select 'Services no longer needed' label
-     , cast(round(sum(case when reason_disch=1 then 1 else 0 end)*100./count(*)) as integer) percentage
-  from aag1_discharge
-union all
-select 'Services not wanted' label
-     , cast(round(sum(case when reason_disch=2 then 1 else 0 end)*100./count(*)) as integer)
-  from aag1_discharge
-union all
-select 'Death' label
-     , cast(round(sum(case when reason_disch=3 then 1 else 0 end)*100./count(*)) as integer)
-  from aag1_discharge
-union all
-select 'Moved away from Service Area' label
-     , cast(round(sum(case when reason_disch=4 then 1 else 0 end)*100./count(*)) as integer)
-  from aag1_discharge
-union all
-select 'Other' label
-     , cast(round(sum(case when reason_disch=5 then 1 else 0 end)*100./count(*)) as integer)
-  from aag1_discharge
-union all
-select 'Not recorded' label
-     , cast(round(sum(case when reason_disch in(1,2,3,4,5) then 0 else 1 end)*100./count(*)) as integer)
-  from aag1_discharge;
-
-drop view if exists aag1_discharge_reason2;
-create view aag1_discharge_reason2 as
-select (100+percentage)||label sort_key
-     , label
-     , percentage
-  from aag1_discharge_reason1
- where percentage > 0;
-
-drop view if exists aag1_discharge_reason;
-create view aag1_discharge_reason as
-select ( select count(*) from aag1_discharge_reason2 where sort_key >= this.sort_key ) rank
-     , label
-     , percentage
-  from aag1_discharge_reason2 this;
-
-
 drop view if exists aag1_outcome1;
 create view aag1_outcome1 as 
 select record_id
@@ -842,7 +787,6 @@ select record_id
  where redcap_repeat_instrument = 'status_update'
    and client_redcap_status = 3 -- Discharged.
    and record_id in(select record_id from aag1_encounter1);
-
 
 drop view if exists aag1_outcome2;
 create view aag1_outcome2 as
@@ -971,6 +915,71 @@ select ( select count(*) from aag1_outcome3 where sort_key >= this.sort_key ) ra
      , label
      , percentage
   from aag1_outcome3 this;
+
+
+drop view if exists aag1_discharge;
+create view aag1_discharge as
+select *
+  from aag1
+  join aag_date_range d
+    on coalesce(six_month_date,d.last) between d.first and d.last
+    or six_month_date = ''
+ where redcap_repeat_instrument = 'status_update'
+   and client_redcap_status = 3 -- Discharged.
+   and record_id in(select record_id from aag1_encounter1) 
+-- The date should be required, but it is not.
+;
+
+
+drop view if exists aag1_discharge_reason1;
+create view aag1_discharge_reason1 as
+select 'Situation or illness improved' label
+     , cast(round(sum(case when status_update_reason = 1 then 1 else 0 end)*100./count(*)) as integer) percentage
+  from aag1_discharge
+union all
+select 'Transferred to assisted living or long term care' label
+     , cast(round(sum(case when status_update_reason = 2 then 1 else 0 end)*100./count(*)) as integer)
+  from aag1_discharge
+union all
+select 'Moved' label
+     , cast(round(sum(case when status_update_reason = 3 then 1 else 0 end)*100./count(*)) as integer)
+  from aag1_discharge
+union all
+select 'Died' label
+     , cast(round(sum(case when status_update_reason = 4 then 1 else 0 end)*100./count(*)) as integer)
+  from aag1_discharge
+union all
+select 'Declined further service' label
+     , cast(round(sum(case when status_update_reason = 5 then 1 else 0 end)*100./count(*)) as integer)
+  from aag1_discharge
+union all
+select 'Other' label
+     , cast(round(sum(case when status_update_reason in(6,9) then 1 else 0 end)*100./count(*)) as integer)
+  from aag1_discharge
+union all
+select 'Limited Concern addressed' label
+     , cast(round(sum(case when status_update_reason = 8 then 1 else 0 end)*100./count(*)) as integer)
+  from aag1_discharge
+union all
+select 'Not recorded' label
+     , cast(round(sum(case when status_update_reason = '' then 1 else 0 end)*100./count(*)) as integer)
+  from aag1_discharge;
+
+drop view if exists aag1_discharge_reason2;
+create view aag1_discharge_reason2 as
+select (100+percentage)||label sort_key
+     , label
+     , percentage
+  from aag1_discharge_reason1
+ where percentage > 0;
+
+drop view if exists aag1_discharge_reason;
+create view aag1_discharge_reason as
+select ( select count(*) from aag1_discharge_reason2 where sort_key >= this.sort_key ) rank
+     , label
+     , percentage
+  from aag1_discharge_reason2 this;
+
   
 --- End of views.
 -------------------------------------------------------------------------------------------------------
