@@ -731,24 +731,6 @@ select ( select count(*) from aag1_intervene4 where sort_key >= this.sort_key ) 
   from aag1_intervene4 this;
 
 
-drop view if exists aag1_social_context;
-create view aag1_social_context as
-select record_id
-     , max(redcap_repeat_instance)
-     , address_v2
-  from aag1
-  join aag_date_range d
-    on date_sc <= d.last
-    or date_sc = ''
- where redcap_repeat_instrument = 'social_context_v2'
-   and record_id in(select record_id from aag1_encounter1)
- group by record_id
- -- The date should be required, but it is not.
- -- We attempt to exclude recently entered records, and
- -- we only look at clients who are included.
- -- Uses a SQLite trick to get address_v2 for max repeat instance.
- ;
-
 drop view if exists aag1_discharge;
 create view aag1_discharge as
 select *
@@ -804,104 +786,161 @@ select ( select count(*) from aag1_discharge_reason2 where sort_key >= this.sort
   from aag1_discharge_reason2 this;
 
 
-drop view if exists aag1_6month;
-create view aag1_6month as
-select *
-  from aag1
-  join aag_date_range d
-    on coalesce(date_sixmonth,d.last) between d.first and d.last
-    or date_sixmonth = ''
- where redcap_repeat_instrument = 'month_report_v2'
-   and record_id in(select record_id from aag1_encounter1);
-
 drop view if exists aag1_outcome1;
 create view aag1_outcome1 as 
 select record_id
      , redcap_data_access_group town
      , redcap_repeat_instrument
      , redcap_repeat_instance
-     , nurse_out_6_mont___1 as outcome_1
-     , nurse_out_6_mont___2 as outcome_2
-     , nurse_out_6_mont___3 as outcome_3
-     , nurse_out_6_mont___4 as outcome_4
-     , nurse_out_6_mont___5 as outcome_5
-     , nurse_out_6_mont___6 as outcome_6
-     , nurse_out_6_mont___7 as outcome_7
-     , nurse_out_6_mont___8 as outcome_8
-     , nurse_out_6_mont___9 as outcome_9
-  from aag1_6month
+     , six_month_outcome___1  outcome_1
+     , six_month_outcome___2  outcome_2
+     , six_month_outcome___3  outcome_3
+     , six_month_outcome___4  outcome_4
+     , six_month_outcome___5  outcome_5
+     , six_month_outcome___6  outcome_6
+     , six_month_outcome___7  outcome_7
+     , six_month_outcome___8  outcome_8
+     , six_month_outcome___9  outcome_9
+     , six_month_outcome___10 outcome_10
+     , six_month_outcome___11 outcome_11
+     , six_month_outcome___12 outcome_12
+     , six_month_outcome___13 outcome_13
+     , six_month_outcome___14 outcome_14
+     , six_month_outcome___30 outcome_30
+     , six_month_outcome___50 outcome_50
+  from aag1
+  join aag_date_range d
+    on coalesce(six_month_date,d.last) between d.first and d.last
+    or six_month_date = ''
+ where redcap_repeat_instrument = 'six_month_report'
+   and record_id in(select record_id from aag1_encounter1)
 union all
 select record_id
      , redcap_data_access_group town
      , redcap_repeat_instrument
      , redcap_repeat_instance
-     , 0 as outcome_1
-     , 0 as outcome_2
-     , nurse_report_all___1 as outcome_3
-     , nurse_report_all___2 as outcome_4
-     , nurse_report_all___3 as outcome_5
-     , nurse_report_all___4 as outcome_6
-     , nurse_report_all___5 as outcome_7
-     , nurse_report_all___6 as outcome_8
-     , nurse_report_all___7 as outcome_9
-  from aag1_discharge;
+     , status_update_outcome___1  outcome_1
+     , status_update_outcome___2  outcome_2
+     , status_update_outcome___3  outcome_3
+     , status_update_outcome___4  outcome_4
+     , status_update_outcome___5  outcome_5
+     , status_update_outcome___6  outcome_6
+     , status_update_outcome___7  outcome_7
+     , status_update_outcome___8  outcome_8
+     , status_update_outcome___9  outcome_9
+     , status_update_outcome___10 outcome_10
+     , status_update_outcome___11 outcome_11
+     , status_update_outcome___12 outcome_12
+     , status_update_outcome___13 outcome_13
+     , status_update_outcome___14 outcome_14
+     , status_update_outcome___30 outcome_30
+     , status_update_outcome___50 outcome_50
+  from aag1
+  join aag_date_range d
+    on coalesce(six_month_date,d.last) between d.first and d.last
+    or six_month_date = ''
+ where redcap_repeat_instrument = 'status_update'
+   and client_redcap_status = 3 -- Discharged.
+   and record_id in(select record_id from aag1_encounter1);
 
 
 drop view if exists aag1_outcome2;
 create view aag1_outcome2 as
-select 'Decreased risk of falls' label
+select 'Less client anxiety or worry' label
      ,  cast(round(portion*100./total) as integer) percentage
   from (select count(*) as total
              , sum(case when outcome_1 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
-select 'Improved cognitive function, less confusion' label
+select 'Reduced caregiver stress' label
      ,  cast(round(portion*100./total) as integer) percentage
   from (select count(*) as total
              , sum(case when outcome_2 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
-select 'Prevented medication-related, adverse outcomes or ineffective therapeutic effect' label
+select 'Reduced social isolation' label
      ,  cast(round(portion*100./total) as integer) percentage
   from (select count(*) as total
              , sum(case when outcome_3 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
-select 'Helped client and/or family to be less anxious about dealing with their situation'
+select 'Better family understanding, communication and/or dynamics'
      ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case when outcome_4 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
-select 'Helped improve client''s management of illness symptoms'
+select 'Improved functioning in daily life'
      ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case when outcome_5 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
--- The label for this next item is used elsewhere, so be careful.
-select 'Prevented Emergency Call, ED Visit, or Re-hospitalization'
+select 'Improved management of illness symptoms'
      ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case when outcome_6 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
-select 'Improved client''s functioning in daily life'
+select 'Improved medication taking'
      ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case when outcome_7 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
-select 'Enabled client to continue living in home for at least 6 months'
+select 'Reduced fall risk or falls'
      ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case when outcome_8 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)
 union all
-select 'Other'
+-- The label for this next item is used elsewhere, so be careful.
+select 'Prevented hospitalization or ED visit'
      ,  cast(round(portion*100./total) as integer)
   from (select count(*) as total
              , sum(case when outcome_9 = 1 then 1 else 0 end) as portion
+          from aag1_outcome1)     
+union all
+select 'Fewer EMT emergency calls'
+     ,  cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when outcome_10 = 1 then 1 else 0 end) as portion
+          from aag1_outcome1)     
+union all
+select 'Reduced food insecurity'
+     ,  cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when outcome_11 = 1 then 1 else 0 end) as portion
+          from aag1_outcome1)     
+union all
+select 'Able to live at home longer'
+     ,  cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when outcome_12 = 1 then 1 else 0 end) as portion
+          from aag1_outcome1)     
+union all
+select 'Smooth Transition (to home or from home)'
+     ,  cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when outcome_13 = 1 then 1 else 0 end) as portion
+          from aag1_outcome1)     
+union all
+select 'Better management of end-of-life'
+     ,  cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when outcome_14 = 1 then 1 else 0 end) as portion
+          from aag1_outcome1)     
+union all
+select 'Other'
+     ,  cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when outcome_30 = 1 then 1 else 0 end) as portion
+          from aag1_outcome1)     
+union all
+select 'No significant change'
+     ,  cast(round(portion*100./total) as integer)
+  from (select count(*) as total
+             , sum(case when outcome_50 = 1 then 1 else 0 end) as portion
           from aag1_outcome1)     
 union all
 select 'Not recorded'
@@ -909,8 +948,11 @@ select 'Not recorded'
   from (select count(*) as total
              , sum(case 
                     when outcome_1 + outcome_2 + outcome_3 + 
-                              outcome_4 + outcome_5 + outcome_6 + 
-                              outcome_7 + outcome_8 + outcome_9 > 0 then 0
+                            outcome_4 + outcome_5 + outcome_6 + 
+                            outcome_7 + outcome_8 + outcome_9 +
+                            outcome_10 + outcome_11 + outcome_12 + 
+                            outcome_13 + outcome_14 + outcome_30 +
+                            outcome_50 > 0 then 0
                     else 1
                    end) as portion
           from aag1_outcome1);          
