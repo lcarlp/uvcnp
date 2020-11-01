@@ -583,7 +583,7 @@ drop view if exists aag1_problem_percent2;
 create view aag1_problem_percent2 as
 select (100 + percentage)||label as sort_key
      , percentage
-     , label||substr('                    ',1,min(length(label),20-length(label))) as label
+     , label||substr('                              ',1,max(2,30-length(label))) as label
   from aag1_problem_percent1
  where percentage > 0;
 
