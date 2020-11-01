@@ -603,44 +603,19 @@ create view aag1_intervene1 as
 select record_id
      , redcap_data_access_group town
      , redcap_repeat_instance
-     , cast(max(pcp_for_v2___1,
-                pcp_for_v2___2,
-                pcp_for_v2___3,
-                pcp_for_v2___4,
-                pcp_for_v2___5,
-                pcp_for_v2___6) as integer) as pcp_for_v2
-     , cast(max(med_interv___1,
-                med_interv___2,
-                med_interv___3,
-                med_interv___4,
-                med_interv___5,
-                med_interv___6) as integer) as med_interv
-     , cast(max(sympt_interv___1,
-                sympt_interv___2,
-                sympt_interv___3,
-                sympt_interv___4,
-                sympt_interv___5,
-                sympt_interv___6) as integer) as sympt_interv
-     , cast(max(mob_interv___1,
-                mob_interv___2,
-                mob_interv___3,
-                mob_interv___4,
-                mob_interv___5,
-                mob_interv___6) as integer) as mob_interv
-     , cast(max(cg_fam_interv___1,
-                cg_fam_interv___2,
-                cg_fam_interv___3,
-                cg_fam_interv___4,
-                cg_fam_interv___5) as integer) as cg_fam_interv
-     , cast(max(house_fina_food_interv___1,
-                house_fina_food_interv___2,
-                house_fina_food_interv___3,
-                house_fina_food_interv___4,
-                house_fina_food_interv___5,
-                house_fina_food_interv___6,
-                house_fina_food_interv___7,
-                house_fina_food_interv___8,
-                house_fina_food_interv___9) as integer) as house_fina_food_interv
+     , encounter_intervention___1
+     , encounter_intervention___2
+     , encounter_intervention___3
+     , encounter_intervention___4
+     , encounter_intervention___5
+     , encounter_intervention___6
+     , encounter_intervention___7
+     , encounter_intervention___8
+     , encounter_intervention___9
+     , encounter_intervention___10
+     , encounter_intervention___12
+     , encounter_intervention___13
+     , encounter_intervention___11 --Other
   from aag1_encounter1;
 
 drop view if exists aag1_intervene_all;
@@ -648,117 +623,112 @@ create view aag1_intervene_all as
 select record_id
      , town
      , redcap_repeat_instance
-     , pcp_for_v2 + med_interv + sympt_interv + mob_interv + 
-            cg_fam_interv + house_fina_food_interv as interv_sum
-     , pcp_for_v2 || med_interv || sympt_interv || mob_interv || 
-            cg_fam_interv || house_fina_food_interv as interv
+     , encounter_intervention___1 +
+        encounter_intervention___2 +
+        encounter_intervention___3 +
+        encounter_intervention___4 +
+        encounter_intervention___5 +
+        encounter_intervention___6 +
+        encounter_intervention___7 +
+        encounter_intervention___8 +
+        encounter_intervention___9 +
+        encounter_intervention___10 +
+        encounter_intervention___12 +
+        encounter_intervention___13 +
+        encounter_intervention___11 as interv_sum
   from aag1_intervene1;
 
 drop view if exists aag1_intervene2;
 create view aag1_intervene2 as
-select 'pcp_for_v2' name, sum(case when pcp_for_v2 > 0 then 1 else 0 end) value, count(*) total
+select 'Care coordination/management, Referrals' label
+     , sum(case when encounter_intervention___1 > 0 then 1 else 0 end) value
+     , count(*) total
   from aag1_intervene1
 union all
-select 'med_interv', sum(case when med_interv> 0 then 1 else 0 end), count(*)
+select 'Facilitate/Participate in telehealth visit' label
+     , sum(case when encounter_intervention___2 > 0 then 1 else 0 end) value
+     , count(*) total
   from aag1_intervene1
 union all
-select 'sympt_interv', sum(case when sympt_interv > 0 then 1 else 0 end), count(*)
+select 'Advised or provided information about Covid-19' label
+     , sum(case when encounter_intervention___3 > 0 then 1 else 0 end) value
+     , count(*) total
   from aag1_intervene1
 union all
-select 'mob_interv', sum(case when mob_interv > 0 then 1 else 0 end), count(*)
+select 'Reassurance/emotional support' label
+     , sum(case when encounter_intervention___4 > 0 then 1 else 0 end) value
+     , count(*) total
   from aag1_intervene1
 union all
-select 'cg_fam_interv', sum(case when cg_fam_interv > 0 then 1 else 0 end), count(*)
+select 'Medication-related' label
+     , sum(case when encounter_intervention___5 > 0 then 1 else 0 end) value
+     , count(*) total
   from aag1_intervene1
 union all
-select 'house_fina_food_interv', sum(case when house_fina_food_interv > 0 then 1 else 0 end), count(*)
+select 'Symptom management' label
+     , sum(case when encounter_intervention___6 > 0 then 1 else 0 end) value
+     , count(*) total
+  from aag1_intervene1
+union all
+select 'ADL & Mobility' label
+     , sum(case when encounter_intervention___7 > 0 then 1 else 0 end) value
+     , count(*) total
+  from aag1_intervene1
+union all
+select 'Family & Caregiver' label
+     , sum(case when encounter_intervention___8 > 0 then 1 else 0 end) value
+     , count(*) total
+  from aag1_intervene1
+union all
+select 'Social risk factors/drivers' label
+     , sum(case when encounter_intervention___9 > 0 then 1 else 0 end) value
+     , count(*) total
+  from aag1_intervene1
+union all
+select 'IADL (Instrumental Activities of Daily Living)' label
+     , sum(case when encounter_intervention___10 > 0 then 1 else 0 end) value
+     , count(*) total
+  from aag1_intervene1
+union all
+select 'Delivered essential items to home' label
+     , sum(case when encounter_intervention___12 > 0 then 1 else 0 end) value
+     , count(*) total
+  from aag1_intervene1
+union all
+select 'Referred or Helped with End-of-life documents' label
+     , sum(case when encounter_intervention___13 > 0 then 1 else 0 end) value
+     , count(*) total
+  from aag1_intervene1
+union all
+select 'Other' label
+      , sum(case when encounter_intervention___11 > 0 then 1 else 0 end) value
+      , count(*) total
   from aag1_intervene1;
 
-drop view if exists aag1_intervene_label;
-create view aag1_intervene_label as
-select 'pcp_for_v2' name,'Care coordination & clarification with providers' label union all
-select 'med_interv','Medication reconciliation, education and management coaching' union all
-select 'sympt_interv','Symptom management - assessment & education' union all
-select 'mob_interv','Address ADLs & mobility-related support' union all
-select 'cg_fam_interv','Family and caregiver support' union all
-select 'house_fina_food_interv','Address other support services';
 
 drop view if exists aag1_intervene3;
 create view aag1_intervene3 as
-select name
+select label
      , value
      , cast(round(value*100./total) as integer) percentage
-     , label
-  from aag1_intervene2
-  join aag1_intervene_label
- using (name);
+  from aag1_intervene2;
 
 drop view if exists aag1_intervene4;
 create view aag1_intervene4 as
-select name
+select label
      , value
      , percentage
-     , label
-     , (100 + percentage)||name as sort_key
+     , (100 + percentage)||label as sort_key
   from aag1_intervene3;
 
 drop view if exists aag1_intervene5;
 create view aag1_intervene5 as
 select ( select count(*) from aag1_intervene4 where sort_key >= this.sort_key ) rank
-     , name
+     , label
      , value
      , percentage
      , label
   from aag1_intervene4 this;
-
-drop view if exists aag1_intervene_sub1;
-create view aag1_intervene_sub1 as
-select 'pcp_for_v2' name, 1 i, count(*) value, 'For Symptom Management' label from aag1_encounter1 where pcp_for_v2___1=1 union all
-select 'pcp_for_v2', 2, count(*), 'To be seen' from aag1_encounter1 where pcp_for_v2___2=1 union all
-select 'pcp_for_v2', 3, count(*), 'Medication or care clarification' from aag1_encounter1 where pcp_for_v2___3=1 union all
-select 'pcp_for_v2', 4, count(*), 'Worsening condition' from aag1_encounter1 where pcp_for_v2___4=1 union all
-select 'pcp_for_v2', 5, count(*), 'Discuss referral to VNA, Hospice,  PT' from aag1_encounter1 where pcp_for_v2___5=1 union all
-select 'pcp_for_v2', 6, count(*), 'Other' from aag1_encounter1 where pcp_for_v2___6=1 union all
-select 'med_interv', 1, count(*), 'Educate re medications and how to take them' from aag1_encounter1 where med_interv___1=1 union all
-select 'med_interv', 2, count(*), 'Fill pill box(es)' from aag1_encounter1 where med_interv___2=1 union all
-select 'med_interv', 3, count(*), 'Help to obtain medications' from aag1_encounter1 where med_interv___3=1 union all
-select 'med_interv', 4, count(*), 'Monitor medication adherence' from aag1_encounter1 where med_interv___4=1 union all
-select 'med_interv', 5, count(*), 'Change in medications' from aag1_encounter1 where med_interv___5=1 union all
-select 'med_interv', 6, count(*), 'Other' from aag1_encounter1 where med_interv___6=1 union all
-select 'sympt_interv', 1, count(*), 'Teach re symptom management and monitor symptoms over time' from aag1_encounter1 where sympt_interv___1=1 union all
-select 'sympt_interv', 2, count(*), 'Reassure client and make recommendations re anxiety, depression, sleep, and mental health concerns' from aag1_encounter1 where sympt_interv___2=1 union all
-select 'sympt_interv', 3, count(*), 'Instruct and reassure re: what to do if s/he needs emergency help' from aag1_encounter1 where sympt_interv___3=1 union all
-select 'sympt_interv', 4, count(*), 'Give/ recommend and discuss educational materials re: health maintenance, medical conditions, and related resources' from aag1_encounter1 where sympt_interv___4=1 union all
-select 'sympt_interv', 5, count(*), 'Monitor BP, heart rate, SOB, weight, blood sugar level, pulse, oxygen, hydration' from aag1_encounter1 where sympt_interv___5=1 union all
-select 'sympt_interv', 6, count(*), 'Other' from aag1_encounter1 where sympt_interv___6=1 union all
-select 'mob_interv', 1, count(*), 'Teach client self-care r/t incontinence, bowel problems, dressing and hygiene' from aag1_encounter1 where mob_interv___1=1 union all
-select 'mob_interv', 2, count(*), 'Teach and make recommendations re: mobility, activity, and/or exercise' from aag1_encounter1 where mob_interv___2=1 union all
-select 'mob_interv', 3, count(*), 'Obtain durable medical equipment and instruct on usage' from aag1_encounter1 where mob_interv___3=1 union all
-select 'mob_interv', 4, count(*), 'Make recommendations to reduce fall risk' from aag1_encounter1 where mob_interv___4=1 union all
-select 'mob_interv', 5, count(*), 'Point out and make suggestions re: environmental safety risks' from aag1_encounter1 where mob_interv___5=1 union all
-select 'mob_interv', 6, count(*), 'Other' from aag1_encounter1 where mob_interv___6=1 union all
-select 'cg_fam_interv', 1, count(*), 'Support family/care giver(s) with family member who is frail or has a cognitive deficit' from aag1_encounter1 where cg_fam_interv___1=1 union all
-select 'cg_fam_interv', 2, count(*), 'Facilitate family dialogue re caregiving decisions & strategies' from aag1_encounter1 where cg_fam_interv___2=1 union all
-select 'cg_fam_interv', 3, count(*), 'Discuss and plan respite for care giver' from aag1_encounter1 where cg_fam_interv___3=1 union all
-select 'cg_fam_interv', 4, count(*), 'Coordinate a care setting transition' from aag1_encounter1 where cg_fam_interv___4=1 union all
-select 'cg_fam_interv', 5, count(*), 'Other' from aag1_encounter1 where cg_fam_interv___5=1 union all
-select 'house_fina_food_interv', 1, count(*), 'Discuss options for getting help with household tasks (shopping, cleaning, food prep, house repairs)' from aag1_encounter1 where house_fina_food_interv___1=1 union all
-select 'house_fina_food_interv', 2, count(*), 'Suggest or arrange socialization opportunities' from aag1_encounter1 where house_fina_food_interv___2=1 union all
-select 'house_fina_food_interv', 3, count(*), 'Identify resources for help with transportation' from aag1_encounter1 where house_fina_food_interv___3=1 union all
-select 'house_fina_food_interv', 4, count(*), 'Address food insecurity' from aag1_encounter1 where house_fina_food_interv___4=1 union all
-select 'house_fina_food_interv', 5, count(*), 'Address housing inadequacy' from aag1_encounter1 where house_fina_food_interv___5=1 union all
-select 'house_fina_food_interv', 6, count(*), 'Facilitate getting help for finances, legal documents, taxes' from aag1_encounter1 where house_fina_food_interv___6=1 union all
-select 'house_fina_food_interv', 7, count(*), 'Initiate advance planning discussions and document completion' from aag1_encounter1 where house_fina_food_interv___7=1 union all
-select 'house_fina_food_interv', 8, count(*), 'Advise re immunizations' from aag1_encounter1 where house_fina_food_interv___8=1 union all
-select 'house_fina_food_interv', 9, count(*), 'Other' from aag1_encounter1 where house_fina_food_interv___9=1;
-
-drop view if exists aag1_intervene_sub2;
-create view aag1_intervene_sub2 as
-select name, sub1.i, sub1.value, sub1.label
-     , cast(round(100.*sub1.value/a.value) as integer) percentage
-  from aag1_intervene_sub1 sub1
-  join aag1_intervene2 a
- using (name);
 
 
 drop view if exists aag1_social_context;
