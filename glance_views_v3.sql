@@ -756,7 +756,6 @@ select record_id
   from aag1
   join aag_date_range d
     on coalesce(six_month_date,d.last) between d.first and d.last
-    or six_month_date = ''
  where redcap_repeat_instrument = 'six_month_report'
    and record_id in(select record_id from aag1_encounter1)
 union all
@@ -782,8 +781,7 @@ select record_id
      , status_update_outcome___50 outcome_50
   from aag1
   join aag_date_range d
-    on coalesce(six_month_date,d.last) between d.first and d.last
-    or six_month_date = ''
+    on coalesce(client_redcap_status_date,d.last) between d.first and d.last
  where redcap_repeat_instrument = 'status_update'
    and client_redcap_status = 3 -- Discharged.
    and record_id in(select record_id from aag1_encounter1);
@@ -922,8 +920,7 @@ create view aag1_discharge as
 select *
   from aag1
   join aag_date_range d
-    on coalesce(six_month_date,d.last) between d.first and d.last
-    or six_month_date = ''
+    on coalesce(client_redcap_status_date,d.last) between d.first and d.last
  where redcap_repeat_instrument = 'status_update'
    and client_redcap_status = 3 -- Discharged.
    and record_id in(select record_id from aag1_encounter1) 
