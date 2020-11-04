@@ -101,7 +101,7 @@ select '   Home visits: '||portion||'  ('||
              , sum(case when type=1 then 1 else 0 end) as portion
           from aag1_encounter);
 
-select '   Phone calls/emails with clients/families/providers: '||portion||'  ('||
+select '   Phone calls/emails with clients/families: '||portion||'  ('||
           cast(round(portion*100./total) as int)||
           '% of all client encounters)'
   from (select count(*) as total
