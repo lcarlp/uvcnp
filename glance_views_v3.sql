@@ -14,7 +14,7 @@ drop view if exists aag1_client_all;
 create view aag1_client_all as
 select record_id
      , redcap_data_access_group town
-     , cast(age as real) as age
+     , dob
      , household_comp
      , primary_referrer
      , case
@@ -55,10 +55,20 @@ select *
  ;
 
 
+drop view if exists aag1_client_age1;
+create view aag1_client_age1 as
+select record_id
+     , cast(strftime('%Y.%m%d', d.last) - strftime('%Y.%m%d',dob) as int) age
+  from aag1_client_served
+  join aag_date_range d
+-- Age is stored in REDCap, but it is not very reliable.
+;
+
 drop view if exists aag1_client_age;
 create view aag1_client_age as
-select record_id, age
-  from aag1_client_served
+select record_id
+     , cast(age as real) age
+  from aag1_client_age1
  where age >= 1
 -- Ignore low ages that likely resulted from the nurse entering today's
 -- date into the birthday field.
