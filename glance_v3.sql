@@ -293,5 +293,12 @@ select '        Outcomes were assessed and documented, not the percentage of ALL
 select '        this data cannot be generalized to ALL clients enrolled in your Community or Parish Nurse program.';
 select '';
 select '✯ ✯ ✯ ✯';
+select '';
+select '';
+select '';
+select '';
+select '';
+select '';
+select 'Report completed '||datetime('now','localtime')||' using V3 form data.';
 -- Go back to list mode, because it is more convenient for routine queries/debugging etc.
 .mode list
