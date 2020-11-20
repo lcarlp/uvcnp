@@ -31,24 +31,28 @@ caregiver_info,contact_information,,notes,"Name & contact Info for involved rela
    - Address
    - Phone
    - Email",,,,,,,,,,,,,
-number_providers,contact_information,"Care Provider(s) Information",radio,"Number of Care Providers/Specialists? ","1, 1 | 2, more than 1",,,,,,,,,,,,
+dhconnect_allowed,contact_information,"Care Provider(s) Information",radio,"DH Connect permission","1, Agreed | 0, Declined",,,,,,,,RH,,,,
+number_providers,contact_information,,radio,"Number of Care Providers/Specialists? ","1, 1 | 2, more than 1",,,,,,,,,,,," @HIDDEN"
 provider_1,contact_information,,notes,"Name of Care Provider #1
 
    - Practice location
    - Phone
-   - Email",,,,,,,"[number_providers] = '1' or [number_providers] = '2'",,,,,,
+   - Email",,,,,,,,,,,,,
+dhconnect_provider1,contact_information,,checkbox,"DH Connect","1,",,,,,,,,RH,,,,
 provider_2,contact_information,,notes,"Name of Care Provider #2
 
    - Practice location
    - Phone
-   - Email",,,,,,,"[number_providers] = '2'",,,,,,
-provider2_affiliation,contact_information,,dropdown,"Provider #2 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,"[number_providers] = '2'",,,,,,
+   - Email",,,,,,,,,,,,,
+provider2_affiliation,contact_information,,dropdown,"Provider #2 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,,,,,,,
+dhconnect_provider2,contact_information,,checkbox,"DH Connect","1,",,,,,,,,RH,,,,
 provider_3,contact_information,,notes,"Name of Care Provider #3
 
    - Practice location
    - Phone
-   - Email",,,,,,,"[number_providers] = '2'",,,,,,
-provider3_affiliation,contact_information,,dropdown,"Provider #3 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,"[number_providers] = '2'",,,,,,
+   - Email",,,,,,,,,,,,,
+provider3_affiliation,contact_information,,dropdown,"Provider #3 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,,,,,,,
+dhconnect_provider3,contact_information,,checkbox,"DH Connect","1,",,,,,,,,RH,,,,
 other_provider_info,contact_information,,notes,"Contact info for other providers/coordinators
   - VNA
   -Private care giving agency ",,,,,,,,,,,,,
