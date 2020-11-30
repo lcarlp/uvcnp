@@ -56,7 +56,7 @@ dhconnect_provider3,contact_information,,checkbox,"DH Connect","1,",,,,,,,,RH,,,
 other_provider_info,contact_information,,notes,"Contact info for other providers/coordinators
   - VNA
   -Private care giving agency ",,,,,,,,,,,,,
-encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,,,,,,
+encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,y,,,,,
 encounter_link_back,encounters,,descriptive,"<a href=""[redcap-version-url]DataEntry/index.php?pid=[project-id]&page=encounters&id=[record-name]&instance=[previous-instance]"" target=""_blank"">Link to previous encounter ([encounter_date][previous-instance])</a>",,,,,,,"[previous-instance] > 0",,,,,,
 encounter_type,encounters,,checkbox,"Encounter type","1, Home visit | 2, Phone, client | 3, Email, client | 5, Office hours | 11, Phone, family/caregiver | 12, Email, family/caregiver | 4, Family meeting | 13, Family in Office | 6, In-patient meeting | 10, Other",,,,,,,,,,,,
 encounter_type_note,encounters,,notes,"Encounter type notes",,,,,,,"sum([encounter_type(1)],[encounter_type(2)],[encounter_type(3)],[encounter_type(4)],[encounter_type(5)],[encounter_type(6)],[encounter_type(10)],[encounter_type(11)],[encounter_type(12)],[encounter_type(13)]) > 0",,,,,,
@@ -71,7 +71,7 @@ encounter_stat_cog,encounters,,radio,"Cognitive status","1, Declined | 2, Unchan
 encounter_stat_note_flag,encounters,,checkbox,,"1, notes",,,,,,,,,,,,"No field label because the label on the single checkbox seems sufficient."
 encounter_stat_note,encounters,,notes,"Impressions notes",,,,,,,[encounter_stat_note_flag(1)]='1',,LH,,,,
 encounter_link_to_problems,encounters,,descriptive,"If new problems, (or to check) [form-link:problem_list:jump to Problem List].",,,,,,,,,,,,,
-encounter_intervention,encounters,INTERVENTIONS,checkbox,,"1, Care coordination/management, Referrals | 2, Facilitate/Participate in telehealth visit | 12, Advised or provided information about Covid-19 | 14, Monitor or check on client’s condition | 3, Reassurance/emotional support | 4, Medication-related | 5, Symptom management | 6, ADL & Mobility | 7, Family & Caregiver | 8, Social risk factors/drivers | 9, IADL (Instrumental Activities of Daily Living) | 13, Delivered essential items to home | 10, Referred or Helped with End-of-life documents | 11, Other",,,,,,,,LV,,,,
+encounter_intervention,encounters,INTERVENTIONS,checkbox,,"1, Care coordination/management, Referrals | 2, Facilitate/Participate in telehealth visit | 12, Advised or provided information about Covid-19 | 14, Monitor or check on client's condition | 3, Reassurance/emotional support | 4, Medication-related | 5, Symptom management | 6, ADL & Mobility | 7, Family & Caregiver | 8, Social risk factors/drivers | 9, IADL (Instrumental Activities of Daily Living) | 13, Delivered essential items to home | 10, Referred or Helped with End-of-life documents | 11, Other",,,,,,,,LV,,,,
 encounter_intervene_notes,encounters,,notes,"Interventions notes",,,,,,,"sum([encounter_intervention(1)],[encounter_intervention(2)],[encounter_intervention(3)],[encounter_intervention(4)],[encounter_intervention(5)],[encounter_intervention(6)],[encounter_intervention(7)],[encounter_intervention(8)],[encounter_intervention(9)],[encounter_intervention(10)],[encounter_intervention(11)],[encounter_intervention(12)],[encounter_intervention(13)],[encounter_intervention(14)]) > 0",,LH,,,,
 encounter_todo_notes,encounters,PLAN/FOLLOW-UP,notes,,,,,,,,,,LH,,,,
 encounter_created_on,encounters,,text,"Encounter created",,,,,,,,,,,,," @READONLY @NOW"
