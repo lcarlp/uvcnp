@@ -1,6 +1,6 @@
 .bash_profile.log
-UVCNPTESTPROJECTREVISIONS_DataDictionary_2020*.csv
-UVCNPDocumentationProject_DataDictionary_2020*.csv
+UVCNPTESTPROJECTREVISIONS_DataDictionary_202*.csv
+UVCNPDocumentationProject_DataDictionary_202*.csv
 original_DataDictionary.csv
 temp.csv
 *_gitignore.*
