@@ -1,5 +1,5 @@
 .bash_profile.log
-UVCNPTESTPROJECTREVISIONS_DataDictionary_202*.csv
+UVCNPTESTPROJECT*_DataDictionary_202*.csv
 UVCNPDocumentationProject_DataDictionary_202*.csv
 original_DataDictionary.csv
 temp.csv
