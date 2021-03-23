@@ -15,8 +15,8 @@ dob_uncertain,client_profile_must_complete_form,,checkbox,"Is the date of birth 
 gender,client_profile_must_complete_form,,radio,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,y,,,,,
 household_comp,client_profile_must_complete_form,,radio,"Household Composition","1, One person living alone | 2, Two persons in home, one able | 3, Two persons, both with problems | 4, Client living with family or friends | 5, Other (Please describe in text box, below)",,,,,,,y,,,,,
 household_comp_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,"[household_comp] = '5'",,,,,,
-health_insurance,client_profile_must_complete_form,,radio,"Health Insurance ","1, Medicare | 2, Supplemented Medicare | 3, Medicaid | 4, Commercial/Private | 5, No insurance | 6, Other (Please describe in text box, below)",,,,,,,,,,,,
-health_insurance_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,"[health_insurance] = '6'",,,,,,
+health_insurance,client_profile_must_complete_form,,checkbox,"Health Insurance ","1, Medicare | 2, Supplemented Medicare | 3, Medicaid | 4, Commercial/Private | 5, No insurance | 6, Other (Please describe in text box, below)",,,,,,,,,,,," @NONEOFTHEABOVE=5"
+health_insurance_notes,client_profile_must_complete_form,,notes,Notes,,,,,,,"[health_insurance(6)] = '1'",,,,,,
 end_life_docs,client_profile_must_complete_form,,yesno,"End-of-Life Documents?",,,,,,,,,,,,,
 end_life_docs_notes,client_profile_must_complete_form,,notes,"Notes for above",,,,,,,,,,,,,
 primary_referrer,client_profile_must_complete_form,,radio,"Primary Referral Source","1, Self | 2, Family | 3, Neighbor/Friend | 4, Primary Care Provider Office | 5, Specialty Provider Office/Clinic | 6, Emergency Department | 7, DH Geriatric E.D. | 8, Community Agency/P.T. Service | 9, Clergy | 10, Hospital/SNF discharge coordinator | 11, First Responder/Ambulance Service | 12, Other",,,,,,,y,,,,,
