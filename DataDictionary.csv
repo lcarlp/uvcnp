@@ -5,16 +5,18 @@ client_redcap_status_none,client_profile,,descriptive,"Client Status: Active",,,
 date_1st_encounter,client_profile,,descriptive,"Date of first contact (encounter) (Y-M-D): [encounter_date][1]",,,,,,,,,,,,,
 first_name,client_profile,,text,"First Name MI",,,,,,y,,,,,,,
 last_name,client_profile,,text,"Last Name",,,,,,y,,,,,,,
-preferred_name,client_profile,,text,"Name client prefers to be addressed by ",,,,,,,,,,,,,
 address,client_profile,,text,"Client's Contact Info (# Street, City, State, ZIP)",,,,,,,,,,,,,
-phone,client_profile,,text,"Client Phone number  (AC+ 7 digits)",,,,,,,,,,,,,
-email,client_profile,,text,"Client Email",,,,,,,,,,,,,
 dob,client_profile,,text,"Date of birth",,,date_ymd,,,,,,,,,,
 age,client_profile,,calc,Age,"rounddown(datediff([dob],'today','y'))",,,,,,,,,,,,
 dob_uncertain,client_profile,,checkbox,"Is the date of birth uncertain?","1, Yes",,,,,,,,RV,,,,
-gender,client_profile,,radio,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,,,,,,
-household_comp,client_profile,,radio,"Household Composition","1, One person living alone | 2, Two persons in home, one able | 3, Two persons, both with problems | 4, Client living with family or friends | 5, Other (Please describe in text box, below)",,,,,,,,,,,,
-household_comp_notes,client_profile,,notes,Notes,,,,,,,"[household_comp] = '5'",,,,,,
+phone,client_profile,,text,"Client Phone number  (AC+ 7 digits)",,,,,,,,,,,,,
+email,client_profile,,text,"Client Email",,,,,,,,,,,,,
+emergency_contact,client_profile,,notes,"<p><span style=""font-weight: bold;"">Person to notify in case of <span style=""color: #e03e2d;"">emergency</span></span></p>",,,,,,,,,LH,,,,
+caregiver_info,client_profile,,notes,"Name & contact Info for other involved relative(s)/caregiver(s) 
+
+   - Address
+   - Phone
+   - Email",,,,,,,,,,,,,
 health_insurance,client_profile,,checkbox,"Health Insurance ","1, Medicare | 2, Supplemented Medicare | 3, Medicaid | 4, Commercial/Private | 5, No insurance | 6, Other (Please describe in text box, below)",,,,,,,,,,,," @NONEOFTHEABOVE=5"
 health_insurance_notes,client_profile,,notes,Notes,,,,,,,"[health_insurance(6)] = '1'",,,,,,
 end_life_docs,client_profile,,yesno,"End-of-Life Documents?",,,,,,,,,,,,,
@@ -25,37 +27,6 @@ hospital_used,client_profile,,radio,"Hospital most often used?","1, Dartmouth Hi
 admitting_nurse,client_profile,,text,"Admitting Nurse",,,,,,,,,,,,," @READONLY @USERNAME"
 profile_created_on,client_profile,,text,"Profile created",,,,,,,,,,,,," @READONLY @NOW"
 old_records_lyme,client_profile,,file,"Old Version 1 Records",,,,,,,,,,,,,
-emergency_contact,contact_information,,notes,"<p><span style=""font-weight: bold;"">Person to notify in case of <span style=""color: #e03e2d;"">emergency</span></span></p>",,,,,,,,,LH,,,,
-caregiver_info,contact_information,,notes,"Name & contact Info for involved relative(s)/caregiver(s) 
-
-   - Address
-   - Phone
-   - Email",,,,,,,,,,,,,
-dhconnect_allowed,contact_information,"Care Provider(s) Information",radio,"DH Connect permission","1, Agreed | 0, Declined",,,,,,,,RH,,,,
-number_providers,contact_information,,radio,"Number of Care Providers/Specialists? ","1, 1 | 2, more than 1",,,,,,,,,,,," @HIDDEN"
-provider_1,contact_information,,notes,"Name of Care Provider #1
-
-   - Practice location
-   - Phone
-   - Email",,,,,,,,,,,,,
-dhconnect_provider1,contact_information,,checkbox,"DH Connect","1,",,,,,,,,RH,,,,
-provider_2,contact_information,,notes,"Name of Care Provider #2
-
-   - Practice location
-   - Phone
-   - Email",,,,,,,,,,,,,
-provider2_affiliation,contact_information,,dropdown,"Provider #2 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,,,,,,,
-dhconnect_provider2,contact_information,,checkbox,"DH Connect","1,",,,,,,,,RH,,,,
-provider_3,contact_information,,notes,"Name of Care Provider #3
-
-   - Practice location
-   - Phone
-   - Email",,,,,,,,,,,,,
-provider3_affiliation,contact_information,,dropdown,"Provider #3 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,,,,,,,
-dhconnect_provider3,contact_information,,checkbox,"DH Connect","1,",,,,,,,,RH,,,,
-other_provider_info,contact_information,,notes,"Contact info for other providers/coordinators
-  - VNA
-  -Private care giving agency ",,,,,,,,,,,,,
 encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,y,,,,,
 encounter_link_back,encounters,,descriptive,"<a href=""[redcap-version-url]DataEntry/index.php?pid=[project-id]&page=encounters&id=[record-name]&instance=[previous-instance]"" target=""_blank"">Link to previous encounter ([encounter_date][previous-instance])</a>",,,,,,,"[previous-instance] > 0",,,,,,
 encounter_type,encounters,,checkbox,"Encounter type","1, Home visit | 2, Phone, client | 3, Email, client | 5, Office hours | 11, Phone, family/caregiver | 12, Email, family/caregiver | 4, Family meeting | 13, Family in Office | 6, In-patient meeting | 10, Other",,,,,,,,,,,,
@@ -75,6 +46,36 @@ encounter_intervention,encounters,INTERVENTIONS,checkbox,,"1, Care coordination/
 encounter_intervene_notes,encounters,,notes,"Interventions notes",,,,,,,"sum([encounter_intervention(1)],[encounter_intervention(2)],[encounter_intervention(3)],[encounter_intervention(4)],[encounter_intervention(5)],[encounter_intervention(6)],[encounter_intervention(7)],[encounter_intervention(8)],[encounter_intervention(9)],[encounter_intervention(10)],[encounter_intervention(11)],[encounter_intervention(12)],[encounter_intervention(13)],[encounter_intervention(14)]) > 0",,LH,,,,
 encounter_todo_notes,encounters,PLAN/FOLLOW-UP,notes,,,,,,,,,,LH,,,,
 encounter_created_on,encounters,,text,"Encounter created",,,,,,,,,,,,," @READONLY @NOW"
+preferred_name,old_v3_fields,"OLD PROFILE FIELDS",text,"Name client prefers to be addressed by ",,,,,,,,,,,,,
+gender,old_v3_fields,,radio,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,,,,,,
+household_comp,old_v3_fields,,radio,"Household Composition","1, One person living alone | 2, Two persons in home, one able | 3, Two persons, both with problems | 4, Client living with family or friends | 5, Other (Please describe in text box, below)",,,,,,,,,,,,
+household_comp_notes,old_v3_fields,,notes,Notes,,,,,,,"[household_comp] = '5'",,,,,,
+old_v3_contact_header,old_v3_fields,OLD CONTACT INFO FIELDS,descriptive,"",,,,,,,,,,,,,
+dhconnect_allowed,old_v3_fields,"Care Provider(s) Information",radio,"DH Connect permission","1, Agreed | 0, Declined",,,,,,,,RH,,,,
+number_providers,old_v3_fields,,radio,"Number of Care Providers/Specialists? ","1, 1 | 2, more than 1",,,,,,,,,,,," @HIDDEN"
+provider_1,old_v3_fields,,notes,"Name of Care Provider #1
+
+   - Practice location
+   - Phone
+   - Email",,,,,,,,,,,,,
+dhconnect_provider1,old_v3_fields,,checkbox,"DH Connect","1,",,,,,,,,RH,,,,
+provider_2,old_v3_fields,,notes,"Name of Care Provider #2
+
+   - Practice location
+   - Phone
+   - Email",,,,,,,,,,,,,
+provider2_affiliation,old_v3_fields,,dropdown,"Provider #2 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,,,,,,,
+dhconnect_provider2,old_v3_fields,,checkbox,"DH Connect","1,",,,,,,,,RH,,,,
+provider_3,old_v3_fields,,notes,"Name of Care Provider #3
+
+   - Practice location
+   - Phone
+   - Email",,,,,,,,,,,,,
+provider3_affiliation,old_v3_fields,,dropdown,"Provider #3 affiliation","1, Dartmouth Hitchcock Medical Center | 2, Alice Peck Day Memorial Hospital | 3, Mt. Ascutney Hospital | 4, Gifford Medical Center | 5, Valley Regional Hospital | 6, Cottage Hospital | 7, New London Hospital | 8, Private OR Community-based Practice | 9, VA | 10, Other (please specify in the comment box)",,,,,,,,,,,,
+dhconnect_provider3,old_v3_fields,,checkbox,"DH Connect","1,",,,,,,,,RH,,,,
+other_provider_info,old_v3_fields,,notes,"Contact info for other providers/coordinators
+  - VNA
+  -Private care giving agency ",,,,,,,,,,,,,
 problem_type,problem_list,,checkbox,Problems,"1, Impaired Mobility | 2, Fall Risk | 3, Social isolation/weak social support | 4, Ineffective symptom management | 5, Frailty | 6, Self-care deficit | 7, Ineffective medication management | 8, Mental health issue | 9, Impaired cognitive function | 10, Poor nutrition/food insecurity | 11, Financial stress | 12, Transportation | 13, Struggling to remain at home; options being considered | 14, Potential for caregiver burnout | 20, Other",,,,,,,,,,,,
 problem_other_note,problem_list,,notes,"Problem notes",,,,,,,"sum([problem_type(1)],[problem_type(2)],[problem_type(3)],[problem_type(4)],[problem_type(5)],[problem_type(6)],[problem_type(7)],[problem_type(8)],[problem_type(9)],[problem_type(10)],[problem_type(11)],[problem_type(12)],[problem_type(13)],[problem_type(14)],[problem_type(20)]) > 0",,,,,,
 problem_allergies,problem_list,,notes,Allergies,,,,,,,,,,,,,
