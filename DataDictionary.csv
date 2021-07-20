@@ -63,7 +63,7 @@ encounter_type_note,encounters,,notes,"Encounter type notes",,,,,,,"sum([encount
 limited_concern,encounters,,checkbox,"Limited Concern?","1, Yes",,,,,,,,,,,,
 limited_concern_notes,encounters,,notes,"Limited concern notes",,,,,,,[limited_concern(1)]='1',,,,,,
 encounter_nurse,encounters,,text,Nurse,,,,,,,,,,,,," @READONLY @USERNAME"
-encounter_progress_notes,encounters,"S-O NOTE",notes,"Subjective, objective notes foFmor this encounter",,,,,,,,,LH,,,,
+encounter_progress_notes,encounters,"S-O NOTE",notes,"Subjective, objective notes for this encounter",,,,,,,,,LH,,,,
 encounter_assess_title,encounters,ASSESSMENT,descriptive,"Impressions since last encounter",,,,,,,,,,,,,
 encounter_stat_phys,encounters,,radio,"Physical condition","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
 encounter_stat_emot,encounters,,radio,"Emotional status","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
