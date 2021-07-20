@@ -18,6 +18,8 @@ health_insurance,client_profile,,checkbox,"Health Insurance ","1, Medicare | 2, 
 health_insurance_notes,client_profile,,notes,Notes,,,,,,,"[health_insurance(6)] = '1'",,,,,,
 provider_1,client_profile,,text,"Primary Care Provider Name",,,,,,,,,,,,,
 hospital_used,client_profile,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
+specialty_providers,client_profile,,notes,"Specialty Providers",,,,,,,,,,,,,
+other_organizations,client_profile,,checkbox,"Other organization involved (Mark all that apply)","1, VNH - Home Care | 2, Lake Sunapee - Home Care | 3, BAYADA - Home Care | 4, VNH - Hospice | 5, Lake Sunapee - Hospice | 6, BAYADA - Hospice | 7, Personal Care Agency | 8, Meals on Wheels | 9, Mental Health Services",,,,,,,,,,,,
 end_life_docs,client_profile,,yesno,"End-of-Life Documents?",,,,,,,,,,,,,
 end_life_docs_notes,client_profile,,notes,"Notes for above",,,,,,,,,,,,,
 admitting_nurse,client_profile,,text,"Admitting Nurse",,,,,,,,,,,,," @READONLY @USERNAME"
