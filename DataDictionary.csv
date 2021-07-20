@@ -5,28 +5,23 @@ client_redcap_status_none,client_profile,,descriptive,"Client Status: Active",,,
 date_1st_encounter,client_profile,,descriptive,"Date of first contact (encounter) (Y-M-D): [encounter_date][1]",,,,,,,,,,,,,
 first_name,client_profile,,text,"First Name MI",,,,,,y,,,,,,,
 last_name,client_profile,,text,"Last Name",,,,,,y,,,,,,,
-address,client_profile,,text,"Client's Contact Info (# Street, City, State, ZIP)",,,,,,,,,,,,,
+address,client_profile,,notes,"Client's Contact Info (# Street, City, State, ZIP)",,,,,,,,,,,,,
 dob,client_profile,,text,"Date of birth",,,date_ymd,,,,,,,,,,
 age,client_profile,,calc,Age,"rounddown(datediff([dob],'today','y'))",,,,,,,,,,,,
 dob_uncertain,client_profile,,checkbox,"Is the date of birth uncertain?","1, Yes",,,,,,,,RV,,,,
 phone,client_profile,,text,"Client Phone number  (AC+ 7 digits)",,,,,,,,,,,,,
 email,client_profile,,text,"Client Email",,,,,,,,,,,,,
 emergency_contact,client_profile,,notes,"<p><span style=""font-weight: bold;"">Person to notify in case of <span style=""color: #e03e2d;"">emergency</span></span></p>",,,,,,,,,LH,,,,
-caregiver_info,client_profile,,notes,"Name & contact Info for other involved relative(s)/caregiver(s) 
-
-   - Address
-   - Phone
-   - Email",,,,,,,,,,,,,
+caregiver_info,client_profile,,notes,"Name & contact Info for other involved relative(s)/caregiver(s)",,,,,,,,,,,,,
+primary_referrer,client_profile,,radio,"Primary Referral Source","1, Self | 2, Family | 3, Neighbor/Friend | 4, Primary Care Provider Office | 5, Specialty Provider Office/Clinic | 6, Emergency Department | 7, DH Geriatric E.D. | 8, Community Agency/P.T. Service | 9, Clergy | 10, Hospital/SNF discharge coordinator | 11, First Responder/Ambulance Service | 12, Other",,,,,,,,,,,,
 health_insurance,client_profile,,checkbox,"Health Insurance ","1, Medicare | 2, Supplemented Medicare | 3, Medicaid | 4, Commercial/Private | 5, No insurance | 6, Other (Please describe in text box, below)",,,,,,,,,,,," @NONEOFTHEABOVE=5"
 health_insurance_notes,client_profile,,notes,Notes,,,,,,,"[health_insurance(6)] = '1'",,,,,,
+provider_1,client_profile,,text,"Primary Care Provider Name",,,,,,,,,,,,,
+hospital_used,client_profile,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
 end_life_docs,client_profile,,yesno,"End-of-Life Documents?",,,,,,,,,,,,,
 end_life_docs_notes,client_profile,,notes,"Notes for above",,,,,,,,,,,,,
-primary_referrer,client_profile,,radio,"Primary Referral Source","1, Self | 2, Family | 3, Neighbor/Friend | 4, Primary Care Provider Office | 5, Specialty Provider Office/Clinic | 6, Emergency Department | 7, DH Geriatric E.D. | 8, Community Agency/P.T. Service | 9, Clergy | 10, Hospital/SNF discharge coordinator | 11, First Responder/Ambulance Service | 12, Other",,,,,,,,,,,,
-provider1_affiliation,client_profile,,radio,"Affiliation of PCP","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
-hospital_used,client_profile,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
 admitting_nurse,client_profile,,text,"Admitting Nurse",,,,,,,,,,,,," @READONLY @USERNAME"
 profile_created_on,client_profile,,text,"Profile created",,,,,,,,,,,,," @READONLY @NOW"
-old_records_lyme,client_profile,,file,"Old Version 1 Records",,,,,,,,,,,,,
 encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,y,,,,,
 encounter_link_back,encounters,,descriptive,"<a href=""[redcap-version-url]DataEntry/index.php?pid=[project-id]&page=encounters&id=[record-name]&instance=[previous-instance]"" target=""_blank"">Link to previous encounter ([encounter_date][previous-instance])</a>",,,,,,,"[previous-instance] > 0",,,,,,
 encounter_type,encounters,,checkbox,"Encounter type","1, Home visit | 2, Phone, client | 3, Email, client | 5, Office hours | 11, Phone, family/caregiver | 12, Email, family/caregiver | 4, Family meeting | 13, Family in Office | 6, In-patient meeting | 10, Other",,,,,,,,,,,,
@@ -50,14 +45,11 @@ preferred_name,old_v3_fields,"OLD PROFILE FIELDS",text,"Name client prefers to b
 gender,old_v3_fields,,radio,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,,,,,,
 household_comp,old_v3_fields,,radio,"Household Composition","1, One person living alone | 2, Two persons in home, one able | 3, Two persons, both with problems | 4, Client living with family or friends | 5, Other (Please describe in text box, below)",,,,,,,,,,,,
 household_comp_notes,old_v3_fields,,notes,Notes,,,,,,,"[household_comp] = '5'",,,,,,
+provider1_affiliation,old_v3_fields,,radio,"Affiliation of PCP","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
+old_records_lyme,old_v3_fields,,file,"Old Version 1 Records",,,,,,,,,,,,,
 old_v3_contact_header,old_v3_fields,OLD CONTACT INFO FIELDS,descriptive,"",,,,,,,,,,,,,
 dhconnect_allowed,old_v3_fields,"Care Provider(s) Information",radio,"DH Connect permission","1, Agreed | 0, Declined",,,,,,,,RH,,,,
 number_providers,old_v3_fields,,radio,"Number of Care Providers/Specialists? ","1, 1 | 2, more than 1",,,,,,,,,,,," @HIDDEN"
-provider_1,old_v3_fields,,notes,"Name of Care Provider #1
-
-   - Practice location
-   - Phone
-   - Email",,,,,,,,,,,,,
 dhconnect_provider1,old_v3_fields,,checkbox,"DH Connect","1,",,,,,,,,RH,,,,
 provider_2,old_v3_fields,,notes,"Name of Care Provider #2
 
