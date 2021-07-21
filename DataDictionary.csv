@@ -21,8 +21,7 @@ provider_1,client_profile,,text,"Primary Care Provider Name",,,,,,,,,,,,,
 hospital_used,client_profile,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
 specialty_providers,client_profile,,notes,"Specialty Providers",,,,,,,,,,,,,
 other_organizations,client_profile,,checkbox,"Other organization involved (Mark all that apply)","1, VNH - Home Care | 2, Lake Sunapee - Home Care | 3, BAYADA - Home Care | 4, VNH - Hospice | 5, Lake Sunapee - Hospice | 6, BAYADA - Hospice | 7, Personal Care Agency | 8, Meals on Wheels | 9, Mental Health Services",,,,,,,,,,,,
-end_life_docs,client_profile,,yesno,"End-of-Life Documents?",,,,,,,,,,,,,
-end_life_docs_notes,client_profile,,notes,"Notes for above",,,,,,,,,,,,,
+advance_directives,client_profile,,checkbox,"Advance Directives (Mark all that apply)","1, Financial Power of Attorney | 2, Medical Power of Attorney	| 3, Living Will | 4, COLST/POLST | 5, DNR",,,,,,,,,,,,
 admitting_nurse,client_profile,,text,"Admitting Nurse",,,,,,,,,,,,," @READONLY @USERNAME"
 profile_created_on,client_profile,,text,"Profile created",,,,,,,,,,,,," @READONLY @NOW"
 encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,y,,,,,
@@ -49,6 +48,8 @@ gender,old_v3_fields,,radio,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers 
 household_comp,old_v3_fields,,radio,"Household Composition","1, One person living alone | 2, Two persons in home, one able | 3, Two persons, both with problems | 4, Client living with family or friends | 5, Other (Please describe in text box, below)",,,,,,,,,,,,
 household_comp_notes,old_v3_fields,,notes,Notes,,,,,,,"[household_comp] = '5'",,,,,,
 provider1_affiliation,old_v3_fields,,radio,"Affiliation of PCP","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
+end_life_docs,old_v3_fields,,yesno,"End-of-Life Documents?",,,,,,,,,,,,,
+end_life_docs_notes,old_v3_fields,,notes,"Notes for above",,,,,,,,,,,,,
 old_records_lyme,old_v3_fields,,file,"Old Version 1 Records",,,,,,,,,,,,,
 old_v3_contact_header,old_v3_fields,OLD CONTACT INFO FIELDS,descriptive,"",,,,,,,,,,,,,
 dhconnect_allowed,old_v3_fields,"Care Provider(s) Information",radio,"DH Connect permission","1, Agreed | 0, Declined",,,,,,,,RH,,,,
