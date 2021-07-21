@@ -12,7 +12,7 @@ dob_uncertain,client_profile,,checkbox,"Is the date of birth uncertain?","1, Yes
 phone,client_profile,,text,"Home Phone number  (AC+ 7 digits)",,,,,,,,,,,,,
 cell_phone,client_profile,,text,"Cell Phone number  (AC+ 7 digits)",,,,,,,,,,,,,
 email,client_profile,,text,"Client Email",,,,,,,,,,,,,
-emergency_contact,client_profile,,notes,"<p><span style=""font-weight: bold;"">Person to notify in case of <span style=""color: #e03e2d;"">emergency</span></span></p>",,,,,,,,,LH,,,,
+emergency_contact,client_profile,,notes,"<p><span style=""font-weight: bold;"">Person to notify in case of <span style=""color: #e03e2d;"">emergency</span></span></p>",,,,,,,,,,,,,
 caregiver_info,client_profile,,notes,"Name & contact Info for other involved relative(s)/caregiver(s)",,,,,,,,,,,,,
 primary_referrer,client_profile,,radio,"Primary Referral Source","1, Self | 2, Family | 3, Neighbor/Friend | 4, Primary Care Provider Office | 5, Specialty Provider Office/Clinic | 6, Emergency Department | 7, DH Geriatric E.D. | 8, Community Agency/P.T. Service | 9, Clergy | 10, Hospital/SNF discharge coordinator | 11, First Responder/Ambulance Service | 12, Other",,,,,,,,,,,,
 health_insurance,client_profile,,checkbox,"Health Insurance ","1, Medicare | 2, Supplemented Medicare | 3, Medicaid | 4, Commercial/Private | 5, No insurance | 6, Other (Please describe in text box, below)",,,,,,,,,,,," @NONEOFTHEABOVE=5"
