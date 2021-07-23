@@ -22,6 +22,7 @@ hospital_used,client_profile,,radio,"Hospital most often used?","1, Dartmouth Hi
 specialty_providers,client_profile,,notes,"Specialty Providers",,,,,,,,,,,,,
 other_organizations,client_profile,,checkbox,"Other organization involved (Mark all that apply)","1, VNH - Home Care | 2, Lake Sunapee - Home Care | 3, BAYADA - Home Care | 4, VNH - Hospice | 5, Lake Sunapee - Hospice | 6, BAYADA - Hospice | 7, Personal Care Agency | 8, Meals on Wheels | 9, Mental Health Services",,,,,,,,,,,,
 advance_directives,client_profile,,checkbox,"Advance Directives (Mark all that apply)","1, Financial Power of Attorney | 2, Medical Power of Attorney	| 3, Living Will | 4, COLST/POLST | 5, DNR",,,,,,,,,,,,
+critical_diagnoses,client_profile,,checkbox,"Does client have any of the following diagnoses (Mark all that apply)","1, Chronic Obstructive Pulmonary DX | 2, Congestive Heart Failure | 3, Cancer | 4, Dementia/Alz | 5, Diabetes",,,,,,,,,,,,
 admitting_nurse,client_profile,,text,"Admitting Nurse",,,,,,,,,,,,," @READONLY @USERNAME"
 profile_created_on,client_profile,,text,"Profile created",,,,,,,,,,,,," @READONLY @NOW"
 encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,y,,,,,
