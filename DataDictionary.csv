@@ -23,6 +23,7 @@ specialty_providers,client_profile,,notes,"Specialty Providers",,,,,,,,,,,,,
 other_organizations,client_profile,,checkbox,"Other organization involved (Mark all that apply)","1, VNH - Home Care | 2, Lake Sunapee - Home Care | 3, BAYADA - Home Care | 4, VNH - Hospice | 5, Lake Sunapee - Hospice | 6, BAYADA - Hospice | 7, Personal Care Agency | 8, Meals on Wheels | 9, Mental Health Services",,,,,,,,,,,,
 advance_directives,client_profile,,checkbox,"Advance Directives (Mark all that apply)","1, Financial Power of Attorney | 2, Medical Power of Attorney	| 3, Living Will | 4, COLST/POLST | 5, DNR",,,,,,,,,,,,
 critical_diagnoses,client_profile,,checkbox,"Does client have any of the following diagnoses (Mark all that apply)","1, Chronic Obstructive Pulmonary DX | 2, Congestive Heart Failure | 3, Cancer | 4, Dementia/Alz | 5, Diabetes",,,,,,,,,,,,
+problem_type,client_profile,,checkbox,"Nursing Problem List (Mark all that apply)","1, Impaired Mobility | 2, Fall Risk | 3, Social isolation/weak social support | 4, Ineffective symptom management | 5, Frailty | 6, Ineffective management of activities of daily living ie, bathing, dressing | 7, Ineffective medication management | 8, Mental health issue | 9, Cognitive impairment | 10, Poor nutrition/food insecurity | 11, Financial stress | 12, Transportation | 13, Struggling to remain at home; options being considered | 14, Potential for caregiver burnout | 20, Other",,,,,,,,,,,," @HIDECHOICE='10,11,12,13,14,20'"
 admitting_nurse,client_profile,,text,"Admitting Nurse",,,,,,,,,,,,," @READONLY @USERNAME"
 profile_created_on,client_profile,,text,"Profile created",,,,,,,,,,,,," @READONLY @NOW"
 encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,y,,,,,
@@ -73,7 +74,6 @@ dhconnect_provider3,old_v3_fields,,checkbox,"DH Connect","1,",,,,,,,,RH,,,,
 other_provider_info,old_v3_fields,,notes,"Contact info for other providers/coordinators
   - VNA
   -Private care giving agency ",,,,,,,,,,,,,
-problem_type,problem_list,,checkbox,Problems,"1, Impaired Mobility | 2, Fall Risk | 3, Social isolation/weak social support | 4, Ineffective symptom management | 5, Frailty | 6, Self-care deficit | 7, Ineffective medication management | 8, Mental health issue | 9, Impaired cognitive function | 10, Poor nutrition/food insecurity | 11, Financial stress | 12, Transportation | 13, Struggling to remain at home; options being considered | 14, Potential for caregiver burnout | 20, Other",,,,,,,,,,,,
 problem_other_note,problem_list,,notes,"Problem notes",,,,,,,"sum([problem_type(1)],[problem_type(2)],[problem_type(3)],[problem_type(4)],[problem_type(5)],[problem_type(6)],[problem_type(7)],[problem_type(8)],[problem_type(9)],[problem_type(10)],[problem_type(11)],[problem_type(12)],[problem_type(13)],[problem_type(14)],[problem_type(20)]) > 0",,,,,,
 problem_allergies,problem_list,,notes,Allergies,,,,,,,,,,,,,
 problem_diagnose,problem_list,,notes,"Medical Diagnoses/Concerns",,,,,,,,,,,,,
