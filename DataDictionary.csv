@@ -45,6 +45,13 @@ encounter_stat_note,encounters,,notes,"Impressions notes",,,,,,,[encounter_stat_
 encounter_link_to_problems,encounters,,descriptive,"If new problems, (or to check) [form-link:problem_list:jump to Problem List].",,,,,,,,,,,,," @HIDDEN"
 encounter_intervention,encounters,,checkbox,"Interventions (Mark all that apply)","3, Emotional Support | 4, Education or assistance with medications | 15, Education or assistance with medical equipment | 5, Education or assistance with symptom management | 8, Education or assistance with social risk factors ie. food, housing, transportation | 13, Delivered essential items to home | 10, Education or assistance with Advanced Care Planning | 16, Education or assistance with Chronic Illness Management | 12, COVID 19 assistance or education | 1, Referral to community/social service agency | 2, Assistance with Telehealth or technology | 17, Communicated with MD/NP | 14, Monitor or check on client's condition | 6, ADL & Mobility | 7, Family & Caregiver | 9, IADL (Instrumental Activities of Daily Living) | 11, Other",,,,,,,,LV,,,," @HIDECHOICE='14,6,7,9,11'"
 encounter_intervene_notes,encounters,,notes,"Interventions notes",,,,,,,"sum([encounter_intervention(1)],[encounter_intervention(2)],[encounter_intervention(3)],[encounter_intervention(4)],[encounter_intervention(5)],[encounter_intervention(6)],[encounter_intervention(7)],[encounter_intervention(8)],[encounter_intervention(9)],[encounter_intervention(10)],[encounter_intervention(11)],[encounter_intervention(12)],[encounter_intervention(13)],[encounter_intervention(14)]) > 0",,LH,,,," @HIDDEN"
+encounter_pulse,encounters,"VITAL SIGNS",text,Pulse,,,integer,5,500,,,,,,,,
+encounter_blood_pressure,encounters,,text,"Blood Pressure",,,,,,,,,,,,,
+encounter_respirations,encounters,,text,Respirations,,,,,,,,,,,,,
+encounter_pulse_oximetry,encounters,,text,"Pulse oximetry",,,,,,,,,,,,,
+encounter_pain,encounters,,text,"Pain on scale of 0-10",,,integer,0,10,,,,RH,,,,
+encounter_anxiety,encounters,,text,"Anxiety on scale of 0-10",,,integer,0,10,,,,RH,,,,
+encounter_life_quality,encounters,,text,"Quality of life on scale of 0-10",,,integer,0,10,,,,RH,,,,
 encounter_todo_notes,encounters,,notes,,,,,,,,,,LH,,,," @HIDDEN"
 encounter_created_on,encounters,,text,"Encounter created",,,,,,,,,,,,," @READONLY @NOW"
 preferred_name,old_v3_fields,"OLD PROFILE FIELDS",text,"Name client prefers to be addressed by ",,,,,,,,,,,,,
