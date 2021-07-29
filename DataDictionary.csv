@@ -35,17 +35,17 @@ encounter_type,encounters,,checkbox,"Encounter type","1, Home visit | 5, In pers
 encounter_type_note,encounters,,notes,"Encounter type notes",,,,,,,"sum([encounter_type(1)],[encounter_type(2)],[encounter_type(3)],[encounter_type(4)],[encounter_type(5)],[encounter_type(6)],[encounter_type(10)],[encounter_type(11)],[encounter_type(12)],[encounter_type(13)]) > 0",,,,,," @HIDDEN"
 limited_concern,encounters,,checkbox,"Limited Concern?","1, Yes",,,,,,,,,,,," @HIDDEN"
 limited_concern_notes,encounters,,notes,"Limited concern notes",,,,,,,[limited_concern(1)]='1',,,,,," @HIDDEN"
-encounter_progress_notes,encounters,"S-O NOTE",notes,"Subjective, objective notes for this encounter",,,,,,,,,LH,,,,
-encounter_assess_title,encounters,ASSESSMENT,descriptive,"Impressions since last encounter",,,,,,,,,,,,,
-encounter_stat_phys,encounters,,radio,"Physical condition","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
-encounter_stat_emot,encounters,,radio,"Emotional status","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
-encounter_stat_cog,encounters,,radio,"Cognitive status","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,,
-encounter_stat_note_flag,encounters,,checkbox,,"1, notes",,,,,,,,,,,,"No field label because the label on the single checkbox seems sufficient."
-encounter_stat_note,encounters,,notes,"Impressions notes",,,,,,,[encounter_stat_note_flag(1)]='1',,LH,,,,
-encounter_link_to_problems,encounters,,descriptive,"If new problems, (or to check) [form-link:problem_list:jump to Problem List].",,,,,,,,,,,,,
+encounter_progress_notes,encounters,"S-O NOTE",notes,"Subjective, objective notes for this encounter",,,,,,,,,LH,,,," @HIDDEN"
+encounter_assess_title,encounters,ASSESSMENT,descriptive,"Impressions since last encounter",,,,,,,,,,,,," @HIDDEN"
+encounter_stat_phys,encounters,,radio,"Physical condition","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,," @HIDDEN"
+encounter_stat_emot,encounters,,radio,"Emotional status","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,," @HIDDEN"
+encounter_stat_cog,encounters,,radio,"Cognitive status","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,encounter_matrix1,," @HIDDEN"
+encounter_stat_note_flag,encounters,,checkbox,,"1, notes",,,,,,,,,,,," @HIDDEN"
+encounter_stat_note,encounters,,notes,"Impressions notes",,,,,,,[encounter_stat_note_flag(1)]='1',,LH,,,," @HIDDEN"
+encounter_link_to_problems,encounters,,descriptive,"If new problems, (or to check) [form-link:problem_list:jump to Problem List].",,,,,,,,,,,,," @HIDDEN"
 encounter_intervention,encounters,INTERVENTIONS,checkbox,,"1, Care coordination/management, Referrals | 2, Facilitate/Participate in telehealth visit | 12, Advised or provided information about Covid-19 | 14, Monitor or check on client's condition | 3, Reassurance/emotional support | 4, Medication-related | 5, Symptom management | 6, ADL & Mobility | 7, Family & Caregiver | 8, Social risk factors/drivers | 9, IADL (Instrumental Activities of Daily Living) | 13, Delivered essential items to home | 10, Referred or Helped with End-of-life documents | 11, Other",,,,,,,,LV,,,,
-encounter_intervene_notes,encounters,,notes,"Interventions notes",,,,,,,"sum([encounter_intervention(1)],[encounter_intervention(2)],[encounter_intervention(3)],[encounter_intervention(4)],[encounter_intervention(5)],[encounter_intervention(6)],[encounter_intervention(7)],[encounter_intervention(8)],[encounter_intervention(9)],[encounter_intervention(10)],[encounter_intervention(11)],[encounter_intervention(12)],[encounter_intervention(13)],[encounter_intervention(14)]) > 0",,LH,,,,
-encounter_todo_notes,encounters,PLAN/FOLLOW-UP,notes,,,,,,,,,,LH,,,,
+encounter_intervene_notes,encounters,,notes,"Interventions notes",,,,,,,"sum([encounter_intervention(1)],[encounter_intervention(2)],[encounter_intervention(3)],[encounter_intervention(4)],[encounter_intervention(5)],[encounter_intervention(6)],[encounter_intervention(7)],[encounter_intervention(8)],[encounter_intervention(9)],[encounter_intervention(10)],[encounter_intervention(11)],[encounter_intervention(12)],[encounter_intervention(13)],[encounter_intervention(14)]) > 0",,LH,,,," @HIDDEN"
+encounter_todo_notes,encounters,,notes,,,,,,,,,,LH,,,," @HIDDEN"
 encounter_created_on,encounters,,text,"Encounter created",,,,,,,,,,,,," @READONLY @NOW"
 preferred_name,old_v3_fields,"OLD PROFILE FIELDS",text,"Name client prefers to be addressed by ",,,,,,,,,,,,,
 gender,old_v3_fields,,radio,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,,,,,,
