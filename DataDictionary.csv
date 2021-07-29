@@ -52,7 +52,10 @@ encounter_pulse_oximetry,encounters,,text,"Pulse oximetry",,,,,,,,,,,,,
 encounter_pain,encounters,,text,"Pain on scale of 0-10",,,integer,0,10,,,,RH,,,,
 encounter_anxiety,encounters,,text,"Anxiety on scale of 0-10",,,integer,0,10,,,,RH,,,,
 encounter_life_quality,encounters,,text,"Quality of life on scale of 0-10",,,integer,0,10,,,,RH,,,,
-encounter_todo_notes,encounters,,notes,,,,,,,,,,LH,,,," @HIDDEN"
+fall_since,encounters,"CHANGES SINCE LAST ENCOUNTER",yesno,"Has client fallen since last encounter?",,,,,,,,,,,,,
+physical_decline_since,encounters,,yesno,"Has Client had a physical decline since last encounter?",,,,,,,,,,,,,
+urgent_care_since,encounters,,checkbox,"Urgent Care since last encounter (Mark all that apply)","1, 911 called | 2, Hospital ED | 3, Urgent care clinic | 4, Urgent MD office visits | 10, None",,,,,,,,,,,,
+encounter_todo_notes,encounters,"PLAN FOR NEXT VISIT",notes,,,,,,,,,,LH,,,,
 encounter_created_on,encounters,,text,"Encounter created",,,,,,,,,,,,," @READONLY @NOW"
 preferred_name,old_v3_fields,"OLD PROFILE FIELDS",text,"Name client prefers to be addressed by ",,,,,,,,,,,,,
 gender,old_v3_fields,,radio,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,,,,,,
