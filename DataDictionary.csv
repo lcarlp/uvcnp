@@ -59,6 +59,22 @@ encounter_outcomes,encounters,OUTCOMES,checkbox,"Outcomes as a result of this en
 encounter_outcomes_note,encounters,,notes,"Other outcomes",,,,,,,[encounter_outcomes(30)]='1',,,,,,
 encounter_todo_notes,encounters,"PLAN FOR NEXT VISIT",notes,,,,,,,,,,LH,,,,
 encounter_created_on,encounters,,text,"Encounter created",,,,,,,,,,,,," @READONLY @NOW"
+med_date_v2,medication_list,,text,"REQUIRED FIELD- Date of Medication List",,,date_ymd,,,,,,,,,,
+ormore_meds,medication_list,,yesno,"1) Are there more than 5 medications?",,,,,,,,,,,,,
+med_list_start_home,medication_list,,notes,"2) Current medications",,,,,,,,,,,,,
+medication_ref_2,medication_list,,descriptive,"*Correct Medication Checklist*",,,,,,,,,,,,,
+opload_option,medication_list,,yesno,"3) Would you like to upload medication list OR image(s)?",,,,,,,,,,,,,
+current_med_list_1,medication_list,,file,"3a) Current list of medications-1",,,,,,,"[opload_option] = '1'",,,,,,
+current_med_list_2,medication_list,,file,"3b) Current list of medications-2",,,,,,,"[opload_option] = '1'",,,,,,
+current_med_list_3,medication_list,,file,"3c) Current list of medications-2",,,,,,,"[opload_option] = '1'",,,,,,
+client_redcap_status_date,status_update,,text,Date,,,date_ymd,,,,,y,,,,,
+status_update_nurse,status_update,,text,Nurse,,,,,,,,,,,,," @READONLY @USERNAME"
+client_redcap_status,status_update,,radio,"Change status to","1, Active | 2, Inactive | 3, Discharged",,,,,,,y,,,,,
+status_update_reason,status_update,,radio,"Reason for change in status","1, Situation or illness improved | 8, Limited Concern addressed | 4, Died | 3, Moved | 2, Transferred to assisted living or long term care | 5, Declined further service | 9, Reactivated | 6, Other",,,,,,,,,,,,
+status_update_reason_note,status_update,,notes,"Notes on reason",,,,,,,[status_update_reason]='6',,,,,,
+status_update_outcome,status_update,"Nurse-reported Outcomes",checkbox,"Check all that apply","1, Less client anxiety or worry | 2, Reduced caregiver stress | 3, Reduced social isolation | 4, Better family understanding, communication and/or dynamics | 5, Improved functioning in daily life | 6, Improved management of illness symptoms | 7, Improved medication taking | 8, Reduced fall risk or falls | 9, Prevented hospitalization or ED visit | 10, Fewer EMT emergency calls | 11, Reduced food insecurity | 12, Able to live at home longer | 13, Smooth Transition (to home or from home) | 14, Better management of end-of-life | 30, Other | 50, No significant change",,,,,,,,,,,," @NONEOFTHEABOVE=50"
+status_update_outcome_note,status_update,,notes,Notes,,,,,,,,,,,,,
+status_updated_on,status_update,,text,"Status updated",,,,,,,,,,,,," @READONLY @NOW"
 preferred_name,old_v3_fields,"OLD PROFILE FIELDS",text,"Name client prefers to be addressed by ",,,,,,,,,,,,,
 gender,old_v3_fields,,radio,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,,,,,,
 household_comp,old_v3_fields,,radio,"Household Composition","1, One person living alone | 2, Two persons in home, one able | 3, Two persons, both with problems | 4, Client living with family or friends | 5, Other (Please describe in text box, below)",,,,,,,,,,,,
@@ -119,22 +135,6 @@ covid19_vaccine,old_v3_fields,"OLD COVID-19 Vaccination Status",text,"Vaccine na
 covid19_shot1_date,old_v3_fields,,text,"Date of 1st shot",,,date_ymd,2020-06-01,,,,,,,,,
 covid19_shot2_date,old_v3_fields,,text,"Date of 2nd shot",,,date_ymd,2020-06-01,,,,,,,,,
 covid19_vaccine_note,old_v3_fields,,notes,Notes,,,,,,,,,,,,,
-med_date_v2,medication_list,,text,"REQUIRED FIELD- Date of Medication List",,,date_ymd,,,,,,,,,,
-ormore_meds,medication_list,,yesno,"1) Are there more than 5 medications?",,,,,,,,,,,,,
-med_list_start_home,medication_list,,notes,"2) Current medications",,,,,,,,,,,,,
-medication_ref_2,medication_list,,descriptive,"*Correct Medication Checklist*",,,,,,,,,,,,,
-opload_option,medication_list,,yesno,"3) Would you like to upload medication list OR image(s)?",,,,,,,,,,,,,
-current_med_list_1,medication_list,,file,"3a) Current list of medications-1",,,,,,,"[opload_option] = '1'",,,,,,
-current_med_list_2,medication_list,,file,"3b) Current list of medications-2",,,,,,,"[opload_option] = '1'",,,,,,
-current_med_list_3,medication_list,,file,"3c) Current list of medications-2",,,,,,,"[opload_option] = '1'",,,,,,
-client_redcap_status_date,status_update,,text,Date,,,date_ymd,,,,,y,,,,,
-status_update_nurse,status_update,,text,Nurse,,,,,,,,,,,,," @READONLY @USERNAME"
-client_redcap_status,status_update,,radio,"Change status to","1, Active | 2, Inactive | 3, Discharged",,,,,,,y,,,,,
-status_update_reason,status_update,,radio,"Reason for change in status","1, Situation or illness improved | 8, Limited Concern addressed | 4, Died | 3, Moved | 2, Transferred to assisted living or long term care | 5, Declined further service | 9, Reactivated | 6, Other",,,,,,,,,,,,
-status_update_reason_note,status_update,,notes,"Notes on reason",,,,,,,[status_update_reason]='6',,,,,,
-status_update_outcome,status_update,"Nurse-reported Outcomes",checkbox,"Check all that apply","1, Less client anxiety or worry | 2, Reduced caregiver stress | 3, Reduced social isolation | 4, Better family understanding, communication and/or dynamics | 5, Improved functioning in daily life | 6, Improved management of illness symptoms | 7, Improved medication taking | 8, Reduced fall risk or falls | 9, Prevented hospitalization or ED visit | 10, Fewer EMT emergency calls | 11, Reduced food insecurity | 12, Able to live at home longer | 13, Smooth Transition (to home or from home) | 14, Better management of end-of-life | 30, Other | 50, No significant change",,,,,,,,,,,," @NONEOFTHEABOVE=50"
-status_update_outcome_note,status_update,,notes,Notes,,,,,,,,,,,,,
-status_updated_on,status_update,,text,"Status updated",,,,,,,,,,,,," @READONLY @NOW"
 six_month_date,six_month_report,,text,Date,,,date_ymd,,,,,y,,,,,
 six_month_nurse,six_month_report,,text,Nurse,,,,,,,,,,,,," @READONLY @USERNAME"
 six_month_note,six_month_report,,notes,"Notes (Subjective, Objective)",,,,,,,,,,,,,
