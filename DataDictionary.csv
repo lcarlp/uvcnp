@@ -135,17 +135,17 @@ covid19_vaccine,old_v3_fields,"OLD COVID-19 Vaccination Status",text,"Vaccine na
 covid19_shot1_date,old_v3_fields,,text,"Date of 1st shot",,,date_ymd,2020-06-01,,,,,,,,,
 covid19_shot2_date,old_v3_fields,,text,"Date of 2nd shot",,,date_ymd,2020-06-01,,,,,,,,,
 covid19_vaccine_note,old_v3_fields,,notes,Notes,,,,,,,,,,,,,
-six_month_date,six_month_report,,text,Date,,,date_ymd,,,,,y,,,,,
-six_month_nurse,six_month_report,,text,Nurse,,,,,,,,,,,,," @READONLY @USERNAME"
-six_month_note,six_month_report,,notes,"Notes (Subjective, Objective)",,,,,,,,,,,,,
-six_month_stat_phys,six_month_report,"IMPRESSION SINCE LAST ENCOUNTER",radio,"Physical condition ","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,six_month_matrix1,,
-six_month_stat_emot,six_month_report,,radio,"Emotional status ","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,six_month_matrix1,,
-six_month_stat_cog,six_month_report,,radio,"Cognitive status","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,six_month_matrix1,,
-six_month_stat_note,six_month_report,,notes,Notes,,,,,,,,,,,,,
-six_month_outcome,six_month_report,"Nurse-reported Outcomes",checkbox,"Check all that apply","1, Less client anxiety or worry | 2, Reduced caregiver stress | 3, Reduced social isolation | 4, Better family understanding, communication and/or dynamics | 5, Improved functioning in daily life | 6, Improved management of illness symptoms | 7, Improved medication taking | 8, Reduced fall risk or falls | 9, Prevented hospitalization or ED visit | 10, Fewer EMT emergency calls | 11, Reduced food insecurity | 12, Able to live at home longer | 13, Smooth Transition (to home or from home) | 14, Better management of end-of-life | 30, Other | 50, No significant change",,,,,,,,,,,," @NONEOFTHEABOVE=50"
-six_month_outcome_note,six_month_report,,notes,Notes,,,,,,,,,,,,,
-six_month_outcome_plan,six_month_report,"Plan going forward",notes,,,,,,,,,,LH,,,,
-six_month_reported_on,six_month_report,,text,"Six Month report date",,,,,,,,,,,,," @READONLY @NOW"
+six_month_date,six_month_report_v3,,text,Date,,,date_ymd,,,,,y,,,,,
+six_month_nurse,six_month_report_v3,,text,Nurse,,,,,,,,,,,,," @READONLY @USERNAME"
+six_month_note,six_month_report_v3,,notes,"Notes (Subjective, Objective)",,,,,,,,,,,,,
+six_month_stat_phys,six_month_report_v3,"IMPRESSION SINCE LAST ENCOUNTER",radio,"Physical condition ","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,six_month_matrix1,,
+six_month_stat_emot,six_month_report_v3,,radio,"Emotional status ","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,six_month_matrix1,,
+six_month_stat_cog,six_month_report_v3,,radio,"Cognitive status","1, Declined | 2, Unchanged | 3, Improved",,,,,,,,,,six_month_matrix1,,
+six_month_stat_note,six_month_report_v3,,notes,Notes,,,,,,,,,,,,,
+six_month_outcome,six_month_report_v3,"Nurse-reported Outcomes",checkbox,"Check all that apply","1, Less client anxiety or worry | 2, Reduced caregiver stress | 3, Reduced social isolation | 4, Better family understanding, communication and/or dynamics | 5, Improved functioning in daily life | 6, Improved management of illness symptoms | 7, Improved medication taking | 8, Reduced fall risk or falls | 9, Prevented hospitalization or ED visit | 10, Fewer EMT emergency calls | 11, Reduced food insecurity | 12, Able to live at home longer | 13, Smooth Transition (to home or from home) | 14, Better management of end-of-life | 30, Other | 50, No significant change",,,,,,,,,,,," @NONEOFTHEABOVE=50"
+six_month_outcome_note,six_month_report_v3,,notes,Notes,,,,,,,,,,,,,
+six_month_outcome_plan,six_month_report_v3,"Plan going forward",notes,,,,,,,,,,LH,,,,
+six_month_reported_on,six_month_report_v3,,text,"Six Month report date",,,,,,,,,,,,," @READONLY @NOW"
 func_issue1,functional_health,"Functional Health",checkbox,,"1, <span style=""font-weight: bold;"">Client &/or family expressed difficulties in daily life</span>",,,,,,,,LV,,,,
 func_issue1_note,functional_health,,notes,"<p><span style=""font-weight: normal;"">Notes</span></p>",,,,,,,[func_issue1(1)]='1',,LH,,,,
 func_issue2,functional_health,,checkbox,,"1, <span style=""font-weight: bold;"">Management of symptoms</span>",,,,,,,,LV,,,,
