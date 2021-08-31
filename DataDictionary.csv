@@ -26,6 +26,16 @@ critical_diagnoses,client_profile,,checkbox,"Does client have any of the followi
 problem_type,client_profile,,checkbox,"Nursing Problem List (Mark all that apply)","1, Impaired Mobility | 2, Fall Risk | 3, Social isolation/weak social support | 4, Ineffective symptom management | 5, Frailty | 6, Ineffective management of activities of daily living ie, bathing, dressing | 7, Ineffective medication management | 8, Mental health issue | 9, Cognitive impairment | 10, Poor nutrition/food insecurity | 11, Financial stress | 12, Transportation | 13, Struggling to remain at home; options being considered | 14, Potential for caregiver burnout | 20, Other",,,,,,,,,,,," @HIDECHOICE='3,10,11,12,13,14,20'"
 social_risk_factors,client_profile,,checkbox,"Social Risk Factors/Drivers of Health (Mark all that apply)","1, Social isolation/weak social support | 2, Nutrition/food insecurity | 3, Transportation | 4, Financial Stress | 5, Struggling to remain at home; options being considered | 6, Safety | 7, Family dynamics | 8, Communications | 9, Substance abuse | 10, Lives alone | 11, No able caregiver",,,,,,,,,,,,
 client_narrative,client_profile,,notes,"Narrative (Who is the client and why were they referred. Document by exception-do not repeat anything from above. This is a space you can expand on the problems or social risks if you want.)",,,,,,,,,LH,,,,
+document1_title,client_profile,"CONSENTS & OTHER DOCUMENTS",text,"Document #1 description/title",,,,,,,,,,,,,
+document1,client_profile,,file,"Document #1",,,,,,,,,,,,,
+document2_title,client_profile,,text,"Document #2 description/title",,,,,,,"[document1_title] <> ''",,,,,,
+document2,client_profile,,file,"Document #2",,,,,,,"[document1_title] <> ''",,,,,,
+document3_title,client_profile,,text,"Document #3 description/title",,,,,,,"[document2_title] <> ''",,,,,,
+document3,client_profile,,file,"Document #3",,,,,,,"[document2_title] <> ''",,,,,,
+document4_title,client_profile,,text,"Document #4 description/title",,,,,,,"[document3_title] <> ''",,,,,,
+document4,client_profile,,file,"Document #4",,,,,,,"[document3_title] <> ''",,,,,,
+document5_title,client_profile,,text,"Document #5 description/title",,,,,,,"[document4_title] <> ''",,,,,,
+document5,client_profile,,file,"Document #5",,,,,,,"[document4_title] <> ''",,,,,,
 admitting_nurse,client_profile,,text,"Admitting Nurse",,,,,,,,,,,,," @READONLY @USERNAME"
 profile_created_on,client_profile,,text,"Profile created",,,,,,,,,,,,," @READONLY @NOW"
 encounter_nurse,encounters,,text,Nurse,,,,,,,,,,,,," @READONLY @USERNAME"
