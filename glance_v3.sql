@@ -32,32 +32,6 @@ select first_day||' '||first_month||' '||first_year||' - ' ||
 
 select '';
 select '';
-select 'Client Demographics & Social Context';
--- Half of the Clients are older than (median age):   83 y/o
-select '   Half of Clients are older than (median age): '||cast(avg(age) as int)
-  from (select age
-          from aag1_client_age
-         order by age
-         limit 2 - (select count(*) from aag1_client_age) % 2    -- odd 1, even 2
-         offset (select (count(*) - 1) / 2 from aag1_client_age) );
-select 'WARNING:  MANY LOW AGES IGNORED.  ONLY CONSIDERED '||
-       age_count||' OUT OF '||all_clients||'.'
-  from (select count(*) as all_clients from aag1_client_served)
-  join (select count(*) as age_count from aag1_client_age)
- where (100.*age_count/all_clients) < 90
--- Generate a warning if more than 10% of clients are excluded.
-;
-select '   Lives Alone:'||
-          (select '    Yes: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
-             from aag1_client_served where household_comp=1)||
-          (select '    No: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
-             from aag1_client_served where household_comp > 1)|| --Kludgy
-          (select '    Not recorded: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
-             from aag1_client_served where household_comp ='')
-  from (select cast(count(*) as real) as total from aag1_client_served);
-select '   Financially stressed: '||percentage||'%' from aag1_problem_percent1 where label='Financial stress';
-select '';
-select '';
 select 'Program Services';
 select '   Clients served, total: '||count(*)||
         '   (New: '||sum(case when date_1st_encounter >= first then 1 end)||
@@ -216,6 +190,35 @@ select '   '||label||': '||percentage||'%'
  where rank < 3 or (rank = 3 and percentage > 2)
  order by rank;
 
+
+select '';
+select '';
+select 'Client Demographics & Social Context';
+-- Half of the Clients are older than (median age):   83 y/o
+select '   Half of Clients are older than (median age): '||cast(avg(age) as int)
+  from (select age
+          from aag1_client_age
+         order by age
+         limit 2 - (select count(*) from aag1_client_age) % 2    -- odd 1, even 2
+         offset (select (count(*) - 1) / 2 from aag1_client_age) );
+select 'WARNING:  MANY LOW AGES IGNORED.  ONLY CONSIDERED '||
+       age_count||' OUT OF '||all_clients||'.'
+  from (select count(*) as all_clients from aag1_client_served)
+  join (select count(*) as age_count from aag1_client_age)
+ where (100.*age_count/all_clients) < 90
+-- Generate a warning if more than 10% of clients are excluded.
+;
+select '   Lives Alone:'||
+          (select '    Yes: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
+             from aag1_client_served where household_comp=1)||
+          (select '    No: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
+             from aag1_client_served where household_comp > 1)|| --Kludgy
+          (select '    Not recorded: '||count(*)||' ('||cast(round(count(*)*100./total) as int)||'%)' 
+             from aag1_client_served where household_comp ='')
+  from (select cast(count(*) as real) as total from aag1_client_served);
+select '   Financially stressed: '||percentage||'%' from aag1_problem_percent1 where label='Financial stress';
+
+select '';
 select '';
 select 'Top 10 Client Problems: (% of clients for whom problems were identified and documented. R='||
           portion||'  ('||cast(round(portion*100./total) as int)||'%))'
