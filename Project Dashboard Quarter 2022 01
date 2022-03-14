@@ -1,0 +1,16 @@
+<p>Clients served this quarter: [aggregate-count:record_id:user-dag-name,R-512J7H7CJR]</p>
+<p>Median age of clients encountered: [aggregate-median:age:user-dag-name,R-512J7H7CJR]</p>
+<p>New clients this quarter: [aggregate-count:record_id:user-dag-name,R-929EHLJT79]</p>
+<p>Pimary referrer for new clients: [bar-chart:primary_referrer:user-dag-name,R-929EHLJT79]</p>
+<p>Hospital most often used for new clients: [bar-chart:hospital_used:user-dag-name,R-929EHLJT79]</p>
+<p>Other organizations involved: [bar-chart:other_organizations:user-dag-name,512J7H7CJR]</p>
+<p>Advance directives: [bar-chart:advance_directives:user-dag-name,512J7H7CJR]</p>
+<p>Critical diagnoses: [bar-chart:critical_diagnoses:user-dag-name,512J7H7CJR]</p>
+<p>Social risk factors: [bar-chart:social_risk_factors:user-dag-name,512J7H7CJR]</p>
+<p>Problems:[bar-chart:problem_type:user-dag-name,512J7H7CJR]</p>
+<p>Falls:[bar-chart:fall_since:user-dag-name,R-6467CEXNL4]</p>
+<p>Urgent care:[bar-chart:urgent_care_since:user-dag-name,R-6467CEXNL4]</p>
+<p>Encounter count for quarter: [aggregate-count:encounter_date:user-dag-name,R-6467CEXNL4]</p>
+<p>Encounter type: [bar-chart:encounter_type:user-dag-name,R-6467CEXNL4]</p>
+<p>Interventions: [bar-chart:encounter_intervention:user-dag-name,R-6467CEXNL4]</p>
+<p>Outcomes: [bar-chart:encounter_outcomes:user-dag-name,R-6467CEXNL4]</p>
