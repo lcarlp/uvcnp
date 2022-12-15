@@ -43,6 +43,7 @@ encounter_date,encounters,,text,"Encounter Date",,,date_ymd,,,,,y,,,,,
 encounter_link_back,encounters,,descriptive,"<a href=""[redcap-version-url]DataEntry/index.php?pid=[project-id]&page=encounters&id=[record-name]&instance=[previous-instance]"" target=""_blank"">Link to previous encounter ([encounter_date][previous-instance])</a>",,,,,,,"[previous-instance] > 0",,,,,,
 encounter_type,encounters,,checkbox,"Encounter type","1, Home visit | 5, In person face to face (office, inpatient, MD office) | 2, Phone, client/family/caregiver | 3, Email, client/family/caregiver | 14, Video/Telehealth (e.g., Zoom or facetime) | 11, Phone, family/caregiver | 12, Email, family/caregiver | 4, Family meeting | 13, Family in Office | 6, In-patient meeting | 10, Other",,,,,,,,,,,," @HIDECHOICE='11,12,4,13,6,10'"
 encounter_type_note,encounters,,notes,"Encounter type notes",,,,,,,"sum([encounter_type(1)],[encounter_type(2)],[encounter_type(3)],[encounter_type(4)],[encounter_type(5)],[encounter_type(6)],[encounter_type(10)],[encounter_type(11)],[encounter_type(12)],[encounter_type(13)]) > 0",,,,,," @HIDDEN"
+joint_paramedic,encounters,,yesno,"Is it a joint visit with a paramedic?",,,,,,,[user-dag-name]='lebanon',,,,,,
 limited_concern,encounters,,checkbox,"Limited Concern?","1, Yes",,,,,,,,,,,," @HIDDEN"
 limited_concern_notes,encounters,,notes,"Limited concern notes",,,,,,,[limited_concern(1)]='1',,,,,," @HIDDEN"
 encounter_progress_notes,encounters,,notes,"Subjective, objective notes for this encounter",,,,,,,,,LH,,,," @HIDDEN"
