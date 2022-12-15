@@ -1,4 +1,6 @@
 .bash_profile.log
+CNCTESTPROJECT_DataDictionary_202*.csv
+CommunityNurseConnectionClient_DataDictionary_202*.csv
 UVCNPTESTPROJECT*_DataDictionary_202*.csv
 UVCNPDocumentationProject_DataDictionary_202*.csv
 original_DataDictionary.csv
