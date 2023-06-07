@@ -68,7 +68,7 @@ fall_since,encounters,"CHANGES SINCE LAST ENCOUNTER",yesno,"Has client fallen si
 physical_decline_since,encounters,,yesno,"Has Client had a physical decline since last encounter?",,,,,,,,,,,,,
 urgent_care_since,encounters,,checkbox,"Urgent Care since last encounter (Mark all that apply)","1, 911 called | 2, Hospital ED | 3, Urgent care clinic | 4, Urgent MD office visits | 10, None",,,,,,,,,,,,
 encounter_outcomes,encounters,OUTCOMES,checkbox,"Outcomes as a result of this encounter (Mark all that apply) not mandatory","9, Prevented Hospitalization or ED visit | 1, Reduced anxiety or worry for client or caregiver | 3, Reduced social isolation | 8, Reduced fall risk | 15, Improved understanding of medications | 12, Able to remain safely at home | 16, Advanced Directives updated or completed | 17, Transferred to another care setting ie. nursing home or assisted living | 18, Connected client with a primary care provider",,,,,,,,,,,,"Retired choices:  | 30, Other"
-encounter_outcomes_note,encounters,,notes,"Other outcomes",,,,,,,,,,,,, @HIDDEN
+encounter_outcomes_note,encounters,,notes,"Other outcomes",,,,,,,,,,,,," @HIDDEN"
 encounter_todo_notes,encounters,"NARRATIVE AND PLAN FOR NEXT VISIT",notes,,,,,,,,,,LH,,,,
 encounter_created_on,encounters,,text,"Encounter created",,,,,,,,,,,,," @READONLY @NOW"
 med_date_v2,medication_list,,text,"Date updated",,,date_ymd,,,,,,,,,,
