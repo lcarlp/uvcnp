@@ -93,7 +93,7 @@ survey1_satisfied,client_satisfaction_survey,,radio,"<p>1. How satisfied were yo
 survey1_recommend,client_satisfaction_survey,,radio,"<div class=""rich-text-field-label""><p>2. How likely are you to recommend this service to a friend or family member?</p></div>","1, 1 Unlikely | 2, 2 | 3, 3 | 4, 4 | 5, 5 | 6, 6 | 7, 7 | 8, 8 | 9, 9 | 10, 10 Very likely",,,,,,,,LH,,,,
 survey1_reasons,client_satisfaction_survey,,notes,"3. What are the primary reasons for the score you gave us?",,,,,,,,,LH,,,,
 survey1_better,client_satisfaction_survey,,notes,"4. How can we make your experience better?",,,,,,,,,LH,,,,
-phone_for_unh_project,client_satisfaction_survey,,text,"5. The University of New Hampshire is working on a validation project for us.  Would you be willing to share your phone number so they can call you in a few weeks?  If so, enter your phone number here.  Otherwise, leave it blank.",,,phone,,,,,,LH,,,,
+phone_for_unh_project,client_satisfaction_survey,,text,"5. The University of New Hampshire is working on a validation project for us.  Would you be willing to share your phone number so they can call you in a few weeks?  If so, enter your phone number here.  Otherwise, leave it blank.",,,phone,,,,,,LH,,,," @HIDDEN"
 preferred_name,old_v3_fields,"OLD PROFILE FIELDS",text,"Name client prefers to be addressed by ",,,,,,,,,,,,,
 gender,old_v3_fields,,radio,Gender,"1, Male | 2, Female | 3, Other | 4, Prefers not to say",,,,,,,,,,,,
 household_comp,old_v3_fields,,radio,"Household Composition","1, One person living alone | 2, Two persons in home, one able | 3, Two persons, both with problems | 4, Client living with family or friends | 5, Other (Please describe in text box, below)",,,,,,,,,,,,
