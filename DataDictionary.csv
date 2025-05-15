@@ -8,7 +8,7 @@ last_name,client_profile,,text,"Last Name",,,,,,y,,,,,,,
 address,client_profile,,notes,"Client's Contact Info (# Street, City, State, ZIP)",,,,,,,,,,,,,
 dob,client_profile,,text,"Date of birth",,,date_ymd,,,,,,,,,,
 age,client_profile,,calc,Age,"rounddown(datediff([dob],'today','y'))",,,,,,,,,,,,
-dob_uncertain,client_profile,,checkbox,"Is the date of birth uncertain?","1, Yes",,,,,,,,RV,,,,
+dob_uncertain,client_profile,,checkbox,"Is the date of birth uncertain?","1, Yes",,,,,,,,,,,,
 phone,client_profile,,text,"Home Phone",,,phone,,,,,,,,,,
 cell_phone,client_profile,,text,"Cell Phone",,,phone,,,,,,,,,,
 email,client_profile,,text,"Client Email",,,,,,,,,,,,,
@@ -18,9 +18,11 @@ primary_referrer,client_profile,,radio,"Primary Referral Source","1, Self | 2, F
 health_insurance,client_profile,,checkbox,"Health Insurance ","1, Medicare | 2, Supplemented Medicare | 3, Medicaid | 4, Commercial/Private | 5, No insurance | 6, Other (Please describe in text box, below)",,,,,,,,,,,," @NONEOFTHEABOVE=5"
 health_insurance_notes,client_profile,,notes,Notes,,,,,,,"[health_insurance(6)] = '1'",,,,,,
 provider_1,client_profile,,notes,"Primary Care Provider name and contact info",,,,,,,,,,,,,
-hospital_used,client_profile,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,,
+hospital_used,client_profile,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,," @HIDDEN
+@HIDDEN-PDF"
 specialty_providers,client_profile,,notes,"Specialty Providers",,,,,,,,,,,,,
 other_organizations,client_profile,,checkbox,"Other organization involved (Mark all that apply)","1, VNH - Home Care | 2, Lake Sunapee - Home Care | 3, BAYADA - Home Care | 4, VNH - Hospice | 5, Lake Sunapee - Hospice | 6, BAYADA - Hospice | 7, Personal Care Agency | 8, Meals on Wheels | 9, Mental Health Services",,,,,,,,,,,,
+veteran,client_profile,,checkbox,"Has the client ever served in the military?","1, Yes",,,,,,,,,,,,
 advance_directives,client_profile,,checkbox,"Advance Directives (Mark all that apply)","1, Financial Power of Attorney | 2, Medical Power of Attorney	| 3, Living Will | 4, COLST/POLST | 5, DNR",,,,,,,,,,,,
 critical_diagnoses,client_profile,,checkbox,"Does client have any of the following diagnoses (Mark all that apply)","1, Chronic Obstructive Pulmonary DX | 2, Congestive Heart Failure | 3, Cancer | 4, Dementia/Alz | 5, Diabetes",,,,,,,,,,,,
 problem_type,client_profile,,checkbox,"Nursing Problem List (Mark all that apply)","1, Impaired Mobility | 2, Fall Risk | 3, Social isolation/weak social support | 4, Ineffective symptom management | 5, Frailty | 6, Ineffective management of activities of daily living ie, bathing, dressing | 7, Ineffective medication management | 8, Mental health issue | 9, Cognitive impairment | 10, Poor nutrition/food insecurity | 11, Financial stress | 12, Transportation | 13, Struggling to remain at home; options being considered | 14, Potential for caregiver burnout | 20, Other",,,,,,,,,,,," @HIDECHOICE='3,10,11,12,13,14,20'"
