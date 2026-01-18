@@ -21,7 +21,8 @@ provider_1,client_profile,,notes,"Primary Care Provider name and contact info",,
 hospital_used,client_profile,,radio,"Hospital most often used?","1, Dartmouth Hitchcock | 2, Alice Peck Day | 3, Mt. Ascutney | 4, Gifford | 5, Valley Regional | 6, Cottage | 7, New London | 9, VA | 10, Other",,,,,,,,,,,," @HIDDEN
 @HIDDEN-PDF"
 specialty_providers,client_profile,,notes,"Specialty Providers",,,,,,,,,,,,,
-other_organizations,client_profile,,checkbox,"Other organization involved (Mark all that apply)","1, VNH - Home Care | 2, Lake Sunapee - Home Care | 3, BAYADA - Home Care | 4, VNH - Hospice | 5, Lake Sunapee - Hospice | 6, BAYADA - Hospice | 7, Personal Care Agency | 8, Meals on Wheels | 9, Mental Health Services",,,,,,,,,,,,
+other_organizations,client_profile,,checkbox,"Other organization involved (Mark all that apply)","10, Home Care | 11, Hospice | 7, Personal Care Agency | 8, Meals on Wheels | 9, Mental Health Services | 1, VNH - Home Care | 2, Lake Sunapee - Home Care | 3, BAYADA - Home Care | 4, VNH - Hospice | 5, Lake Sunapee - Hospice | 6, BAYADA - Hospice",,,,,,,,,,,," @HIDECHOICE='1,2,3,4,5,6'"
+other_organizations_notes,client_profile,,text,"Other organizations notes",,,,,,,,,,,,,
 veteran,client_profile,,checkbox,"Has the client ever served in the military?","1, Yes",,,,,,,,,,,,
 advance_directives,client_profile,,checkbox,"Advance Directives (Mark all that apply)","1, Financial Power of Attorney | 2, Medical Power of Attorney	| 3, Living Will | 4, COLST/POLST | 5, DNR",,,,,,,,,,,,
 critical_diagnoses,client_profile,,checkbox,"Does client have any of the following diagnoses (Mark all that apply)","1, Chronic Obstructive Pulmonary DX | 2, Congestive Heart Failure | 3, Cancer | 4, Dementia/Alz | 5, Diabetes",,,,,,,,,,,,
@@ -97,7 +98,7 @@ current_med_list_2,medication_list,,file,"3b) Current list of medications-2",,,,
 current_med_list_3,medication_list,,file,"3c) Current list of medications-2",,,,,,,"[opload_option] = '1'",,,,,,
 client_redcap_status_date,status_update,,text,Date,,,date_ymd,,,,,y,,,,,
 status_update_nurse,status_update,,text,Nurse,,,,,,,,,,,,," @READONLY @USERNAME"
-client_redcap_status,status_update,,radio,"Change status to","1, Active | 2, Inactive | 3, Discharged",,,,,,,y,,,,,
+client_redcap_status,status_update,,radio,"Change status to","1, Active | 2, Inactive | 3, Discharged | 4, Pending",,,,,,,y,,,,,
 status_update_reason,status_update,,radio,"Reason for change in status","1, Situation or illness improved | 8, Limited Concern addressed | 4, Died | 3, Moved out of area or into a facility | 2, Transferred to assisted living or long term care | 5, Declined further care | 9, Reactivated | 6, Other",,,,,,,,,,,," @HIDECHOICE='8,2,6'"
 status_update_reason_note,status_update,,notes,"Notes on reason",,,,,,,[status_update_reason]='6',,,,,,
 status_update_outcome,status_update,,checkbox,"Check all that apply","1, Less client anxiety or worry | 2, Reduced caregiver stress | 3, Reduced social isolation | 4, Better family understanding, communication and/or dynamics | 5, Improved functioning in daily life | 6, Improved management of illness symptoms | 7, Improved medication taking | 8, Reduced fall risk or falls | 9, Prevented hospitalization or ED visit | 10, Fewer EMT emergency calls | 11, Reduced food insecurity | 12, Able to live at home longer | 13, Smooth Transition (to home or from home) | 14, Better management of end-of-life | 30, Other | 50, No significant change",,,,,,,,,,,," @NONEOFTHEABOVE=50 @HIDDEN"
